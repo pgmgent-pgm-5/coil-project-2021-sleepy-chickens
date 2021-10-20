@@ -1,4 +1,4 @@
-import React from 'react'
+import { BaseLayout } from '../layouts'
 
 interface Props {
   
@@ -6,9 +6,10 @@ interface Props {
 
 const HomePage = (props: Props) => {
   return (
-    <div>
-      <h1>test</h1>
-    </div>
+    <BaseLayout>
+      <h1>Home</h1>
+      <p>Coming soon</p>
+    </BaseLayout>
   )
 }
 
