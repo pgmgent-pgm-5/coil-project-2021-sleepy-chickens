@@ -59,17 +59,15 @@ const GlobalStyle = createGlobalStyle`
   }
 
   input, textarea {
-    font-family: 'Montserrat';
+    font-family: 'Poppins';
     font-size: ${props => props.theme.fontSizes.small};
     padding-bottom 1rem;
   }
 
   button {
-    font-family: 'Montserrat';
+    font-family: 'Poppins';
     font-size: ${props => props.theme.fontSizes.normal};
   }
-
-  
 `;
  
 export default GlobalStyle;

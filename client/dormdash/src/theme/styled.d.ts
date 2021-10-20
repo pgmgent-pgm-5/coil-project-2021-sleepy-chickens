@@ -27,6 +27,7 @@ declare module 'styled-components' {
     },
     borderRadius: {
       small: string,
+      normal: string,
       circle: string,
     },
     width: {
