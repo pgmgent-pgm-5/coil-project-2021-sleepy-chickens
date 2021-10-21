@@ -14,6 +14,7 @@ const Container = styled.div`
 
 const Subtitle = styled.h2`
   text-transform: uppercase;
+  color: ${props => props.theme.colors.black};
   font-weight: ${props => props.theme.fontWeights.bold};
   margin-bottom: 1rem;
 `;

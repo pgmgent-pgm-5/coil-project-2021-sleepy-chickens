@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "location",
+    "title": "Enter your location",
+    "picture": "../../assets/process/location.svg",
+    "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+  },
+  {
+    "id": 2,
+    "name": "meal",
+    "title": "Choose your meal",
+    "picture": "../../assets/process/chooseMeal.svg",
+    "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+  },
+  {
+    "id": 3,
+    "name": "pay and deliver",
+    "title": "Pay and get delivered",
+    "picture": "../../assets/process/payDelivered.svg",
+    "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+  }
+]
