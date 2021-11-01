@@ -1,19 +1,34 @@
 import styled from 'styled-components';
+import { ProcessItemProps } from '../../interfaces/interfaces';
 
-interface ProcessItemProps {
-  id: number
-  name: string
-  title: string
-  picture: string
-  text: string
+const Item = styled.li`
+
+  margin-bottom: 2rem;
+
+  @media (min-width: ${props => props.theme.width.small}) {
+    width: 30%;
+
+  img {
+    width: 100%;
+    height: 16rem;
+  }
+  h3 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    text-align: center;
+  }
 }
+`;
 
-export const ProcessItem = (p: ProcessItemProps) => {
+export const ProcessItem = ({id, name, picture, title, text }:ProcessItemProps) => {
   return (
-    <li key={p.id}>
-      <img src={p.picture} alt={p.name} />
-      <h3>{p.title}</h3>
-      <p>{p.text}</p>
-    </li>
+    <Item key={id}>
+      <img src={picture} alt={name} />
+      <h3>{title}</h3>
+      <p>{text}</p>
+    </Item>
   )
 }

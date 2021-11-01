@@ -20,36 +20,7 @@ const ProcessList = styled.ul`
   @media (min-width: ${props => props.theme.width.small}) {
     justify-content: space-between;
   }
-
-  li {
-    margin-bottom: 2rem;
-
-    @media (min-width: ${props => props.theme.width.small}) {
-      width: 30%;
-    }
-
-    img {
-      width: 100%;
-      height: 16rem;
-    }
-    h3 {
-      text-align: center;
-      margin-bottom: 0.5rem;
-    }
-
-    p {
-      text-align: center;
-    }
-  }
 `;
-
-interface Process {
-  id: number
-  name: string
-  title: string
-  picture: string
-  text: string
-}
 
 const Process = () => {
   return (
@@ -59,12 +30,7 @@ const Process = () => {
       <ProcessList> 
         {process.map((p, index) => {
           return (
-            // <li key={index}>
-            //     <img src={p.picture} alt={p.name} />
-            //     <h3>{p.title}</h3>
-            //     <p>{p.text}</p>
-            // </li>
-            <ProcessItem key={index} p={p} />
+            <ProcessItem key={index} id={p.id} name={p.name} title={p.title} picture={p.picture}  text={p.text}  />
           )
         })}
       </ProcessList>
