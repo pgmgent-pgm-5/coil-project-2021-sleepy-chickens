@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import { Formik, Field, Form } from 'formik';
-import * as yup from 'yup';
+import styled from "styled-components";
+import { Formik, Field, Form } from "formik";
+import * as yup from "yup";
 
-import SearchField from '../form/SearchField';
-import { Button } from '../form/Button';
+import SearchField from "../form/SearchField";
+import { Button } from "../form/Button";
 import heroImg from "../../assets/homeHero.webp";
 
 const ImgContainer = styled.div`
   position: relative;
-  padding: 1.5rem;
+  //   padding: 1.5rem;
 
   img {
     left: 50%;
@@ -17,12 +17,12 @@ const ImgContainer = styled.div`
     max-width: 100vw;
     position: relative;
     right: 50%;
-    width: calc(100vw - 8px);
+    width: calc(100vw - 9px);
     height: 16rem;
     object-fit: cover;
     object-position: center;
 
-    @media (min-width: ${props => props.theme.width.medium}) {
+    @media (min-width: ${(props) => props.theme.width.medium}) {
       height: 32rem;
     }
   }
@@ -36,11 +36,11 @@ const SearchContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: ${props=> props.theme.colors.tertiaryAccentColor};
+  background-color: ${(props) => props.theme.colors.tertiaryAccentColor};
   padding: 1.5rem;
-  border-radius: ${props=> props.theme.borderRadius.normal};
+  border-radius: ${(props) => props.theme.borderRadius.normal};
 
-  @media (min-width: ${props => props.theme.width.medium}) {
+  @media (min-width: ${(props) => props.theme.width.medium}) {
     padding: 3rem;
   }
 
@@ -57,8 +57,8 @@ const SearchContainer = styled.div`
 `;
 
 const validationSchema = yup.object({
-  Search: yup.string().required().min(10)
-})
+  Search: yup.string().required().min(10),
+});
 
 const Hero = () => {
   return (
@@ -67,9 +67,9 @@ const Hero = () => {
       <SearchContainer>
         <h1>Lorem ipsum dolor sit amet</h1>
 
-        <Formik 
+        <Formik
           initialValues={{
-            search: ""
+            search: "",
           }}
           validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting }) => {
@@ -79,21 +79,25 @@ const Hero = () => {
           }}
         >
           {({ values, errors, isSubmitting }) => (
-          <Form>
-            <Field placeholder="Address" name="search" as={SearchField} type="input" />
-            <Button disabled={isSubmitting} type="submit">Search</Button>
+            <Form>
+              <Field
+                placeholder="Address"
+                name="search"
+                as={SearchField}
+                type="input"
+              />
+              <Button disabled={isSubmitting} type="submit">
+                Search
+              </Button>
 
-            {/* <pre>{JSON.stringify(values, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(values, null, 2)}</pre>
             <pre>{JSON.stringify(errors, null, 2)}</pre> */}
-          </Form>
+            </Form>
           )}
         </Formik>
-          
-        
-
       </SearchContainer>
     </ImgContainer>
-  )
-}
+  );
+};
 
 export default Hero;
