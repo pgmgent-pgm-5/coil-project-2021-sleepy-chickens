@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logo.svg";
 import Navigation from "../Navigation/Navigation";
+import { useState } from "react";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -92,6 +93,12 @@ const MenuButton = styled.button`
 `;
 
 const Header = () => {
+  const [open, setOpen] = useState(false);
+  const handleMenuButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpen(!open);
+  };
+
   return (
     <HeaderContainer>
       <Wrapper>
@@ -103,13 +110,13 @@ const Header = () => {
             </Logo>
           </Link>
 
-          <MenuButton>
+          <MenuButton onClick={handleMenuButton}>
             <span></span>
             <span></span>
             <span></span>
           </MenuButton>
 
-          <Navigation />
+          <Navigation open={open} />
         </FlexContainer>
       </Wrapper>
     </HeaderContainer>

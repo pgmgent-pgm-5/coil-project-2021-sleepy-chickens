@@ -17,7 +17,7 @@ const ImgContainer = styled.div`
     max-width: 100vw;
     position: relative;
     right: 50%;
-    width: calc(100vw - 8px);
+    width: calc(100vw - 9px);
     height: 16rem;
     object-fit: cover;
     object-position: center;

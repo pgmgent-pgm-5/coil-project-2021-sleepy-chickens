@@ -4,8 +4,13 @@ import { Link } from "react-router-dom";
 import Headquarters from "../Partial/Headquarters";
 import Contact from "../Partial/Contact";
 
-const Container = styled.div`
-  //display: none;
+interface Props {
+  open: boolean;
+}
+
+const Container = styled.div<Props>`
+  transform: ${({ open }) => (open ? "translateY(0)" : "translateY(-150%)")};
+  transition: all 0.2s ease;
   top: 0;
   bottom: 0;
   left: 0;
@@ -17,7 +22,6 @@ const Container = styled.div`
   background: ${(props) => props.theme.colors.primaryAccentColor};
   padding: 0 2rem;
   padding-top: 8rem;
-  overflow: auto;
   @media (min-width: ${(props) => props.theme.width.medium}) {
     padding: 0 6rem;
     padding-top: 10rem;
@@ -94,9 +98,9 @@ const CallToAction = styled.div`
   }
 `;
 
-const Navigation = () => {
+const Navigation = ({ open }: Props) => {
   return (
-    <Container>
+    <Container open={open}>
       <NavContainer>
         <Nav>
           <ul>
