@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import FooterNavigation from './FooterNavigation';
-import Contact from './Contact';
-import Headquarters from './Headquarters';
+import Contact from '../Partial/Contact';
+import Headquarters from '../Partial/Headquarters';
 
 import logo from "../../../assets/logo.svg";
 

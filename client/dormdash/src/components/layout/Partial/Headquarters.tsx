@@ -1,21 +1,21 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Container = styled.div`
   margin-bottom: 3rem;
 
-  @media (min-width: ${props => props.theme.width.small}) {
+  @media (min-width: ${(props) => props.theme.width.small}) {
     width: 48%;
   }
 
-  @media (min-width: ${props => props.theme.width.medium}) {
+  @media (min-width: ${(props) => props.theme.width.medium}) {
     width: 23%;
   }
 `;
 
 const Subtitle = styled.h2`
   text-transform: uppercase;
-  color: ${props => props.theme.colors.black};
-  font-weight: ${props => props.theme.fontWeights.bold};
+  color: ${(props) => props.theme.colors.black};
+  font-weight: ${(props) => props.theme.fontWeights.bold};
   margin-bottom: 1rem;
 `;
 
@@ -31,7 +31,7 @@ const Headquarters = () => {
       <p>Foreestelaan 1</p>
       <p>9000 Gent</p>
     </Container>
-  )
-}
+  );
+};
 
-export default Headquarters
+export default Headquarters;

@@ -1,9 +1,9 @@
-import React from "react";
 import styled from "styled-components";
 import * as Routes from "../../../routes";
 import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logo.svg";
+import Navigation from "../Navigation/Navigation";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -33,6 +33,8 @@ const FlexContainer = styled.div`
 const Logo = styled.div`
   display: flex;
   align-items: center;
+  z-index: 16;
+  position: relative;
 
   img {
     width: 4rem;
@@ -56,6 +58,7 @@ const Logo = styled.div`
 `;
 
 const MenuButton = styled.button`
+  z-index: 15;
   margin-top: 0.65rem;
   width: 2.7rem;
   height: 2.7rem;
@@ -105,6 +108,8 @@ const Header = () => {
             <span></span>
             <span></span>
           </MenuButton>
+
+          <Navigation />
         </FlexContainer>
       </Wrapper>
     </HeaderContainer>
