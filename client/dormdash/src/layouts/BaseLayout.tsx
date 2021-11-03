@@ -1,14 +1,15 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import Header from "../components/layout/Header/Header";
 
-import Footer from '../components/layout/footer/Footer';
+import Footer from "../components/layout/footer/Footer";
 
-const MainLayout = styled.div`
-  max-width: ${props => props.theme.width.elarge};
+const MainLayout = styled.main`
+  max-width: ${(props) => props.theme.width.elarge};
   margin: 0 auto;
   padding: 0 1.5rem;
   width: 100%;
 
-  @media (min-width: ${props => props.theme.width.medium}) {
+  @media (min-width: ${(props) => props.theme.width.medium}) {
     padding: 0 3rem;
   }
 `;
@@ -20,13 +21,11 @@ interface BaseLayoutProps {
 const BaseLayout = ({ children }: BaseLayoutProps) => {
   return (
     <>
-      <header>Header</header>
-      <MainLayout>
-        { children }
-      </MainLayout>
+      <Header />
+      <MainLayout>{children}</MainLayout>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default BaseLayout
+export default BaseLayout;

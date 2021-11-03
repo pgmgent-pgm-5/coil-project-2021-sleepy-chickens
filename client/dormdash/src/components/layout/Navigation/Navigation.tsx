@@ -2,8 +2,8 @@ import React from "react";
 
 interface Props {}
 
-const Header = (props: Props) => {
+const Navigation = (props: Props) => {
   return <div></div>;
 };
 
-export default Header;
+export default Navigation;

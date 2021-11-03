@@ -12,7 +12,7 @@ const defaultTheme: DefaultTheme = {
     small: "0.8rem",
     normal: "1rem",
     medium: "1.5rem",
-    emedium: "1.8rem",
+    emedium: "2rem",
     large: "2.5rem",
     elarge: "3.5rem",
     slarge: "5rem",
@@ -21,7 +21,7 @@ const defaultTheme: DefaultTheme = {
   fontWeights: {
     light: 300,
     normal: 400,
-    bold: 700
+    bold: 700,
   },
   borderRadius: {
     small: "0.1875rem",
@@ -36,9 +36,8 @@ const defaultTheme: DefaultTheme = {
   },
   transition: {
     normal: "all 0.2s ease-in-out",
-    medium: "all 0.5s ease-in-out"
-  }
+    medium: "all 0.5s ease-in-out",
+  },
 };
 
-export default defaultTheme ;
- 
+export default defaultTheme;
