@@ -3,21 +3,21 @@
     "id": 1,
     "name": "location",
     "title": "Enter your location",
-    "picture": "../../assets/process/location.svg",
+    "lottie": "https://assets4.lottiefiles.com/packages/lf20_svy4ivvy.json",
     "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
   },
   {
     "id": 2,
     "name": "meal",
     "title": "Choose your meal",
-    "picture": "../../assets/process/chooseMeal.svg",
+    "lottie": "https://assets5.lottiefiles.com/packages/lf20_2i1jrx6r.json",
     "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
   },
   {
     "id": 3,
     "name": "pay and deliver",
     "title": "Pay and get delivered",
-    "picture": "../../assets/process/payDelivered.svg",
+    "lottie": "https://assets10.lottiefiles.com/private_files/lf30_J5NRAx.json",
     "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
   }
 ]

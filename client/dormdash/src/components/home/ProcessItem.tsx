@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ProcessItemProps } from "../../interfaces/interfaces";
+import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
 const Item = styled.li`
   margin-bottom: 2rem;
@@ -23,16 +24,35 @@ const Item = styled.li`
   }
 `;
 
+const LottieContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+`;
+
 export const ProcessItem = ({
   id,
   name,
-  picture,
+  lottie,
   title,
   text,
 }: ProcessItemProps) => {
   return (
     <Item key={id}>
-      <img src={picture} alt={name} />
+      <LottieContainer>
+        <Player
+          autoplay
+          loop
+          src={lottie}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <Controls
+            visible={false}
+            buttons={["play", "repeat", "frame", "debug"]}
+          />
+        </Player>
+      </LottieContainer>
       <h3>{title}</h3>
       <p>{text}</p>
     </Item>
