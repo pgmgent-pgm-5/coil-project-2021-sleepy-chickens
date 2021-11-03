@@ -1,17 +1,20 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import * as Routes from './routes';
-import { HomePage} from './pages';
-import GlobalStyle from './theme/globalStyles';
-import { ThemeProvider } from 'styled-components';
-import theme from './theme/theme';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import * as Routes from "./routes";
+import GlobalStyle from "./theme/globalStyles";
+import { ThemeProvider } from "styled-components";
+import theme from "./theme/theme";
+
+import { HomePage, SignIn, SignUp } from "./pages";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Router basename={'./dormdash'}>
+      <Router>
         <Switch>
-          <Route exact path={Routes.LANDING} component={ HomePage }/>
+          <Route exact path={Routes.LANDING} component={HomePage} />
+          <Route exact path={Routes.SIGN_IN} component={SignIn} />
+          <Route exact path={Routes.SIGN_UP} component={SignUp} />
         </Switch>
       </Router>
     </ThemeProvider>
