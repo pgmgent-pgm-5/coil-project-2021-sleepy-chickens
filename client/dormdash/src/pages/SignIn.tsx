@@ -21,7 +21,12 @@ const FormWrapper = styled.div`
   z-index: 1;
   position: relative;
   margin-top: 5rem;
-  max-width: 25rem;
+  width: 100%;
+
+  @media (min-width: ${(props) => props.theme.width.small}) {
+    max-width: 25rem;
+  }
+
   h1 {
     color: ${(props) => props.theme.colors.primaryAccentColor};
     margin-bottom: 5rem;
@@ -31,7 +36,7 @@ const FormWrapper = styled.div`
 const Image = styled.img`
   display: none;
 
-  @media (min-width: ${(props) => props.theme.width.medium}) {
+  @media (min-width: ${(props) => props.theme.width.small}) {
     display: block;
     width: 100%;
     position: absolute;

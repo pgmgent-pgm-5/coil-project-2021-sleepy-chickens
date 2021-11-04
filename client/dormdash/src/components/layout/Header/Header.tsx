@@ -9,24 +9,20 @@ import { useState } from "react";
 const HeaderContainer = styled.header`
   width: 100%;
   height: 4rem;
+  padding: 0 1rem;
 
   @media (min-width: ${(props) => props.theme.width.small}) {
     height: 6rem;
+  }
+
+  @media (min-width: ${(props) => props.theme.width.medium}) {
+    padding: 0 2rem;
   }
 `;
 
 const Wrapper = styled.div`
   max-width: 80rem;
   margin: 0 auto;
-  padding: 0 1rem;
-
-  @media (min-width: ${(props) => props.theme.width.medium}) {
-    padding: 0 2rem;
-  }
-
-  @media (min-width: ${(props) => props.theme.width.large}) {
-    padding: 0;
-  }
 `;
 
 const FlexContainer = styled.div`
