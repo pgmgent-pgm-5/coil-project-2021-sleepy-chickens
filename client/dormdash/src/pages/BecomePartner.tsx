@@ -190,6 +190,8 @@ const BecomePartner = () => {
               </form>
             )}
           </Formik>
+
+          <SignInLink />
         </FormWrapper>
 
         <Image src={backgroundImage} />
