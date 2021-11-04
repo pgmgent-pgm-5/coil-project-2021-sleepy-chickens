@@ -4,8 +4,12 @@ import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logo.svg";
 import Navigation from "../Navigation/Navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
+
+interface Props {
+  open: boolean;
+}
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -32,7 +36,7 @@ const FlexContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Logo = styled.div`
+const Logo = styled.div<Props>`
   display: flex;
   align-items: center;
   z-index: 16;
@@ -48,11 +52,12 @@ const Logo = styled.div`
 
   h1 {
     display: none;
+    color: ${(props) => props.theme.colors.secondaryAccentColor};
+    color: ${({ open }) => (open ? "white" : "")};
 
     @media (min-width: ${(props) => props.theme.width.small}) {
       display: block;
       font-style: italic;
-      color: ${(props) => props.theme.colors.secondaryAccentColor};
       margin-top: 1rem;
       margin-left: 1rem;
     }
@@ -66,12 +71,20 @@ const Header = () => {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else if (!open) {
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
+
   return (
     <HeaderContainer>
       <Wrapper>
         <FlexContainer>
           <Link to={Routes.LANDING}>
-            <Logo>
+            <Logo open={open}>
               <img src={logo} alt="logo" />
               <h1>Dormdash</h1>
             </Logo>

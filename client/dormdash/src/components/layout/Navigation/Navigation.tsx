@@ -30,7 +30,10 @@ const Container = styled.div<Props>`
   }
 `;
 
-const NavContainer = styled.div`
+const NavContainer = styled.div<Props>`
+  opacity: ${({ open }) => (open ? "1" : "0")};
+  transition: all 2s ease;
+
   @media (min-width: ${(props) => props.theme.width.medium}) {
     display: flex;
     justify-content: space-between;
@@ -72,7 +75,9 @@ const InfoContainer = styled.div`
   }
 `;
 
-const CallToAction = styled.div`
+const CallToAction = styled.div<Props>`
+  opacity: ${({ open }) => (open ? "1" : "0")};
+  transition: all 2s ease;
   margin-top: 5rem;
   margin-bottom: 3rem;
   @media (min-width: ${(props) => props.theme.width.medium}) {
@@ -103,7 +108,7 @@ const CallToAction = styled.div`
 const Navigation = ({ open }: Props) => {
   return (
     <Container open={open}>
-      <NavContainer>
+      <NavContainer open={open}>
         <Nav>
           <ul>
             <li>
@@ -126,7 +131,7 @@ const Navigation = ({ open }: Props) => {
           <Contact />
         </InfoContainer>
       </NavContainer>
-      <CallToAction>
+      <CallToAction open={open}>
         <ul>
           <li>
             <Link to={Routes.SIGN_IN}>Sign In</Link>
