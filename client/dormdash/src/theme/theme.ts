@@ -25,7 +25,7 @@ const defaultTheme: DefaultTheme = {
   },
   borderRadius: {
     small: "0.1875rem",
-    normal: "0.9375rem",
+    normal: "0.5rem",
     circle: "50%",
   },
   width: {
