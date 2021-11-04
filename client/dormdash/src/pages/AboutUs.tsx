@@ -7,14 +7,13 @@ const Container = styled.div`
   margin: 5rem auto;
 
   h1 {
-    color: ${(props) => props.theme.colors.primaryAccentColor};
     margin-bottom: 2rem;
   }
 
   span {
     font-size: ${(props) => props.theme.fontSizes.medium};
     font-weight: ${(props) => props.theme.fontWeights.bold};
-    color: ${(props) => props.theme.colors.secondaryAccentColor};
+    color: ${(props) => props.theme.colors.primaryAccentColor};
     display: block;
     margin-bottom: 0.5rem;
   }
