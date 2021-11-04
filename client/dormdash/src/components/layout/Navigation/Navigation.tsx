@@ -15,10 +15,12 @@ const Container = styled.div<Props>`
   bottom: 0;
   left: 0;
   right: 0;
-  position: fixed;
+  position: absolute;
   height: 100%;
   width: 100%;
   z-index: 10;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: ${(props) => props.theme.colors.primaryAccentColor};
   padding: 0 2rem;
   padding-top: 8rem;
@@ -72,7 +74,7 @@ const InfoContainer = styled.div`
 
 const CallToAction = styled.div`
   margin-top: 5rem;
-
+  margin-bottom: 3rem;
   @media (min-width: ${(props) => props.theme.width.medium}) {
     max-width: 70rem;
     margin: 0 auto;
@@ -126,6 +128,9 @@ const Navigation = ({ open }: Props) => {
       </NavContainer>
       <CallToAction>
         <ul>
+          <li>
+            <Link to={Routes.SIGN_IN}>Sign In</Link>
+          </li>
           <li>
             <Link to="">Become a partner</Link>
           </li>

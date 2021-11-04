@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
 import Navigation from "../Navigation/Navigation";
 import { useState } from "react";
+import MenuButton from "./MenuButton";
 
 const HeaderContainer = styled.header`
   width: 100%;
@@ -58,40 +59,6 @@ const Logo = styled.div`
   }
 `;
 
-const MenuButton = styled.button`
-  z-index: 15;
-  margin-top: 0.65rem;
-  width: 2.7rem;
-  height: 2.7rem;
-  border-radius: 50%;
-  cursor: pointer;
-  background: ${(props) => props.theme.colors.primaryAccentColor};
-  border: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  @media (min-width: ${(props) => props.theme.width.small}) {
-    width: 3rem;
-    height: 3rem;
-  }
-
-  span {
-    margin-bottom: 0.2rem;
-    margin-top: 0.2rem;
-    background-color: ${(props) => props.theme.colors.white};
-    height: 0.15rem;
-    border-radius: 0.5rem;
-    width: 60%;
-    display: block;
-
-    @media (min-width: ${(props) => props.theme.width.small}) {
-      height: 0.2rem;
-    }
-  }
-`;
-
 const Header = () => {
   const [open, setOpen] = useState(false);
   const handleMenuButton = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -110,11 +77,7 @@ const Header = () => {
             </Logo>
           </Link>
 
-          <MenuButton onClick={handleMenuButton}>
-            <span></span>
-            <span></span>
-            <span></span>
-          </MenuButton>
+          <MenuButton onClick={handleMenuButton} open={open} />
 
           <Navigation open={open} />
         </FlexContainer>
