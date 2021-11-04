@@ -23,6 +23,10 @@ const Wrapper = styled.div`
   @media (min-width: ${(props) => props.theme.width.medium}) {
     padding: 0 2rem;
   }
+
+  @media (min-width: ${(props) => props.theme.width.large}) {
+    padding: 0;
+  }
 `;
 
 const FlexContainer = styled.div`

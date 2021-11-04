@@ -7,6 +7,7 @@ import * as yup from "yup";
 import backgroundImage from "../assets/SignInBg.png";
 import TextField from "../components/form/TextField";
 import PrimaryButton from "../components/form/PrimaryButton";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   height: 100vh;
@@ -20,9 +21,10 @@ const FormWrapper = styled.div`
   z-index: 1;
   position: relative;
   margin-top: 5rem;
-
+  max-width: 25rem;
   h1 {
     color: ${(props) => props.theme.colors.primaryAccentColor};
+    margin-bottom: 5rem;
   }
 `;
 
@@ -36,6 +38,18 @@ const Image = styled.img`
     top: 50%;
     transform: translateY(-55%);
     left: 20%;
+  }
+`;
+
+const SignUpLink = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  a {
+    text-decoration: underline;
+    color: ${(props) => props.theme.colors.black};
+    font-weight: ${(props) => props.theme.fontWeights.bold};
   }
 `;
 
@@ -88,10 +102,14 @@ const SignIn = () => {
                 <PrimaryButton disabled={isSubmitting} type="submit">
                   Submit
                 </PrimaryButton>
-                <pre>{JSON.stringify(values, null, 2)}</pre>
+                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
               </form>
             )}
           </Formik>
+          <SignUpLink>
+            <p>Don't have an account?</p>
+            <Link to="">Sign up here</Link>
+          </SignUpLink>
         </FormWrapper>
 
         <Image src={backgroundImage} />
