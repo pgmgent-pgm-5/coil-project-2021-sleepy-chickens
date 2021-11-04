@@ -148,7 +148,10 @@ const BecomeDriver = () => {
           <SignInLink />
         </FormWrapper>
 
-        <Image src={backgroundImage} />
+        <Image
+          src={backgroundImage}
+          alt="Speedy Dormdash deliverer on a bike ready to bring you a pizza"
+        />
       </Container>
     </BaseLayout>
   );

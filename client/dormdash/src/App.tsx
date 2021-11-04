@@ -4,7 +4,14 @@ import GlobalStyle from "./theme/globalStyles";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme/theme";
 
-import { HomePage, SignIn, SignUp, BecomeDriver, BecomePartner } from "./pages";
+import {
+  HomePage,
+  SignIn,
+  SignUp,
+  BecomeDriver,
+  BecomePartner,
+  AboutUs,
+} from "./pages";
 
 function App() {
   return (
@@ -17,6 +24,7 @@ function App() {
           <Route exact path={Routes.SIGN_UP} component={SignUp} />
           <Route exact path={Routes.BECOME_DRIVER} component={BecomeDriver} />
           <Route exact path={Routes.BECOME_PARTNER} component={BecomePartner} />
+          <Route exact path={Routes.ABOUT_US} component={AboutUs} />
         </Switch>
       </Router>
     </ThemeProvider>

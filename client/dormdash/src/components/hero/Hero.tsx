@@ -63,7 +63,7 @@ const validationSchema = yup.object({
 const Hero = () => {
   return (
     <ImgContainer>
-      <img src={heroImg} alt="food" />
+      <img src={heroImg} alt="A variety of food" />
       <SearchContainer>
         <h1>Lorem ipsum dolor sit amet</h1>
 

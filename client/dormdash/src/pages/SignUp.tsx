@@ -143,7 +143,7 @@ const SignUp = () => {
           <SignInLink />
         </FormWrapper>
 
-        <Image src={backgroundImage} />
+        <Image src={backgroundImage} alt="Woman with takeout container" />
       </Container>
     </BaseLayout>
   );

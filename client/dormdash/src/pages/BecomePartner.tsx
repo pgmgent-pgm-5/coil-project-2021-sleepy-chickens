@@ -194,7 +194,10 @@ const BecomePartner = () => {
           <SignInLink />
         </FormWrapper>
 
-        <Image src={backgroundImage} />
+        <Image
+          src={backgroundImage}
+          alt="Relaxed customer sitting at home ordering food through Dormdash"
+        />
       </Container>
     </BaseLayout>
   );
