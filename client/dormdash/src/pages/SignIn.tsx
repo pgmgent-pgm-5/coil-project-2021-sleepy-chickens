@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BaseLayout } from "../layouts";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
+import * as Routes from "../routes";
 
 import backgroundImage from "../assets/SignInBg.png";
 import TextField from "../components/form/TextField";
@@ -15,13 +16,19 @@ const Container = styled.div`
   position: relative;
   max-width: 80rem;
   margin: 0 auto;
+  margin-top: -3rem;
 `;
 
 const FormWrapper = styled.div`
   z-index: 1;
   position: relative;
-  margin-top: 5rem;
-  max-width: 25rem;
+  margin-top: 8rem;
+  width: 100%;
+
+  @media (min-width: ${(props) => props.theme.width.small}) {
+    max-width: 25rem;
+  }
+
   h1 {
     color: ${(props) => props.theme.colors.primaryAccentColor};
     margin-bottom: 5rem;
@@ -31,11 +38,11 @@ const FormWrapper = styled.div`
 const Image = styled.img`
   display: none;
 
-  @media (min-width: ${(props) => props.theme.width.medium}) {
+  @media (min-width: ${(props) => props.theme.width.small}) {
     display: block;
     width: 100%;
     position: absolute;
-    top: 50%;
+    top: 53.5%;
     transform: translateY(-55%);
     left: 20%;
   }
@@ -108,7 +115,7 @@ const SignIn = () => {
           </Formik>
           <SignUpLink>
             <p>Don't have an account?</p>
-            <Link to="">Sign up here</Link>
+            <Link to={Routes.SIGN_UP}>Sign up here</Link>
           </SignUpLink>
         </FormWrapper>
 
