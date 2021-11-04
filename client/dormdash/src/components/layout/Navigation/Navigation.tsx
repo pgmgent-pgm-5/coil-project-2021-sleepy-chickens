@@ -15,10 +15,12 @@ const Container = styled.div<Props>`
   bottom: 0;
   left: 0;
   right: 0;
-  position: fixed;
+  position: absolute;
   height: 100%;
   width: 100%;
   z-index: 10;
+  overflow-y: auto;
+  overflow-x: hidden;
   background: ${(props) => props.theme.colors.primaryAccentColor};
   padding: 0 2rem;
   padding-top: 8rem;
@@ -28,7 +30,10 @@ const Container = styled.div<Props>`
   }
 `;
 
-const NavContainer = styled.div`
+const NavContainer = styled.div<Props>`
+  opacity: ${({ open }) => (open ? "1" : "0")};
+  transition: all 2s ease;
+
   @media (min-width: ${(props) => props.theme.width.medium}) {
     display: flex;
     justify-content: space-between;
@@ -70,9 +75,11 @@ const InfoContainer = styled.div`
   }
 `;
 
-const CallToAction = styled.div`
+const CallToAction = styled.div<Props>`
+  opacity: ${({ open }) => (open ? "1" : "0")};
+  transition: all 2s ease;
   margin-top: 5rem;
-
+  margin-bottom: 3rem;
   @media (min-width: ${(props) => props.theme.width.medium}) {
     max-width: 70rem;
     margin: 0 auto;
@@ -101,7 +108,7 @@ const CallToAction = styled.div`
 const Navigation = ({ open }: Props) => {
   return (
     <Container open={open}>
-      <NavContainer>
+      <NavContainer open={open}>
         <Nav>
           <ul>
             <li>
@@ -111,10 +118,10 @@ const Navigation = ({ open }: Props) => {
               <Link to="">Profile</Link>
             </li>
             <li>
-              <Link to="">About us</Link>
+              <Link to={Routes.ABOUT_US}>About us</Link>
             </li>
             <li>
-              <Link to="">FAQ</Link>
+              <Link to={Routes.FAQ}>FAQ</Link>
             </li>
           </ul>
         </Nav>
@@ -124,13 +131,16 @@ const Navigation = ({ open }: Props) => {
           <Contact />
         </InfoContainer>
       </NavContainer>
-      <CallToAction>
+      <CallToAction open={open}>
         <ul>
           <li>
-            <Link to="">Become a partner</Link>
+            <Link to={Routes.SIGN_IN}>Sign In</Link>
           </li>
           <li>
-            <Link to="">Become a driver</Link>
+            <Link to={Routes.BECOME_PARTNER}>Become a partner</Link>
+          </li>
+          <li>
+            <Link to={Routes.BECOME_DRIVER}>Become a driver</Link>
           </li>
         </ul>
       </CallToAction>

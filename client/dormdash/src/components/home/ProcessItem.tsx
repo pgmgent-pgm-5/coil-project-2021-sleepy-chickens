@@ -40,7 +40,7 @@ export const ProcessItem = ({
 }: ProcessItemProps) => {
   return (
     <Item key={id}>
-      <LottieContainer>
+      <LottieContainer title={title}>
         <Player
           autoplay
           loop

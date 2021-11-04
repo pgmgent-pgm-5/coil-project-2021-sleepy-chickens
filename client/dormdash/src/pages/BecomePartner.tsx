@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { BaseLayout } from "../layouts";
-import { Formik, Field } from "formik";
 import * as yup from "yup";
+
+import backgroundImage from "../assets/BecomePartnerBg.png";
+import { Field, Formik } from "formik";
 import TextField from "../components/form/TextField";
 import PrimaryButton from "../components/form/PrimaryButton";
-import backgroundImage from "../assets/SignUpBg.png";
 import SignInLink from "../components/form/SignInLink";
 
 const Container = styled.div`
@@ -41,7 +42,7 @@ const Image = styled.img`
     position: absolute;
     top: 53.5%;
     transform: translateY(-55%);
-    left: 20%;
+    left: 13%;
   }
 `;
 
@@ -49,6 +50,13 @@ const phoneRegExp =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
 const validationSchema = yup.object({
+  restaurantName: yup.string().required("Required"),
+  typeOfCuisine: yup.string().required("Required"),
+  logo: yup.string().required("Required"),
+  streetAndNumber: yup.string().required("Required"),
+  city: yup.string().required("Required"),
+  postalCode: yup.string().required("Required"),
+  province: yup.string().required("Required"),
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
   email: yup.string().email("Invalid email address").required("Required"),
@@ -60,23 +68,28 @@ const validationSchema = yup.object({
     .string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
-  studentNumber: yup.string().required("Student Cardnumber is required"),
 });
 
-const SignUp = () => {
+const BecomePartner = () => {
   return (
     <BaseLayout>
       <Container>
         <FormWrapper>
-          <h1>Sign Up</h1>
+          <h1>Become a partner</h1>
           <Formik
             initialValues={{
+              restaurantName: "",
+              typeOfCuisine: "",
+              logo: "",
+              streetAndNumber: "",
+              city: "",
+              postalCode: "",
+              province: "",
               firstName: "",
               lastName: "",
               email: "",
               tel: "",
               password: "",
-              studentNumber: "",
             }}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
@@ -96,6 +109,50 @@ const SignUp = () => {
               handleBlur,
             }) => (
               <form onSubmit={handleSubmit}>
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="restaurantName"
+                  placeholder="Restaurant name"
+                />
+                {/* Nog te veranderen in andere component */}
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="typeOfCuisine"
+                  placeholder="Type of cuisine"
+                />
+                {/* Nog te veranderen in andere component */}
+                <Field
+                  type="file"
+                  as={TextField}
+                  name="logo"
+                  placeholder="Logo"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="streetAndNumber"
+                  placeholder="Street + nr."
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="city"
+                  placeholder="City"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="postalCode"
+                  placeholder="Postal-code"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="province"
+                  placeholder="Province"
+                />
                 <Field
                   type="text"
                   as={TextField}
@@ -126,12 +183,6 @@ const SignUp = () => {
                   name="password"
                   placeholder="Password"
                 />
-                <Field
-                  type="text"
-                  as={TextField}
-                  name="studentNumber"
-                  placeholder="Student Cardnumber"
-                />
                 <PrimaryButton disabled={isSubmitting} type="submit">
                   Submit
                 </PrimaryButton>
@@ -143,10 +194,13 @@ const SignUp = () => {
           <SignInLink />
         </FormWrapper>
 
-        <Image src={backgroundImage} alt="Woman with takeout container" />
+        <Image
+          src={backgroundImage}
+          alt="Relaxed customer sitting at home ordering food through Dormdash"
+        />
       </Container>
     </BaseLayout>
   );
 };
 
-export default SignUp;
+export default BecomePartner;

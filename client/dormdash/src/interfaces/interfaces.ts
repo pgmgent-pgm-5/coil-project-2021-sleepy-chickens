@@ -7,3 +7,9 @@ export interface ProcessItemProps {
   lottie: string;
   text: string;
 }
+
+export interface StudentFAQProps {
+  id: number;
+  Q: string;
+  A: string;
+}

@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { BaseLayout } from "../layouts";
-import { Formik, Field } from "formik";
 import * as yup from "yup";
-import * as Routes from "../routes";
 
-import backgroundImage from "../assets/SignInBg.png";
+import backgroundImage from "../assets/BecomeDriverBg.png";
+import { Field, Formik } from "formik";
 import TextField from "../components/form/TextField";
 import PrimaryButton from "../components/form/PrimaryButton";
-import { Link } from "react-router-dom";
+import SignInLink from "../components/form/SignInLink";
 
 const Container = styled.div`
-  height: 100vh;
+  //height: 100vh;
   overflow: hidden;
   position: relative;
   max-width: 80rem;
@@ -31,7 +30,7 @@ const FormWrapper = styled.div`
 
   h1 {
     color: ${(props) => props.theme.colors.primaryAccentColor};
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -44,37 +43,45 @@ const Image = styled.img`
     position: absolute;
     top: 53.5%;
     transform: translateY(-55%);
-    left: 20%;
+    left: 13%;
   }
 `;
 
-const SignUpLink = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  a {
-    text-decoration: underline;
-    color: ${(props) => props.theme.colors.black};
-    font-weight: ${(props) => props.theme.fontWeights.bold};
-  }
-`;
+const phoneRegExp =
+  /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
 const validationSchema = yup.object({
+  firstName: yup.string().required("Required"),
+  lastName: yup.string().required("Required"),
   email: yup.string().email("Invalid email address").required("Required"),
-  password: yup.string().required("Password is required"),
+  tel: yup
+    .string()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("Required"),
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  age: yup
+    .number()
+    .required("Age is required")
+    .min(18, "You must be 18 or older"),
 });
 
-const SignIn = () => {
+const BecomeDriver = () => {
   return (
     <BaseLayout>
       <Container>
         <FormWrapper>
-          <h1>Welcome back</h1>
+          <h1>Become a driver</h1>
           <Formik
             initialValues={{
+              firstName: "",
+              lastName: "",
               email: "",
+              tel: "",
               password: "",
+              age: "",
             }}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
@@ -95,16 +102,40 @@ const SignIn = () => {
             }) => (
               <form onSubmit={handleSubmit}>
                 <Field
-                  type="input"
+                  type="text"
+                  as={TextField}
+                  name="firstName"
+                  placeholder="Firstname"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="lastName"
+                  placeholder="Lastname"
+                />
+                <Field
+                  type="email"
                   as={TextField}
                   name="email"
                   placeholder="E-mail"
                 />
                 <Field
-                  type="input"
+                  type="tel"
+                  as={TextField}
+                  name="tel"
+                  placeholder="Telephone number"
+                />
+                <Field
+                  type="password"
                   as={TextField}
                   name="password"
                   placeholder="Password"
+                />
+                <Field
+                  type="number"
+                  as={TextField}
+                  name="age"
+                  placeholder="Age"
                 />
                 <PrimaryButton disabled={isSubmitting} type="submit">
                   Submit
@@ -113,16 +144,17 @@ const SignIn = () => {
               </form>
             )}
           </Formik>
-          <SignUpLink>
-            <p>Don't have an account?</p>
-            <Link to={Routes.SIGN_UP}>Sign up here</Link>
-          </SignUpLink>
+
+          <SignInLink />
         </FormWrapper>
 
-        <Image src={backgroundImage} alt="Woman with sushi rolls" />
+        <Image
+          src={backgroundImage}
+          alt="Speedy Dormdash deliverer on a bike ready to bring you a pizza"
+        />
       </Container>
     </BaseLayout>
   );
 };
 
-export default SignIn;
+export default BecomeDriver;

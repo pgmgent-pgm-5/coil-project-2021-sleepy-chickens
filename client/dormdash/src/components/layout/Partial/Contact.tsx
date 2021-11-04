@@ -10,6 +10,10 @@ const Container = styled.div`
   @media (min-width: ${(props) => props.theme.width.medium}) {
     width: 23%;
   }
+
+  a {
+    color: ${(props) => props.theme.colors.black};
+  }
 `;
 
 const Subtitle = styled.h2`
@@ -23,8 +27,12 @@ const Contact = () => {
   return (
     <Container>
       <Subtitle>Contact us</Subtitle>
-      <p>dormdash@hotmail.com</p>
-      <p>+32 (0)77 77 77 77</p>
+      <p>
+        <a href="mailto:dormdash@hotmail.com">dormdash@hotmail.com</a>
+      </p>
+      <p>
+        <a href="tel:+32 (0)77 77 77 77">+32 (0)77 77 77 77</a>
+      </p>
     </Container>
   );
 };
