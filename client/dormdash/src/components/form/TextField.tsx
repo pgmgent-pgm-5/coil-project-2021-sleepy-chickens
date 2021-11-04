@@ -1,6 +1,7 @@
+import { useField } from "formik";
 import React, { useState } from "react";
 
-interface TextFieldProps {
+export interface TextFieldProps {
   type: string;
   name: string;
   value?: string;
@@ -18,10 +19,20 @@ const TextField = ({
   onBlur,
 }: TextFieldProps) => {
   const [currentValue, setCurrentValue] = useState(value);
+  const [field, meta] = useField({
+    type,
+    name,
+    value,
+    placeholder,
+    onChange,
+    onBlur,
+  });
+  const errorText = meta.error && meta.touched ? meta.error : "";
   return (
     <label>
       <span>{placeholder}</span>
       <input
+        {...field}
         type={type}
         name={name}
         placeholder={placeholder}
@@ -32,6 +43,11 @@ const TextField = ({
         }}
         onBlur={onBlur}
       />
+      {errorText && (
+        <div style={{ backgroundColor: "red", color: "white" }}>
+          {errorText}
+        </div>
+      )}
     </label>
   );
 };

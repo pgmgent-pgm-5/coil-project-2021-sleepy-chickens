@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BaseLayout } from "../layouts";
 import { Formik, Field } from "formik";
+import * as yup from "yup";
 
 import backgroundImage from "../assets/SignInBg.png";
 import TextField from "../components/form/TextField";
@@ -38,6 +39,11 @@ const Image = styled.img`
   }
 `;
 
+const validationSchema = yup.object({
+  email: yup.string().email("Invalid email address").required("Required"),
+  password: yup.string().required("Password is required"),
+});
+
 const SignIn = () => {
   return (
     <BaseLayout>
@@ -57,6 +63,7 @@ const SignIn = () => {
 
               setSubmitting(false);
             }}
+            validationSchema={validationSchema}
           >
             {({
               values,
