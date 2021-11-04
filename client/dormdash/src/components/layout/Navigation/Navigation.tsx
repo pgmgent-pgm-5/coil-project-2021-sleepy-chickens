@@ -140,7 +140,7 @@ const Navigation = ({ open }: Props) => {
             <Link to="">Become a partner</Link>
           </li>
           <li>
-            <Link to="">Become a driver</Link>
+            <Link to={Routes.BECOME_DRIVER}>Become a driver</Link>
           </li>
         </ul>
       </CallToAction>

@@ -4,7 +4,7 @@ import GlobalStyle from "./theme/globalStyles";
 import { ThemeProvider } from "styled-components";
 import theme from "./theme/theme";
 
-import { HomePage, SignIn, SignUp } from "./pages";
+import { HomePage, SignIn, SignUp, BecomeDriver } from "./pages";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
           <Route exact path={Routes.LANDING} component={HomePage} />
           <Route exact path={Routes.SIGN_IN} component={SignIn} />
           <Route exact path={Routes.SIGN_UP} component={SignUp} />
+          <Route exact path={Routes.BECOME_DRIVER} component={BecomeDriver} />
         </Switch>
       </Router>
     </ThemeProvider>

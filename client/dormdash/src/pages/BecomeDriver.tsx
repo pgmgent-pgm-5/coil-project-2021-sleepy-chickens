@@ -1,11 +1,12 @@
+import React from "react";
 import styled from "styled-components";
 import { BaseLayout } from "../layouts";
-import { Formik, Field } from "formik";
 import * as yup from "yup";
+
+import backgroundImage from "../assets/BecomeDriverBg.png";
+import { Field, Formik } from "formik";
 import TextField from "../components/form/TextField";
 import PrimaryButton from "../components/form/PrimaryButton";
-import backgroundImage from "../assets/SignUpBg.png";
-import SignInLink from "../components/form/SignInLink";
 
 const Container = styled.div`
   //height: 100vh;
@@ -41,7 +42,7 @@ const Image = styled.img`
     position: absolute;
     top: 53.5%;
     transform: translateY(-55%);
-    left: 20%;
+    left: 13%;
   }
 `;
 
@@ -60,15 +61,18 @@ const validationSchema = yup.object({
     .string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
-  studentNumber: yup.string().required("Student Cardnumber is required"),
+  age: yup
+    .number()
+    .required("Age is required")
+    .min(18, "You must be 18 or older"),
 });
 
-const SignUp = () => {
+const BecomeDriver = () => {
   return (
     <BaseLayout>
       <Container>
         <FormWrapper>
-          <h1>Sign Up</h1>
+          <h1>Become a driver</h1>
           <Formik
             initialValues={{
               firstName: "",
@@ -76,7 +80,7 @@ const SignUp = () => {
               email: "",
               tel: "",
               password: "",
-              studentNumber: "",
+              AbstractRange: "",
             }}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
@@ -127,10 +131,10 @@ const SignUp = () => {
                   placeholder="Password"
                 />
                 <Field
-                  type="text"
+                  type="number"
                   as={TextField}
-                  name="studentNumber"
-                  placeholder="Student Cardnumber"
+                  name="age"
+                  placeholder="Age"
                 />
                 <PrimaryButton disabled={isSubmitting} type="submit">
                   Submit
@@ -139,8 +143,6 @@ const SignUp = () => {
               </form>
             )}
           </Formik>
-
-          <SignInLink />
         </FormWrapper>
 
         <Image src={backgroundImage} />
@@ -149,4 +151,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default BecomeDriver;
