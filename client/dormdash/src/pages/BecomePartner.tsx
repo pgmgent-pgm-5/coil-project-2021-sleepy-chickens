@@ -115,12 +115,14 @@ const BecomePartner = () => {
                   name="restaurantName"
                   placeholder="Restaurant name"
                 />
+                {/* Nog te veranderen in andere component */}
                 <Field
                   type="text"
                   as={TextField}
                   name="typeOfCuisine"
                   placeholder="Type of cuisine"
                 />
+                {/* Nog te veranderen in andere component */}
                 <Field
                   type="file"
                   as={TextField}
