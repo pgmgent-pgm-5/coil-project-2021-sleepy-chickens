@@ -11,6 +11,7 @@ import {
   BecomeDriver,
   BecomePartner,
   AboutUs,
+  FAQ,
 } from "./pages";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route exact path={Routes.BECOME_DRIVER} component={BecomeDriver} />
           <Route exact path={Routes.BECOME_PARTNER} component={BecomePartner} />
           <Route exact path={Routes.ABOUT_US} component={AboutUs} />
+          <Route exact path={Routes.FAQ} component={FAQ} />
         </Switch>
       </Router>
     </ThemeProvider>

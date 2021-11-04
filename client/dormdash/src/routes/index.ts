@@ -7,3 +7,4 @@ export const BECOME_DRIVER = "/become-driver";
 export const BECOME_PARTNER = "/become-partner";
 
 export const ABOUT_US = "/about-us";
+export const FAQ = "/FAQ";

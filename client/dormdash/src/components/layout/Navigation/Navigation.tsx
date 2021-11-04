@@ -121,7 +121,7 @@ const Navigation = ({ open }: Props) => {
               <Link to={Routes.ABOUT_US}>About us</Link>
             </li>
             <li>
-              <Link to="">FAQ</Link>
+              <Link to={Routes.FAQ}>FAQ</Link>
             </li>
           </ul>
         </Nav>
