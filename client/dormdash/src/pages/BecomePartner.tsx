@@ -1,9 +1,8 @@
-import React from "react";
 import styled from "styled-components";
 import { BaseLayout } from "../layouts";
 import * as yup from "yup";
 
-import backgroundImage from "../assets/BecomeDriverBg.png";
+import backgroundImage from "../assets/BecomePartnerBg.png";
 import { Field, Formik } from "formik";
 import TextField from "../components/form/TextField";
 import PrimaryButton from "../components/form/PrimaryButton";
@@ -51,6 +50,13 @@ const phoneRegExp =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
 const validationSchema = yup.object({
+  restaurantName: yup.string().required("Required"),
+  typeOfCuisine: yup.string().required("Required"),
+  logo: yup.string().required("Required"),
+  streetAndNumber: yup.string().required("Required"),
+  city: yup.string().required("Required"),
+  postalCode: yup.string().required("Required"),
+  province: yup.string().required("Required"),
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
   email: yup.string().email("Invalid email address").required("Required"),
@@ -62,26 +68,28 @@ const validationSchema = yup.object({
     .string()
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
-  age: yup
-    .number()
-    .required("Age is required")
-    .min(18, "You must be 18 or older"),
 });
 
-const BecomeDriver = () => {
+const BecomePartner = () => {
   return (
     <BaseLayout>
       <Container>
         <FormWrapper>
-          <h1>Become a driver</h1>
+          <h1>Become a partner</h1>
           <Formik
             initialValues={{
+              restaurantName: "",
+              typeOfCuisine: "",
+              logo: "",
+              streetAndNumber: "",
+              city: "",
+              postalCode: "",
+              province: "",
               firstName: "",
               lastName: "",
               email: "",
               tel: "",
               password: "",
-              age: "",
             }}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
@@ -101,6 +109,48 @@ const BecomeDriver = () => {
               handleBlur,
             }) => (
               <form onSubmit={handleSubmit}>
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="restaurantName"
+                  placeholder="Restaurant name"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="typeOfCuisine"
+                  placeholder="Type of cuisine"
+                />
+                <Field
+                  type="file"
+                  as={TextField}
+                  name="logo"
+                  placeholder="Logo"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="streetAndNumber"
+                  placeholder="Street + nr."
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="city"
+                  placeholder="City"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="postalCode"
+                  placeholder="Postal-code"
+                />
+                <Field
+                  type="text"
+                  as={TextField}
+                  name="province"
+                  placeholder="Province"
+                />
                 <Field
                   type="text"
                   as={TextField}
@@ -131,12 +181,6 @@ const BecomeDriver = () => {
                   name="password"
                   placeholder="Password"
                 />
-                <Field
-                  type="number"
-                  as={TextField}
-                  name="age"
-                  placeholder="Age"
-                />
                 <PrimaryButton disabled={isSubmitting} type="submit">
                   Submit
                 </PrimaryButton>
@@ -144,8 +188,6 @@ const BecomeDriver = () => {
               </form>
             )}
           </Formik>
-
-          <SignInLink />
         </FormWrapper>
 
         <Image src={backgroundImage} />
@@ -154,4 +196,4 @@ const BecomeDriver = () => {
   );
 };
 
-export default BecomeDriver;
+export default BecomePartner;
