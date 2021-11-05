@@ -8,3 +8,5 @@ export const BECOME_PARTNER = "/become-partner";
 
 export const ABOUT_US = "/about-us";
 export const FAQ = "/FAQ";
+
+export const RESTAURANTS_OVERVIEW = "/restaurants-overview";
