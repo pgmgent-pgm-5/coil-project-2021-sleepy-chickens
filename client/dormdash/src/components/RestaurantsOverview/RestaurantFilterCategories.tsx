@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdExpandMore } from "react-icons/md";
+import { Formik, Field } from "formik";
+import { Chip } from "../form/Chip";
 
 interface Props {
   open: boolean;
@@ -25,30 +27,15 @@ const TitleContainer = styled.div<Props>`
 `;
 
 const ContainerChips = styled.div<Props>`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
   height: ${({ open }) => (open ? "auto" : "0")};
   margin-top: ${({ open }) => (open ? "1rem" : "0")};
   transition: all 0.4s ease;
-`;
 
-const Chip = styled.button<Props>`
-  opacity: ${({ open }) => (open ? "1" : "0")};
-  transition: all 0.2s ease;
-  background-color: ${(props) => props.theme.colors.secondaryAccentColor};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  color: ${(props) => props.theme.colors.white};
-  font-weight: ${(props) => props.theme.fontWeights.bold};
-  border: none;
-  padding: 0.25rem 1rem;
-  border-radius: ${(props) => props.theme.borderRadius.large};
-  margin-bottom: ${({ open }) => (open ? "0.5rem" : "0")};
-  margin-right: 0.5rem;
-  cursor: pointer;
+  form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
 `;
 
 const RestaurantFilterCategories = () => {
@@ -67,9 +54,60 @@ const RestaurantFilterCategories = () => {
         </span>
       </TitleContainer>
       <ContainerChips open={open}>
-        <Chip open={open}>Pizza</Chip>
-        <Chip open={open}>Pizza</Chip>
-        <Chip open={open}>Pizza</Chip>
+        <Formik
+          initialValues={{
+            category: "",
+          }}
+          onSubmit={(data, { setSubmitting }) => {
+            setSubmitting(true);
+
+            // async call naar api
+            console.log(data);
+
+            setSubmitting(false);
+          }}
+        >
+          {({
+            values,
+            handleSubmit,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            submitForm,
+          }) => (
+            <form
+              onClick={(e) => {
+                handleChange(e);
+                setTimeout(() => {
+                  submitForm();
+                });
+              }}
+            >
+              <Field
+                type="button"
+                name="category"
+                open={open}
+                value="pizza"
+                as={Chip}
+              />
+              <Field
+                type="button"
+                name="category"
+                open={open}
+                value="sushi"
+                as={Chip}
+              />
+              <Field
+                type="button"
+                name="category"
+                open={open}
+                value="mexican"
+                as={Chip}
+              />
+              <pre>{JSON.stringify(values, null, 2)}</pre>
+            </form>
+          )}
+        </Formik>
       </ContainerChips>
     </Container>
   );

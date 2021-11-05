@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdExpandMore } from "react-icons/md";
-import { Formik, Field, Form } from "formik";
-import * as yup from "yup";
-import PrimaryButton from "../form/PrimaryButton";
+import { Formik, Field } from "formik";
 
 interface Props {
   open: boolean;
@@ -102,7 +100,7 @@ const RestaurantSort = () => {
                 <Field type="radio" name="sort" value="delivery_time" />
                 <span>Delivery time</span>
               </label>
-              <pre>{JSON.stringify(values, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
             </form>
           )}
         </Formik>
