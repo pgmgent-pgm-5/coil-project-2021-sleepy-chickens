@@ -2,6 +2,7 @@ import React from "react";
 import RestaurantCard from "../components/RestaurantsOverview/RestaurantCard";
 import { BaseLayout } from "../layouts";
 import styled from "styled-components";
+import RestaurantFilter from "../components/RestaurantsOverview/RestaurantFilter";
 
 const Container = styled.div`
   max-width: 80rem;
@@ -15,9 +16,6 @@ const Container = styled.div`
 
 const FilterContainer = styled.div`
   width: 100%;
-
-  height: 50vh;
-  background-color: red;
 
   @media (min-width: ${(props) => props.theme.width.medium}) {
     max-width: 25rem;
@@ -37,7 +35,9 @@ const RestaurantOverview = (props: Props) => {
   return (
     <BaseLayout>
       <Container>
-        <FilterContainer></FilterContainer>
+        <FilterContainer>
+          <RestaurantFilter />
+        </FilterContainer>
         <RestaurantContainer>
           <RestaurantCard />
           <RestaurantCard />
