@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { MdExpandMore } from "react-icons/md";
+import { Formik, Field, Form } from "formik";
+import * as yup from "yup";
+import PrimaryButton from "../form/PrimaryButton";
 
 interface Props {
   open: boolean;
@@ -58,18 +61,51 @@ const RestaurantSort = () => {
         </span>
       </TitleContainer>
       <ContainerChips open={open}>
-        <label>
-          <input type="radio" name="alphabetical" />
-          <span>Alphabetical</span>
-        </label>
-        <label>
-          <input type="radio" name="rating" />
-          <span>Rating</span>
-        </label>
-        <label>
-          <input type="radio" name="delivery_time" />
-          <span>Delivery time</span>
-        </label>
+        <Formik
+          initialValues={{
+            sort: "alphabetical",
+          }}
+          onSubmit={(data, { setSubmitting }) => {
+            setSubmitting(true);
+
+            // async call naar api
+            console.log(data);
+
+            setSubmitting(false);
+          }}
+        >
+          {({
+            values,
+            handleSubmit,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            submitForm,
+          }) => (
+            <form
+              onChange={(e) => {
+                handleChange(e);
+                setTimeout(() => {
+                  submitForm();
+                });
+              }}
+            >
+              <label>
+                <Field type="radio" name="sort" value="alphabetical" />
+                <span>Alphabetical</span>
+              </label>
+              <label>
+                <Field type="radio" name="sort" value="rating" />
+                <span>Rating</span>
+              </label>
+              <label>
+                <Field type="radio" name="sort" value="delivery_time" />
+                <span>Delivery time</span>
+              </label>
+              <pre>{JSON.stringify(values, null, 2)}</pre>
+            </form>
+          )}
+        </Formik>
       </ContainerChips>
     </Container>
   );
