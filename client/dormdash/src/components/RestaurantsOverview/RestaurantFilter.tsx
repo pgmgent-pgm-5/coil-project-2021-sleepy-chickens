@@ -2,6 +2,7 @@ import React from "react";
 import Devider from "./Devider";
 import RestaurantFilterCategories from "./RestaurantFilterCategories";
 import styled from "styled-components";
+import RestaurantSort from "./RestaurantSort";
 
 const Container = styled.div``;
 
@@ -31,6 +32,8 @@ const RestaurantFilter = (props: Props) => {
       </TitleContainer>
       <Devider />
       <RestaurantFilterCategories />
+      <Devider />
+      <RestaurantSort />
       <Devider />
     </Container>
   );
