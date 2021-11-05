@@ -7,7 +7,6 @@ import {
 import { MdExpandMore } from "react-icons/md";
 import * as Routes from "../../routes";
 import { Link } from "react-router-dom";
-import { FiEdit2 } from "react-icons/fi";
 
 const FaqDeliverer = () => {
   return (

@@ -2,7 +2,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  List,
   Typography,
 } from "@mui/material";
 import { MdExpandMore } from "react-icons/md";

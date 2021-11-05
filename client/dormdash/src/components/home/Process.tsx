@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import locationImg from "../../assets/process/chooseMeal.svg";
 import process from "../../data/process.json";
 import { ProcessItem } from "./ProcessItem";
 
