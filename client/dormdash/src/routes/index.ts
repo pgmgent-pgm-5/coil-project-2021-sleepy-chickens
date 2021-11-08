@@ -10,3 +10,4 @@ export const ABOUT_US = "/about-us";
 export const FAQ = "/FAQ";
 
 export const RESTAURANTS_OVERVIEW = "/restaurants-overview";
+export const DETAIL_PAGE = "/detail/:id";
