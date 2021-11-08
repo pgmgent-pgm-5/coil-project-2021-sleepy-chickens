@@ -13,7 +13,7 @@ const Container = styled.div`
   //height: 100vh;
   overflow: hidden;
   position: relative;
-  max-width: 80rem;
+  //max-width: 80rem;
   margin: 0 auto;
   margin-top: -3rem;
 `;

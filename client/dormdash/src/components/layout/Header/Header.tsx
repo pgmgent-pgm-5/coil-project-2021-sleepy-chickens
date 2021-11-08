@@ -26,7 +26,7 @@ const HeaderContainer = styled.header`
 `;
 
 const Wrapper = styled.div`
-  max-width: 80rem;
+  max-width: ${(props) => props.theme.width.large};
   margin: 0 auto;
 `;
 
