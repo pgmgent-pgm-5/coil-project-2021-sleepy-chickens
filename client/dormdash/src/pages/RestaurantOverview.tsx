@@ -18,8 +18,8 @@ const FilterContainer = styled.div`
   width: 100%;
 
   @media (min-width: ${(props) => props.theme.width.medium}) {
-    max-width: 25rem;
-    min-width: 20rem;
+    max-width: 20rem;
+    min-width: 15rem;
     margin-right: 3rem;
   }
 `;

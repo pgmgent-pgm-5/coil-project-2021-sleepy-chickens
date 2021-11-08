@@ -4,7 +4,7 @@ import Header from "../components/layout/Header/Header";
 import Footer from "../components/layout/footer/Footer";
 
 const MainLayout = styled.main`
-  max-width: ${(props) => props.theme.width.elarge};
+  max-width: ${(props) => props.theme.width.large};
   margin: 0 auto;
   padding: 0 1.5rem;
   width: 100%;
