@@ -2,6 +2,8 @@ import { BaseLayout } from "../layouts";
 
 import Hero from "../components/hero/Hero";
 import Process from "../components/home/Process";
+import CallToActionDeliverer from "../components/home/CallToActionDeliverer";
+import CallToActionPartner from "../components/home/CallToActionPartner";
 interface Props {}
 
 const HomePage = (props: Props) => {
@@ -9,8 +11,8 @@ const HomePage = (props: Props) => {
     <BaseLayout>
       <Hero />
       <Process />
-      <h1>Home</h1>
-      <p>Coming soon</p>
+      <CallToActionDeliverer />
+      <CallToActionPartner />
     </BaseLayout>
   );
 };
