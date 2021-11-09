@@ -18,7 +18,7 @@ const Container = styled.div<Props>`
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: 10;
+  z-index: 29;
   overflow-y: auto;
   overflow-x: hidden;
   background: ${(props) => props.theme.colors.primaryAccentColor};

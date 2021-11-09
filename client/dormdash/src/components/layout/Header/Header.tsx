@@ -39,7 +39,7 @@ const FlexContainer = styled.div`
 const Logo = styled.div<Props>`
   display: flex;
   align-items: center;
-  z-index: 16;
+  z-index: 30;
   position: relative;
 
   img {

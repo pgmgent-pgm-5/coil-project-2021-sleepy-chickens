@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Hamburger = styled.button<Props>`
-  z-index: 15;
+  z-index: 31;
   margin-top: 0.65rem;
   width: 2.7rem;
   height: 2.7rem;

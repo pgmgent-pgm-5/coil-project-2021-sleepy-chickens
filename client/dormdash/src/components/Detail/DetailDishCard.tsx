@@ -6,11 +6,10 @@ const Container = styled.li`
   border: 1px solid ${(props) => props.theme.colors.tertiaryAccentColor};
   border-radius: ${(props) => props.theme.borderRadius.small};
   width: 100%;
+  margin-bottom: 1rem;
 
   @media (min-width: ${(props) => props.theme.width.small}) {
     width: calc(50% - 1rem);
-    margin-right: 0.5rem;
-    margin-left: 0.5rem;
   }
 
   a {
@@ -72,7 +71,7 @@ const Image = styled.div`
 
 interface Props {}
 
-const DetailCard = (props: Props) => {
+const DetailDishCard = (props: Props) => {
   return (
     <Container>
       <Link to="">
@@ -97,4 +96,4 @@ const DetailCard = (props: Props) => {
   );
 };
 
-export default DetailCard;
+export default DetailDishCard;
