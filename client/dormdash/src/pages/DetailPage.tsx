@@ -9,7 +9,7 @@ import DetailHero from "../components/Detail/DetailHero";
 
 const DetailReviewContainer = styled.ul`
   @media (min-width: ${(props) => props.theme.width.small}) {
-    margin-top: -4rem;
+    margin-top: -3rem;
   }
 
   margin-bottom: 3rem;
