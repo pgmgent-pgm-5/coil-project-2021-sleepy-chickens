@@ -6,6 +6,10 @@ import Devider from "../components/layout/Partial/Devider";
 import DetailReviewCard from "../components/Detail/DetailReviewCard";
 import AddReviewButton from "../components/Detail/AddReviewButton";
 import DetailHero from "../components/Detail/DetailHero";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation } from "swiper";
+import "swiper/swiper-bundle.min.css";
+import "swiper/swiper.min.css";
 
 const DetailReviewContainer = styled.ul`
   @media (min-width: ${(props) => props.theme.width.small}) {
@@ -59,6 +63,8 @@ const DetailDishCardContainer = styled.ul`
 interface Props {}
 
 const DetailPage = (props: Props) => {
+  SwiperCore.use([Navigation]);
+
   return (
     <BaseLayout>
       <DetailHero />
@@ -71,11 +77,20 @@ const DetailPage = (props: Props) => {
         </FlexContainerTitle>
 
         <FlexContainer>
-          <DetailReviewCard />
-          <DetailReviewCard />
-          <DetailReviewCard />
-          <DetailReviewCard />
-          <DetailReviewCard />
+          <Swiper navigation={true} slidesPerView={3} spaceBetween={60}>
+            <SwiperSlide>
+              <DetailReviewCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <DetailReviewCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <DetailReviewCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <DetailReviewCard />
+            </SwiperSlide>
+          </Swiper>
         </FlexContainer>
       </DetailReviewContainer>
 
