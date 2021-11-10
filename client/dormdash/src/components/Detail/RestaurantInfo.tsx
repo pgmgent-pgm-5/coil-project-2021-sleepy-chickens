@@ -24,11 +24,10 @@ const Flex = styled.div`
 `;
 
 interface Props {
-  open: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const RestaurantInfo = ({ onClick, open }: Props) => {
+const RestaurantInfo = ({ onClick }: Props) => {
   return (
     <>
       <FlexTitle>

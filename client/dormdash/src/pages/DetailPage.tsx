@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DetailDishCard from "../components/Detail/DetailDishCard";
 import { BaseLayout } from "../layouts";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import Devider from "../components/layout/Partial/Devider";
 import DetailReviewCard from "../components/Detail/DetailReviewCard";
 import AddReviewButton from "../components/Detail/AddReviewButton";
 import DetailHero from "../components/Detail/DetailHero";
+import Modal from "../components/Detail/Modal";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
@@ -66,14 +67,25 @@ interface Props {}
 const DetailPage = (props: Props) => {
   SwiperCore.use([Navigation]);
 
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpen(!open);
+    setId(e.currentTarget.id);
+  };
+
   return (
     <BaseLayout>
-      <DetailHero />
+      <Modal open={open} onClick={handleClick} id={id} />
+
+      <DetailHero onClick={handleClick} open={open} />
 
       <DetailReviewContainer>
         <FlexContainerTitle>
           <h2>Reviews</h2>
-          <AddReviewButton />
+          <AddReviewButton onClick={handleClick} open={open} />
           <p>4.1 Rating</p>
         </FlexContainerTitle>
 

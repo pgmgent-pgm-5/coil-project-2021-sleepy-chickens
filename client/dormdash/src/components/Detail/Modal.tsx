@@ -1,8 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import RestaurantInfo from "./RestaurantInfo";
+import ShareReview from "./ShareReview";
 
 interface Props {
+  id?: string;
   open: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -34,12 +36,15 @@ const ModalContent = styled.div`
   padding: 1rem;
 `;
 
-const Modal = ({ onClick, open }: Props) => {
+const Modal = ({ onClick, open, id }: Props) => {
+  console.log(id);
+
   return (
     <Container open={open}>
       <BlurContainer></BlurContainer>
       <ModalContent>
-        <RestaurantInfo open={open} onClick={onClick} />
+        {id && id === "info" && <RestaurantInfo onClick={onClick} />}
+        {id && id === "review" && <ShareReview onClick={onClick} />}
       </ModalContent>
     </Container>
   );

@@ -1,7 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-interface Props {}
+interface Props {
+  open: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
 
 const Button = styled.button`
   border: none;
@@ -12,8 +15,12 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const AddReviewButton = (props: Props) => {
-  return <Button>Add review</Button>;
+const AddReviewButton = ({ onClick }: Props) => {
+  return (
+    <Button id="review" onClick={onClick}>
+      Add review
+    </Button>
+  );
 };
 
 export default AddReviewButton;
