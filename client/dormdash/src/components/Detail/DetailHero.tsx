@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import Modal from "./Modal";
 
 const Container = styled.div`
   margin-top: 3rem;
@@ -32,7 +33,7 @@ const BgContainer = styled.div`
 `;
 
 const InfoButton = styled.button`
-  z-index: 20;
+  z-index: 25;
   position: absolute;
   bottom: 0.5rem;
   right: 0.5rem;
@@ -92,11 +93,19 @@ const RestaurantContent = styled.div`
 interface Props {}
 
 const DetailHero = (props: Props) => {
+  const [open, setOpen] = useState(false);
+  const handleInfoButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpen(!open);
+    console.log(open);
+  };
+
   return (
     <>
+      <Modal open={open} onClick={handleInfoButton} />
       <Container>
         <BgContainer></BgContainer>
-        <InfoButton>
+        <InfoButton onClick={handleInfoButton}>
           <span>
             <AiOutlineInfoCircle />
           </span>
