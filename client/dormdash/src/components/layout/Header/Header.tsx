@@ -73,6 +73,7 @@ const Header = () => {
 
   useEffect(() => {
     if (open) {
+      window.scrollTo(0, 0);
       document.body.style.overflow = "hidden";
     } else if (!open) {
       document.body.style.overflow = "auto";

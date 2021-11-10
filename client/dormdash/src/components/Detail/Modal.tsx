@@ -14,7 +14,7 @@ const Container = styled.div<Props>`
 `;
 
 const BlurContainer = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
@@ -25,7 +25,7 @@ const BlurContainer = styled.div`
 `;
 
 const ModalContent = styled.div`
-  position: absolute;
+  position: fixed;
   background-color: ${(props) => props.theme.colors.white};
   border-radius: ${(props) => props.theme.borderRadius.normal};
   top: 50%;
@@ -34,6 +34,12 @@ const ModalContent = styled.div`
   z-index: 101;
   width: calc(100% - 2rem);
   padding: 1rem;
+
+  @media (min-width: ${(props) => props.theme.width.small}) {
+    min-width: 25rem;
+    max-width: 35rem;
+    width: 50%;
+  }
 `;
 
 const Modal = ({ onClick, open, id }: Props) => {

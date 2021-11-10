@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DetailDishCard from "../components/Detail/DetailDishCard";
 import { BaseLayout } from "../layouts";
 import styled from "styled-components";
@@ -75,6 +75,14 @@ const DetailPage = (props: Props) => {
     setOpen(!open);
     setId(e.currentTarget.id);
   };
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else if (!open) {
+      document.body.style.overflow = "auto";
+    }
+  }, [open]);
 
   return (
     <BaseLayout>
