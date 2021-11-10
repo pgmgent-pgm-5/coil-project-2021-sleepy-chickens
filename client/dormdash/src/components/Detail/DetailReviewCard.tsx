@@ -7,8 +7,8 @@ const Container = styled.li`
   padding: 0.5rem;
   margin-right: 1rem;
   overflow: hidden;
-  width: 20rem;
-  min-width: 20rem;
+  width: calc(20rem - 3rem);
+  min-width: calc(20rem - 3rem);
 `;
 
 const RatingDate = styled.div`

@@ -77,7 +77,21 @@ const DetailPage = (props: Props) => {
         </FlexContainerTitle>
 
         <FlexContainer>
-          <Swiper navigation={true} slidesPerView={3} spaceBetween={60}>
+          <Swiper
+            navigation={true}
+            breakpoints={{
+              320: {
+                width: 320,
+                slidesPerView: 1,
+              },
+            }}
+          >
+            <SwiperSlide>
+              <DetailReviewCard />
+            </SwiperSlide>
+            <SwiperSlide>
+              <DetailReviewCard />
+            </SwiperSlide>
             <SwiperSlide>
               <DetailReviewCard />
             </SwiperSlide>
