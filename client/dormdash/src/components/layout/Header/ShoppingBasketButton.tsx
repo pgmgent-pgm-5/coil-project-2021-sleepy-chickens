@@ -25,14 +25,16 @@ const Button = styled.button`
   }
 `;
 
-interface Props {}
+interface Props {
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+}
 
-const ShoppingBasket = (props: Props) => {
+const ShoppingBasketButton = ({ onClick }: Props) => {
   return (
-    <Button>
+    <Button onClick={onClick}>
       <FiShoppingBag />
     </Button>
   );
 };
 
-export default ShoppingBasket;
+export default ShoppingBasketButton;

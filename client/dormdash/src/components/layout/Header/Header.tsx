@@ -7,7 +7,8 @@ import logo from "../../../assets/logo.svg";
 import Navigation from "../Navigation/Navigation";
 import { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
-import ShoppingBasket from "./ShoppingBasket";
+import ShoppingBasketButton from "./ShoppingBasketButton";
+import ShoppingBasket from "../../ShoppingBasket/ShoppingBasket";
 
 interface Props {
   open: boolean;
@@ -68,21 +69,28 @@ const Logo = styled.div<Props>`
 
 const Header = () => {
   const location = useRouteMatch();
-
   const [open, setOpen] = useState(false);
+  const [openBasket, setOpenBasket] = useState(false);
+
   const handleMenuButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(!open);
   };
 
+  const handleBasket = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setOpenBasket(!openBasket);
+    console.log(openBasket);
+  };
+
   useEffect(() => {
-    if (open) {
+    if (open || openBasket) {
       window.scrollTo(0, 0);
       document.body.style.overflow = "hidden";
     } else if (!open) {
       document.body.style.overflow = "auto";
     }
-  }, [open]);
+  }, [open, openBasket]);
 
   return (
     <HeaderContainer>
@@ -98,7 +106,10 @@ const Header = () => {
           <FlexContainer>
             {(location.path === Routes.DETAIL_PAGE ||
               location.path === Routes.RESTAURANTS_OVERVIEW) && (
-              <ShoppingBasket />
+              <>
+                <ShoppingBasketButton onClick={handleBasket} />
+                <ShoppingBasket open={openBasket} onClick={handleBasket} />
+              </>
             )}
             <MenuButton onClick={handleMenuButton} open={open} />
           </FlexContainer>
