@@ -1,5 +1,5 @@
 import React from "react";
-import Devider from "./Devider";
+import Devider from "../layout/Partial/Devider";
 import RestaurantFilterCategories from "./RestaurantFilterCategories";
 import styled from "styled-components";
 import RestaurantSort from "./RestaurantSort";

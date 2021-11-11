@@ -3,22 +3,22 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  min-width: 14rem;
+  min-width: 10rem;
   position: relative;
   margin-bottom: 2rem;
   cursor: pointer;
 
   @media (min-width: ${(props) => props.theme.width.small}) {
     flex-grow: 1;
-    flex-basis: calc(50% - 2rem);
-    margin: 0 1rem;
-    margin-bottom: 2rem;
-  }
-  @media (min-width: ${(props) => props.theme.width.medium}) {
-    margin: 0 1rem;
-    margin-bottom: 2rem;
     flex-basis: calc(33% - 2rem);
+    margin: 0 1rem;
+    margin-bottom: 2rem;
   }
+  //   @media (min-width: ${(props) => props.theme.width.medium}) {
+  //     margin: 0 1rem;
+  //     margin-bottom: 2rem;
+  //     flex-basis: calc(33% - 2rem);
+  //   }
 `;
 
 const Image = styled.div`

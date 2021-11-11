@@ -5,8 +5,6 @@ import styled from "styled-components";
 import RestaurantFilter from "../components/RestaurantsOverview/RestaurantFilter";
 
 const Container = styled.div`
-  max-width: 80rem;
-  margin: 0 auto;
   margin-top: 5rem;
 
   @media (min-width: ${(props) => props.theme.width.medium}) {
@@ -18,8 +16,8 @@ const FilterContainer = styled.div`
   width: 100%;
 
   @media (min-width: ${(props) => props.theme.width.medium}) {
-    max-width: 25rem;
-    min-width: 20rem;
+    max-width: 20rem;
+    min-width: 15rem;
     margin-right: 3rem;
   }
 `;

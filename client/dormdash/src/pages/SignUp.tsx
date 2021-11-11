@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BaseLayout } from "../layouts";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
-import TextField from "../components/form/TextField";
+import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import backgroundImage from "../assets/SignUpBg.png";
 import SignInLink from "../components/form/SignInLink";
@@ -98,37 +98,37 @@ const SignUp = () => {
               <form onSubmit={handleSubmit}>
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="firstName"
                   placeholder="Firstname"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="lastName"
                   placeholder="Lastname"
                 />
                 <Field
                   type="email"
-                  as={TextField}
+                  as={InputField}
                   name="email"
                   placeholder="E-mail"
                 />
                 <Field
                   type="tel"
-                  as={TextField}
+                  as={InputField}
                   name="tel"
                   placeholder="Telephone number"
                 />
                 <Field
                   type="password"
-                  as={TextField}
+                  as={InputField}
                   name="password"
                   placeholder="Password"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="studentNumber"
                   placeholder="Student Cardnumber"
                 />

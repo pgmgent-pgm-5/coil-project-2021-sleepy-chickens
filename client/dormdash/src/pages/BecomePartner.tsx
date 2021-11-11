@@ -4,7 +4,7 @@ import * as yup from "yup";
 
 import backgroundImage from "../assets/BecomePartnerBg.png";
 import { Field, Formik } from "formik";
-import TextField from "../components/form/TextField";
+import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import SignInLink from "../components/form/SignInLink";
 
@@ -111,75 +111,75 @@ const BecomePartner = () => {
               <form onSubmit={handleSubmit}>
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="restaurantName"
                   placeholder="Restaurant name"
                 />
                 {/* Nog te veranderen in andere component */}
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="typeOfCuisine"
                   placeholder="Type of cuisine"
                 />
                 {/* Nog te veranderen in andere component */}
                 <Field
                   type="file"
-                  as={TextField}
+                  as={InputField}
                   name="logo"
                   placeholder="Logo"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="streetAndNumber"
                   placeholder="Street + nr."
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="city"
                   placeholder="City"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="postalCode"
                   placeholder="Postal-code"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="province"
                   placeholder="Province"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="firstName"
                   placeholder="Firstname"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="lastName"
                   placeholder="Lastname"
                 />
                 <Field
                   type="email"
-                  as={TextField}
+                  as={InputField}
                   name="email"
                   placeholder="E-mail"
                 />
                 <Field
                   type="tel"
-                  as={TextField}
+                  as={InputField}
                   name="tel"
                   placeholder="Telephone number"
                 />
                 <Field
                   type="password"
-                  as={TextField}
+                  as={InputField}
                   name="password"
                   placeholder="Password"
                 />
