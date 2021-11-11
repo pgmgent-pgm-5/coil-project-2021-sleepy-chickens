@@ -6,7 +6,7 @@ const Hamburger = styled.button<Props>`
   margin-top: 0.65rem;
   width: 2.7rem;
   height: 2.7rem;
-  border-radius: 50%;
+  border-radius: ${(props) => props.theme.borderRadius.circle};
   cursor: pointer;
   background: ${(props) => props.theme.colors.primaryAccentColor};
   border: none;

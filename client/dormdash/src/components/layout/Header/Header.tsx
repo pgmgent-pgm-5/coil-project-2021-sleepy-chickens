@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import * as Routes from "../../../routes";
+import { useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import logo from "../../../assets/logo.svg";
 import Navigation from "../Navigation/Navigation";
 import { useEffect, useState } from "react";
 import MenuButton from "./MenuButton";
+import ShoppingBasket from "./ShoppingBasket";
 
 interface Props {
   open: boolean;
@@ -65,6 +67,8 @@ const Logo = styled.div<Props>`
 `;
 
 const Header = () => {
+  const location = useRouteMatch();
+
   const [open, setOpen] = useState(false);
   const handleMenuButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -91,7 +95,13 @@ const Header = () => {
             </Logo>
           </Link>
 
-          <MenuButton onClick={handleMenuButton} open={open} />
+          <FlexContainer>
+            {(location.path === Routes.DETAIL_PAGE ||
+              location.path === Routes.RESTAURANTS_OVERVIEW) && (
+              <ShoppingBasket />
+            )}
+            <MenuButton onClick={handleMenuButton} open={open} />
+          </FlexContainer>
 
           <Navigation open={open} />
         </FlexContainer>
