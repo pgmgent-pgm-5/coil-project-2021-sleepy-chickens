@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import ModalCloseButton from "./ModalCloseButton";
+import { Formik, Field, Form } from "formik";
+import * as yup from "yup";
+import InputField from "../form/InputField";
+import PrimaryButton from "../form/PrimaryButton";
+import Textarea from "../form/Textarea";
 
 const FlexTitle = styled.div`
   display: flex;
@@ -13,6 +18,16 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
+const validationSchema = yup.object({
+  name: yup.string().required("Required"),
+  rating: yup
+    .number()
+    .required("Required")
+    .min(1, "Must be at least 1")
+    .max(5, "Must be at most 5"),
+  review: yup.string().required("Required"),
+});
+
 const ShareReview = ({ onClick }: Props) => {
   return (
     <>
@@ -20,6 +35,52 @@ const ShareReview = ({ onClick }: Props) => {
         <h2>Restaurant name</h2>
         <ModalCloseButton onClick={onClick} />
       </FlexTitle>
+
+      <Formik
+        initialValues={{
+          name: "",
+          rating: 1,
+          review: "",
+        }}
+        onSubmit={(data, { setSubmitting }) => {
+          setSubmitting(true);
+
+          // async call naar api
+          console.log(data);
+
+          setSubmitting(false);
+        }}
+        validationSchema={validationSchema}
+      >
+        {({ values, handleSubmit, isSubmitting, handleChange, handleBlur }) => (
+          <Form>
+            <Field
+              type="input"
+              as={InputField}
+              name="name"
+              placeholder="Name"
+            />
+            <Field
+              type="number"
+              as={InputField}
+              name="rating"
+              placeholder="Rating 1-5"
+              min={1}
+              max={5}
+            />
+            <Field
+              as={Textarea}
+              name="review"
+              placeholder="Share your review"
+            />
+
+            <PrimaryButton disabled={isSubmitting} type="submit">
+              Share
+            </PrimaryButton>
+            {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+          </Form>
+        )}
+      </Formik>
     </>
   );
 };

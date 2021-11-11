@@ -5,7 +5,7 @@ import * as yup from "yup";
 
 import backgroundImage from "../assets/BecomeDriverBg.png";
 import { Field, Formik } from "formik";
-import TextField from "../components/form/TextField";
+import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import SignInLink from "../components/form/SignInLink";
 
@@ -103,37 +103,37 @@ const BecomeDriver = () => {
               <form onSubmit={handleSubmit}>
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="firstName"
                   placeholder="Firstname"
                 />
                 <Field
                   type="text"
-                  as={TextField}
+                  as={InputField}
                   name="lastName"
                   placeholder="Lastname"
                 />
                 <Field
                   type="email"
-                  as={TextField}
+                  as={InputField}
                   name="email"
                   placeholder="E-mail"
                 />
                 <Field
                   type="tel"
-                  as={TextField}
+                  as={InputField}
                   name="tel"
                   placeholder="Telephone number"
                 />
                 <Field
                   type="password"
-                  as={TextField}
+                  as={InputField}
                   name="password"
                   placeholder="Password"
                 />
                 <Field
                   type="number"
-                  as={TextField}
+                  as={InputField}
                   name="age"
                   placeholder="Age"
                 />

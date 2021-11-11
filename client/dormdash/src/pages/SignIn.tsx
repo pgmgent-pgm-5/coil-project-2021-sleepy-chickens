@@ -6,7 +6,7 @@ import * as yup from "yup";
 import * as Routes from "../routes";
 
 import backgroundImage from "../assets/SignInBg.png";
-import TextField from "../components/form/TextField";
+import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import { Link } from "react-router-dom";
 
@@ -96,13 +96,13 @@ const SignIn = () => {
               <form onSubmit={handleSubmit}>
                 <Field
                   type="input"
-                  as={TextField}
+                  as={InputField}
                   name="email"
                   placeholder="E-mail"
                 />
                 <Field
                   type="input"
-                  as={TextField}
+                  as={InputField}
                   name="password"
                   placeholder="Password"
                 />

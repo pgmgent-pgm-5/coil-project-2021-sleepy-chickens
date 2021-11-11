@@ -52,23 +52,27 @@ const ErrorMessageStyling = styled.div`
   }
 `;
 
-interface TextFieldProps {
+interface InputFieldProps {
   type: string;
   name: string;
+  min?: number;
+  max?: number;
   value?: string;
   placeholder?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: React.FocusEvent<HTMLInputElement, Element>) => void;
 }
 
-const TextField = ({
+const InputField = ({
+  min,
+  max,
   type,
   name,
   value = "",
   placeholder,
   onChange,
   onBlur,
-}: TextFieldProps) => {
+}: InputFieldProps) => {
   const [currentValue, setCurrentValue] = useState(value);
   const [field, meta] = useField({
     type,
@@ -87,6 +91,8 @@ const TextField = ({
         {...field}
         type={type}
         name={name}
+        min={min}
+        max={max}
         placeholder={placeholder}
         value={currentValue}
         onChange={(e) => {
@@ -107,4 +113,4 @@ const TextField = ({
   );
 };
 
-export default TextField;
+export default InputField;
