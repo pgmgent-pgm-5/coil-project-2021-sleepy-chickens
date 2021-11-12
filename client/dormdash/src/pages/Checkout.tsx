@@ -3,12 +3,8 @@ import { BaseLayout } from "../layouts";
 import styled from "styled-components";
 import ProgressBar from "../components/Checkout/ProgressBar/ProgressBar";
 import DeliveryAddressForm from "../components/Checkout/DeliveryAddressForm";
-import TotalOverview from "../components/Checkout/TotalOverview";
 
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
+const Container = styled.div``;
 
 const steps = ["Delivery address", "Payment method", "Overview", "Confirm"];
 
@@ -21,21 +17,18 @@ const Checkout = (props: Props) => {
       return (
         <>
           <DeliveryAddressForm />
-          <TotalOverview />
         </>
       );
     } else if (activeStep === 1) {
       return (
         <>
           <div>Payment method</div>
-          <TotalOverview />
         </>
       );
     } else if (activeStep === 2) {
       return (
         <>
           <div>Overview</div>
-          <TotalOverview />
         </>
       );
     } else if (activeStep === 3) {

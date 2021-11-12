@@ -42,7 +42,6 @@ const StepDescription = styled.span`
 `;
 
 const Step = ({ activeStep, step, index }: Props) => {
-  console.log(activeStep, index);
   return (
     <Container activeStep={activeStep} index={index}>
       <div>

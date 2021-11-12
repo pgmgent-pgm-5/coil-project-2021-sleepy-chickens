@@ -7,8 +7,8 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  margin-top: 2rem;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 `;
 
 interface Props {

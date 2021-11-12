@@ -80,7 +80,6 @@ const Header = () => {
   const handleBasket = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpenBasket(!openBasket);
-    console.log(openBasket);
   };
 
   useEffect(() => {
