@@ -4,6 +4,7 @@ import ModalCloseButton from "../Detail/ModalCloseButton";
 import PrimaryButtonLink from "../form/PrimaryButtonLink";
 import ShoppingBasketItem from "./ShoppingBasketItem";
 import ShoppingBasketTotal from "./ShoppingBasketTotal";
+import * as Routes from "../../routes";
 
 const BlurContainer = styled.div<Props>`
   display: ${({ open }) => (open ? "block" : "none")};
@@ -89,7 +90,9 @@ const ShoppingBasket = ({ onClick, open }: Props) => {
           <>
             <ShoppingBasketItems />
             <ShoppingBasketTotal />
-            <PrimaryButtonLink link="">Checkout</PrimaryButtonLink>
+            <PrimaryButtonLink link={Routes.CHECKOUT}>
+              Checkout
+            </PrimaryButtonLink>
           </>
         )}
       </Container>

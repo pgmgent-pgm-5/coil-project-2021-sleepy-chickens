@@ -6,6 +6,7 @@ import BecomePartner from "./BecomePartner";
 import AboutUs from "./AboutUs";
 import FAQ from "./FAQ";
 import DetailPage from "./DetailPage";
+import Checkout from "./Checkout";
 
 export {
   HomePage,
@@ -16,4 +17,5 @@ export {
   AboutUs,
   FAQ,
   DetailPage,
+  Checkout,
 };
