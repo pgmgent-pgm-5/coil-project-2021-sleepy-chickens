@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import ModalCloseButton from "../Detail/ModalCloseButton";
+import PrimaryButtonLink from "../form/PrimaryButtonLink";
+import ShoppingBasketItem from "./ShoppingBasketItem";
+import ShoppingBasketTotal from "./ShoppingBasketTotal";
 
 const BlurContainer = styled.div<Props>`
   display: ${({ open }) => (open ? "block" : "none")};
@@ -15,7 +18,10 @@ const BlurContainer = styled.div<Props>`
 `;
 
 const Container = styled.div<Props>`
-  display: ${({ open }) => (open ? "block" : "none")};
+  position: relative;
+  display: ${({ open }) => (open ? "flex" : "none")};
+  flex-direction: column;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   right: 0;
@@ -24,6 +30,8 @@ const Container = styled.div<Props>`
   background-color: ${(props) => props.theme.colors.white};
   z-index: 100;
   padding: 2rem;
+  padding-bottom: 0;
+  overflow-y: auto;
 
   @media (min-width: ${(props) => props.theme.width.small}) {
     width: 30rem;
@@ -37,12 +45,36 @@ const FlexTitle = styled.div`
   margin-bottom: 2rem;
 `;
 
+const EmptyContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const ShoppingBasketItemsContainer = styled.div``;
+
 interface Props {
   open: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const ShoppingBasket = ({ onClick, open }: Props) => {
+  const isEmpty = false; // !shoppingBasket.length
+
+  const EmptyShoppingBasket = () => (
+    <EmptyContainer>
+      <p>Shopping basket is empty</p>
+    </EmptyContainer>
+  );
+
+  const ShoppingBasketItems = () => (
+    <ShoppingBasketItemsContainer>
+      <ShoppingBasketItem />
+      <ShoppingBasketItem />
+    </ShoppingBasketItemsContainer>
+  );
+
   return (
     <>
       <BlurContainer open={open}></BlurContainer>
@@ -51,6 +83,15 @@ const ShoppingBasket = ({ onClick, open }: Props) => {
           <h2>My basket</h2>
           <ModalCloseButton onClick={onClick} />
         </FlexTitle>
+        {isEmpty ? (
+          <EmptyShoppingBasket />
+        ) : (
+          <>
+            <ShoppingBasketItems />
+            <ShoppingBasketTotal />
+            <PrimaryButtonLink link="">Checkout</PrimaryButtonLink>
+          </>
+        )}
       </Container>
     </>
   );
