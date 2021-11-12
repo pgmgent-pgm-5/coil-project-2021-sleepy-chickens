@@ -43,8 +43,6 @@ const ModalContent = styled.div`
 `;
 
 const Modal = ({ onClick, open, id }: Props) => {
-  console.log(id);
-
   return (
     <Container open={open}>
       <BlurContainer></BlurContainer>
