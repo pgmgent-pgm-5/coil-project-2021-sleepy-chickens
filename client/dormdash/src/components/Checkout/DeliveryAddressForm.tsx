@@ -5,8 +5,6 @@ import * as yup from "yup";
 import PrimaryButton from "../form/PrimaryButton";
 import InputField from "../form/InputField";
 import TotalOverview from "./TotalOverview";
-import { Link } from "react-router-dom";
-import * as Routes from "../../routes";
 import { useHistory } from "react-router";
 import GoBackButton from "./GoBackButton";
 

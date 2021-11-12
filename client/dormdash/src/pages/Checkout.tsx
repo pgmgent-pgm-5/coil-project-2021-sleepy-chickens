@@ -3,6 +3,7 @@ import { BaseLayout } from "../layouts";
 import styled from "styled-components";
 import ProgressBar from "../components/Checkout/ProgressBar/ProgressBar";
 import DeliveryAddressForm from "../components/Checkout/DeliveryAddressForm";
+import PayementForm from "../components/Checkout/PayementForm";
 
 const Container = styled.div``;
 
@@ -14,7 +15,7 @@ const Checkout = (props: Props) => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   const ActiveComponent = () => {
     if (activeStep === 0) {
@@ -26,7 +27,7 @@ const Checkout = (props: Props) => {
     } else if (activeStep === 1) {
       return (
         <>
-          <div>Payment method</div>
+          <PayementForm nextStep={nextStep} backStep={backStep} />
         </>
       );
     } else if (activeStep === 2) {
