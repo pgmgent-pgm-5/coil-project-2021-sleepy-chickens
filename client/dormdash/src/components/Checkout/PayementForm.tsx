@@ -12,6 +12,7 @@ import { Stripe, StripeElements } from "@stripe/stripe-js/types/stripe-js";
 interface Props {
   backStep: () => void;
   nextStep: () => void;
+  deliveryAddressData: {};
 }
 
 interface StripeProps {
@@ -23,7 +24,7 @@ interface StripeProps {
 
 const stripePromise = loadStripe(appConfig.stripe_public_key as string);
 
-const PayementForm = ({ backStep, nextStep }: Props) => {
+const PayementForm = ({ backStep, nextStep, deliveryAddressData }: Props) => {
   const handleSubmit = async ({
     e,
     elements,
@@ -45,6 +46,9 @@ const PayementForm = ({ backStep, nextStep }: Props) => {
       console.log(error);
     } else {
       console.log(paymentMethod);
+      console.log(deliveryAddressData);
+
+      // data uit current user halen
       //   const orderData = {};
 
       nextStep();

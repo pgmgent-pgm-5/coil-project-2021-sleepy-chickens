@@ -13,21 +13,31 @@ interface Props {}
 
 const Checkout = (props: Props) => {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [deliveryAddressData, setDeliveryAddressData] = React.useState({});
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+  const next = (data: React.SetStateAction<{}>) => {
+    setDeliveryAddressData(data);
+    nextStep();
+  };
 
   const ActiveComponent = () => {
     if (activeStep === 0) {
       return (
         <>
-          <DeliveryAddressForm nextStep={nextStep} />
+          <DeliveryAddressForm next={next} />
         </>
       );
     } else if (activeStep === 1) {
       return (
         <>
-          <PayementForm nextStep={nextStep} backStep={backStep} />
+          <PayementForm
+            deliveryAddressData={deliveryAddressData}
+            nextStep={nextStep}
+            backStep={backStep}
+          />
         </>
       );
     } else if (activeStep === 2) {

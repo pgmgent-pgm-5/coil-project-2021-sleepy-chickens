@@ -54,10 +54,10 @@ const validationSchema = yup.object({
 });
 
 interface Props {
-  nextStep: () => void;
+  next: (data: any) => void;
 }
 
-const DeliveryAddressForm = ({ nextStep }: Props) => {
+const DeliveryAddressForm = ({ next }: Props) => {
   let history = useHistory();
 
   const handleGoBack = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -81,7 +81,7 @@ const DeliveryAddressForm = ({ nextStep }: Props) => {
           console.log(data);
 
           setSubmitting(false);
-          nextStep();
+          next(data);
         }}
         validationSchema={validationSchema}
       >
