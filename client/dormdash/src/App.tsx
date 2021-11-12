@@ -13,6 +13,7 @@ import {
   AboutUs,
   FAQ,
   DetailPage,
+  Checkout,
 } from "./pages";
 import RestaurantOverview from "./pages/RestaurantOverview";
 
@@ -35,6 +36,7 @@ function App() {
           <Route exact path={Routes.ABOUT_US} component={AboutUs} />
           <Route exact path={Routes.FAQ} component={FAQ} />
           <Route exact path={Routes.DETAIL_PAGE} component={DetailPage} />
+          <Route exact path={Routes.CHECKOUT} component={Checkout} />
         </Switch>
       </Router>
     </ThemeProvider>

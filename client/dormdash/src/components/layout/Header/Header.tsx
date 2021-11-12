@@ -80,7 +80,6 @@ const Header = () => {
   const handleBasket = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpenBasket(!openBasket);
-    console.log(openBasket);
   };
 
   useEffect(() => {
@@ -103,16 +102,17 @@ const Header = () => {
             </Logo>
           </Link>
 
-          <FlexContainer>
-            {(location.path === Routes.DETAIL_PAGE ||
-              location.path === Routes.RESTAURANTS_OVERVIEW) && (
-              <>
-                <ShoppingBasketButton onClick={handleBasket} />
-                <ShoppingBasket open={openBasket} onClick={handleBasket} />
-              </>
-            )}
-            <MenuButton onClick={handleMenuButton} open={open} />
-          </FlexContainer>
+          {location.path !== Routes.CHECKOUT && (
+            <FlexContainer>
+              {location.path === Routes.DETAIL_PAGE && (
+                <>
+                  <ShoppingBasketButton onClick={handleBasket} />
+                  <ShoppingBasket open={openBasket} onClick={handleBasket} />
+                </>
+              )}
+              <MenuButton onClick={handleMenuButton} open={open} />
+            </FlexContainer>
+          )}
 
           <Navigation open={open} />
         </FlexContainer>
