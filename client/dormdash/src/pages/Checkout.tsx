@@ -12,11 +12,15 @@ interface Props {}
 
 const Checkout = (props: Props) => {
   const [activeStep, setActiveStep] = React.useState(0);
+
+  const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
   const ActiveComponent = () => {
     if (activeStep === 0) {
       return (
         <>
-          <DeliveryAddressForm />
+          <DeliveryAddressForm nextStep={nextStep} />
         </>
       );
     } else if (activeStep === 1) {
