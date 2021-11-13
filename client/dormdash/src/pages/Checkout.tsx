@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ProgressBar from "../components/Checkout/ProgressBar/ProgressBar";
 import DeliveryAddressForm from "../components/Checkout/DeliveryAddressForm";
 import PayementForm from "../components/Checkout/PayementForm";
+import Overview from "../components/Checkout/Overview";
 
 const Container = styled.div``;
 
@@ -43,7 +44,7 @@ const Checkout = (props: Props) => {
     } else if (activeStep === 2) {
       return (
         <>
-          <div>Overview</div>
+          <Overview backStep={backStep} nextStep={nextStep} />
         </>
       );
     } else if (activeStep === 3) {
