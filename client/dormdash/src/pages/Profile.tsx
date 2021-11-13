@@ -5,7 +5,6 @@ import { Formik, Field } from "formik";
 import * as yup from "yup";
 import PrimaryButton from "../components/form/PrimaryButton";
 import InputField from "../components/form/InputField";
-import { Button } from "../components/form/Button";
 
 const Container = styled.div`
   margin-top: 2rem;

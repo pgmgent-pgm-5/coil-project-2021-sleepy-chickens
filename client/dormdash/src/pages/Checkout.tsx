@@ -15,7 +15,7 @@ const steps = ["Delivery address", "Payment method", "Overview", "Confirm"];
 interface Props {}
 
 const Checkout = (props: Props) => {
-  const [activeStep, setActiveStep] = React.useState(6);
+  const [activeStep, setActiveStep] = React.useState(0);
   const [deliveryAddressData, setDeliveryAddressData] = React.useState({});
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
