@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Devider from "../layout/Partial/Devider";
-import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Container = styled.div`
   display: flex;

@@ -27,7 +27,7 @@ interface Props {}
 const Error = (props: Props) => {
   return (
     <Container>
-      <img src={ErrorImage} alt="Error picture" />
+      <img src={ErrorImage} alt="Error" />
       <h3>
         Something went wrong! Click <Link to={Routes.LANDING}>Here</Link> to
         return to home.
