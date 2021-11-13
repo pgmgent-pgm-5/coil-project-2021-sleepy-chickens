@@ -6,6 +6,7 @@ import DeliveryAddressForm from "../components/Checkout/DeliveryAddressForm";
 import PayementForm from "../components/Checkout/PayementForm";
 import Overview from "../components/Checkout/Overview";
 import Confirm from "../components/Checkout/Confirm";
+import Error from "../components/Checkout/Error";
 
 const Container = styled.div``;
 
@@ -14,7 +15,7 @@ const steps = ["Delivery address", "Payment method", "Overview", "Confirm"];
 interface Props {}
 
 const Checkout = (props: Props) => {
-  const [activeStep, setActiveStep] = React.useState(3);
+  const [activeStep, setActiveStep] = React.useState(6);
   const [deliveryAddressData, setDeliveryAddressData] = React.useState({});
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -51,7 +52,7 @@ const Checkout = (props: Props) => {
     } else if (activeStep === 3) {
       return null;
     } else {
-      return <div>Error</div>;
+      return <Error />;
     }
   };
 
