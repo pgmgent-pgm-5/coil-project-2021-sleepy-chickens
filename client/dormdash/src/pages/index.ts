@@ -8,6 +8,7 @@ import AboutUs from "./AboutUs";
 import FAQ from "./FAQ";
 import DetailPage from "./DetailPage";
 import Checkout from "./Checkout";
+import RestaurantDashboardHome from "./RestaurantDashboardHome";
 
 export {
   HomePage,
@@ -20,4 +21,5 @@ export {
   FAQ,
   DetailPage,
   Checkout,
+  RestaurantDashboardHome,
 };

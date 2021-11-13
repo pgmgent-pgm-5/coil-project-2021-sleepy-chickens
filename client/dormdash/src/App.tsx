@@ -16,6 +16,7 @@ import {
   DetailPage,
   Checkout,
   Profile,
+  RestaurantDashboardHome,
 } from "./pages";
 import RestaurantOverview from "./pages/RestaurantOverview";
 import ScrollToTop from "./components/ScrollToTop ";
@@ -47,6 +48,11 @@ function App() {
             <Route exact path={Routes.FAQ} component={FAQ} />
             <Route exact path={Routes.DETAIL_PAGE} component={DetailPage} />
             <Route exact path={Routes.CHECKOUT} component={Checkout} />
+            <Route
+              exact
+              path={Routes.DASHBOARD_RESTAURANT_HOME}
+              component={RestaurantDashboardHome}
+            />
           </Switch>
         </AnimatePresence>
       </Router>

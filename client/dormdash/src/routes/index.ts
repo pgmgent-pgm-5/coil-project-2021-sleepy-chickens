@@ -14,3 +14,5 @@ export const RESTAURANTS_OVERVIEW = "/restaurants-overview";
 export const DETAIL_PAGE = "/detail/:id";
 
 export const CHECKOUT = "/checkout";
+
+export const DASHBOARD_RESTAURANT_HOME = "/dashboard-restaurant-home";
