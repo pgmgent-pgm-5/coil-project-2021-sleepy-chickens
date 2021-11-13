@@ -115,7 +115,7 @@ const Navigation = ({ open }: Props) => {
               <Link to={Routes.LANDING}>Home</Link>
             </li>
             <li>
-              <Link to="">Profile</Link>
+              <Link to={Routes.PROFILE}>Profile</Link>
             </li>
             <li>
               <Link to={Routes.ABOUT_US}>About us</Link>

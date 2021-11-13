@@ -14,6 +14,7 @@ import {
   FAQ,
   DetailPage,
   Checkout,
+  Profile,
 } from "./pages";
 import RestaurantOverview from "./pages/RestaurantOverview";
 
@@ -33,6 +34,7 @@ function App() {
           <Route exact path={Routes.SIGN_UP} component={SignUp} />
           <Route exact path={Routes.BECOME_DRIVER} component={BecomeDriver} />
           <Route exact path={Routes.BECOME_PARTNER} component={BecomePartner} />
+          <Route exact path={Routes.PROFILE} component={Profile} />
           <Route exact path={Routes.ABOUT_US} component={AboutUs} />
           <Route exact path={Routes.FAQ} component={FAQ} />
           <Route exact path={Routes.DETAIL_PAGE} component={DetailPage} />

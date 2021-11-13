@@ -6,6 +6,7 @@ export const SIGN_UP = "/signup";
 export const BECOME_DRIVER = "/become-driver";
 export const BECOME_PARTNER = "/become-partner";
 
+export const PROFILE = "/profile";
 export const ABOUT_US = "/about-us";
 export const FAQ = "/FAQ";
 
