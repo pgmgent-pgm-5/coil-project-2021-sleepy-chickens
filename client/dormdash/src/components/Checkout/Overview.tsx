@@ -87,7 +87,7 @@ const Overview = ({ backStep, nextStep }: Props) => {
       <TotalOverviewContainer>
         <TotalOverview />
         <PrimaryButton onClick={nextStep} type="button">
-          Next
+          Finish
         </PrimaryButton>
       </TotalOverviewContainer>
 

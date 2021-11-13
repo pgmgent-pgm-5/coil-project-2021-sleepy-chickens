@@ -5,6 +5,7 @@ import ProgressBar from "../components/Checkout/ProgressBar/ProgressBar";
 import DeliveryAddressForm from "../components/Checkout/DeliveryAddressForm";
 import PayementForm from "../components/Checkout/PayementForm";
 import Overview from "../components/Checkout/Overview";
+import Confirm from "../components/Checkout/Confirm";
 
 const Container = styled.div``;
 
@@ -13,7 +14,7 @@ const steps = ["Delivery address", "Payment method", "Overview", "Confirm"];
 interface Props {}
 
 const Checkout = (props: Props) => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = React.useState(3);
   const [deliveryAddressData, setDeliveryAddressData] = React.useState({});
 
   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -59,7 +60,7 @@ const Checkout = (props: Props) => {
       <Container>
         <ProgressBar activeStep={activeStep} steps={steps} />
         <ActiveComponent />
-        {activeStep === 3 && <div>Confirm</div>}
+        {activeStep === 3 && <Confirm />}
       </Container>
     </BaseLayout>
   );
