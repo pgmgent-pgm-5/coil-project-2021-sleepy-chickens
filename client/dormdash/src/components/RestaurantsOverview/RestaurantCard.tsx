@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { RestaurantSummary } from "../../interfaces/interfaces";
 
 const Container = styled.div`
   width: 100%;
@@ -21,12 +22,12 @@ const Container = styled.div`
   //   }
 `;
 
-const Image = styled.div`
+const Image = styled.div<Picture>`
   width: 100%;
   border-radius: ${(props) => props.theme.borderRadius.normal};
   min-height: 12rem;
   height: 80%;
-  background-image: url("https://images.unsplash.com/photo-1571805618149-3a772570ebcd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80");
+  background-image: url(${(props) => props.picture});
   background-size: cover;
   background-position: center center;
 `;
@@ -64,22 +65,46 @@ const Content = styled.div`
   }
 `;
 
-interface Props {}
+interface Picture {
+  picture: string;
+}
 
-const RestaurantCard = (props: Props) => {
+
+const RestaurantCard = ({
+  id,
+  name,
+  picture,
+  deliveryTime,
+  category,
+  reviews
+}: RestaurantSummary) => {
+  const numberOfReviews = reviews.length; 
+  let totalRating = 0;
+  reviews.map(review => {
+    totalRating += review.rating;
+  })
+
+  let averageRating = null;
+  if (numberOfReviews === 0) {
+    averageRating = null;
+  } else {
+    averageRating = totalRating / numberOfReviews;
+  }
+  console.log('picture', picture);
+
   return (
     <Container>
       <Rating>
-        <span>4.1</span>
+        <span>{averageRating}</span>
       </Rating>
 
-      <Image></Image>
+      <Image picture={picture}></Image>
 
       <Content>
-        <h3>Title</h3>
+        <h3>{name}</h3>
         <div>
-          <span>Category</span>
-          <span>30 min</span>
+          <span>{category.name}</span>
+          <span>{deliveryTime} min</span>
         </div>
       </Content>
     </Container>

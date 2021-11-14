@@ -81,7 +81,7 @@ const Hero = () => {
           {({ values, errors, isSubmitting }) => (
             <Form>
               <Field
-                placeholder="Address"
+                placeholder="City"
                 name="search"
                 as={SearchField}
                 type="input"
