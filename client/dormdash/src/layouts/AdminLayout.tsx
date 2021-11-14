@@ -1,8 +1,5 @@
 import styled from "styled-components";
 import Header from "../components/layout/Header/Header";
-import Footer from "../components/layout/footer/Footer";
-
-import { motion } from "framer-motion";
 
 const MainLayout = styled.main`
   max-width: ${(props) => props.theme.width.large};
@@ -15,26 +12,17 @@ const MainLayout = styled.main`
   }
 `;
 
-interface BaseLayoutProps {
+interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-const BaseLayout = ({ children }: BaseLayoutProps) => {
+const AdminLayout = ({ children }: AdminLayoutProps) => {
   return (
-    <motion.div
-      initial={{
-        opacity: 0,
-        y: 200,
-      }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 200 }}
-      transition={{ duration: 0.5 }}
-    >
+    <>
       <Header />
       <MainLayout>{children}</MainLayout>
-      <Footer />
-    </motion.div>
+    </>
   );
 };
 
-export default BaseLayout;
+export default AdminLayout;
