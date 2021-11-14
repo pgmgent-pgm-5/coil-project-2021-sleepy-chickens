@@ -12,6 +12,7 @@ import RestaurantDashboardHome from "./RestaurantDashboardHome";
 import RestaurantDashboardDishes from "./RestaurantDashboardDishes";
 import RestaurantDashboardProfile from "./RestaurantDashboardProfile";
 import RestaurantDishEditPage from "./RestaurantDishEditPage";
+import RestaurantDishAddPage from "./RestaurantDishAddPage";
 
 export {
   HomePage,
@@ -28,4 +29,5 @@ export {
   RestaurantDashboardDishes,
   RestaurantDashboardProfile,
   RestaurantDishEditPage,
+  RestaurantDishAddPage,
 };

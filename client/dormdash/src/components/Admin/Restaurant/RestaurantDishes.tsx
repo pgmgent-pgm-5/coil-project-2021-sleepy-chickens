@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import * as Routes from "../../../routes";
 
 const Container = styled.div`
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   width: 100%;
   height: 31rem;

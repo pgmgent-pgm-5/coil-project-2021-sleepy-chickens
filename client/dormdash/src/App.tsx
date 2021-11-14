@@ -20,6 +20,7 @@ import {
   RestaurantDashboardDishes,
   RestaurantDashboardProfile,
   RestaurantDishEditPage,
+  RestaurantDishAddPage,
 } from "./pages";
 import RestaurantOverview from "./pages/RestaurantOverview";
 import ScrollToTop from "./components/ScrollToTop ";
@@ -70,6 +71,11 @@ function App() {
               exact
               path={Routes.DISH_EDITPAGE}
               component={RestaurantDishEditPage}
+            />
+            <Route
+              exact
+              path={Routes.DISH_ADD}
+              component={RestaurantDishAddPage}
             />
           </Switch>
         </AnimatePresence>
