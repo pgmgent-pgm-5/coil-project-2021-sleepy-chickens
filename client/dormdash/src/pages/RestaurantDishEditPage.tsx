@@ -4,6 +4,8 @@ import * as yup from "yup";
 import PrimaryButton from "../components/form/PrimaryButton";
 import InputField from "../components/form/InputField";
 import Textarea from "../components/form/Textarea";
+import PrimaryLink from "../components/Admin/Restaurant/PrimaryLink";
+import * as Routes from "../routes";
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.width.small};
@@ -93,6 +95,7 @@ const RestaurantDishEditPage = (props: Props) => {
           </form>
         )}
       </Formik>
+      <PrimaryLink link={Routes.DISHES}>Go back</PrimaryLink>
     </Container>
   );
 };
