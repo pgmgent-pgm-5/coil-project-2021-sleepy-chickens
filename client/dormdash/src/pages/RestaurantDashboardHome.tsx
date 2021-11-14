@@ -1,3 +1,4 @@
+import OrderDetails from "../components/Admin/Restaurant/OrderDetails";
 import Rechart from "../components/Admin/Restaurant/Rechart";
 import SalesRevenue from "../components/Admin/Restaurant/SalesRevenue";
 import AdminLayout from "../layouts/AdminLayout";
@@ -9,6 +10,7 @@ const RestaurantDashboardHome = (props: Props) => {
     <AdminLayout>
       <SalesRevenue />
       <Rechart />
+      <OrderDetails />
     </AdminLayout>
   );
 };
