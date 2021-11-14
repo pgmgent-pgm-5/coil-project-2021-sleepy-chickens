@@ -18,7 +18,8 @@ const Item = styled.div`
   justify-content: space-between;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: ${(props) => props.theme.colors.tertiaryAccentColor} 0px 2px 8px
+    0px;
   width: 100%;
 
   @media (min-width: ${(props) => props.theme.width.medium}) {
