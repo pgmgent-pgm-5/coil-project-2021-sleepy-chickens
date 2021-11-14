@@ -95,12 +95,23 @@ const Header = () => {
     <HeaderContainer>
       <Wrapper>
         <FlexContainer>
-          <Link to={Routes.LANDING}>
-            <Logo open={open}>
-              <img src={logo} alt="logo" />
-              <h1>Dormdash</h1>
-            </Logo>
-          </Link>
+          {location.path === Routes.DASHBOARD_RESTAURANT_HOME ||
+          location.path === Routes.DISHES ||
+          location.path === Routes.PROFILE_RESTAURANT ? (
+            <Link to={Routes.DASHBOARD_RESTAURANT_HOME}>
+              <Logo open={open}>
+                <img src={logo} alt="logo" />
+                <h1>Dormdash(board)</h1>
+              </Logo>
+            </Link>
+          ) : (
+            <Link to={Routes.LANDING}>
+              <Logo open={open}>
+                <img src={logo} alt="logo" />
+                <h1>Dormdash</h1>
+              </Logo>
+            </Link>
+          )}
 
           {location.path !== Routes.CHECKOUT && (
             <FlexContainer>
