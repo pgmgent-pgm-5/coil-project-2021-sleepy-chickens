@@ -9,6 +9,9 @@ import FAQ from "./FAQ";
 import DetailPage from "./DetailPage";
 import Checkout from "./Checkout";
 import RestaurantDashboardHome from "./RestaurantDashboardHome";
+import RestaurantDashboardDishes from "./RestaurantDashboardDishes";
+import RestaurantDashboardProfile from "./RestaurantDashboardProfile";
+import RestaurantDishEditPage from "./RestaurantDishEditPage";
 
 export {
   HomePage,
@@ -22,4 +25,7 @@ export {
   DetailPage,
   Checkout,
   RestaurantDashboardHome,
+  RestaurantDashboardDishes,
+  RestaurantDashboardProfile,
+  RestaurantDishEditPage,
 };

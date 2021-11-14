@@ -3,6 +3,7 @@ import * as Routes from "../../../routes";
 import { Link } from "react-router-dom";
 import Headquarters from "../Partial/Headquarters";
 import Contact from "../Partial/Contact";
+import { useRouteMatch } from "react-router-dom";
 
 interface Props {
   open: boolean;
@@ -106,25 +107,45 @@ const CallToAction = styled.div<Props>`
 `;
 
 const Navigation = ({ open }: Props) => {
+  const location = useRouteMatch();
+
   return (
     <Container open={open}>
       <NavContainer open={open}>
-        <Nav>
-          <ul>
-            <li>
-              <Link to={Routes.LANDING}>Home</Link>
-            </li>
-            <li>
-              <Link to={Routes.PROFILE}>Profile</Link>
-            </li>
-            <li>
-              <Link to={Routes.ABOUT_US}>About us</Link>
-            </li>
-            <li>
-              <Link to={Routes.FAQ}>FAQ</Link>
-            </li>
-          </ul>
-        </Nav>
+        {location.path === Routes.DASHBOARD_RESTAURANT_HOME ||
+        location.path === Routes.DISHES ||
+        location.path === Routes.PROFILE_RESTAURANT ? (
+          <Nav>
+            <ul>
+              <li>
+                <Link to={Routes.DASHBOARD_RESTAURANT_HOME}>Home</Link>
+              </li>
+              <li>
+                <Link to={Routes.PROFILE_RESTAURANT}>Profile</Link>
+              </li>
+              <li>
+                <Link to={Routes.DISHES}>Dishes</Link>
+              </li>
+            </ul>
+          </Nav>
+        ) : (
+          <Nav>
+            <ul>
+              <li>
+                <Link to={Routes.LANDING}>Home</Link>
+              </li>
+              <li>
+                <Link to={Routes.PROFILE}>Profile</Link>
+              </li>
+              <li>
+                <Link to={Routes.ABOUT_US}>About us</Link>
+              </li>
+              <li>
+                <Link to={Routes.FAQ}>FAQ</Link>
+              </li>
+            </ul>
+          </Nav>
+        )}
 
         <InfoContainer>
           <Headquarters />
