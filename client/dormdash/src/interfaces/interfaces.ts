@@ -16,8 +16,6 @@ export interface StudentFAQProps {
 
 export interface Restaurant {
   id: number;
-  userId: number;
-  categoryId: number;
   name: string;
   description: string;
   logo: string;
@@ -28,6 +26,8 @@ export interface Restaurant {
   city: string;
   deliveryTime: number;
   deliveryTimes: string;
+  category: Category;
+  reviews: Review[]
 }
 
 export interface RestaurantSummaries {
@@ -48,4 +48,12 @@ export interface Category {
 }
 export interface ReviewRating {
   rating: number;
+}
+
+export interface Review {
+  rating: number;
+  title: string;
+  date: Date;
+  description: string ;
+
 }

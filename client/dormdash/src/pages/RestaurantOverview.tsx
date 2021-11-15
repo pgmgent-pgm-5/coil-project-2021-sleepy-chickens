@@ -37,10 +37,6 @@ const RestaurantOverview = (props: Props) => {
     fetchPolicy: "cache-first"
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   if (loading) return <div>Loading ...</div>;
 
   return (
@@ -52,11 +48,7 @@ const RestaurantOverview = (props: Props) => {
         <RestaurantContainer>
           {data?.restaurants.map(restaurant => {
 
-            console.log("headCategories",restaurant.category);
             return (
-              // <li key={restaurant.id}>
-              //   <p>{restaurant.name}</p>
-              // </li>
               <RestaurantCard 
                 key={restaurant.id} 
                 id={restaurant.id}
