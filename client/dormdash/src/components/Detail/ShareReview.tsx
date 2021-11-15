@@ -6,6 +6,11 @@ import * as yup from "yup";
 import InputField from "../form/InputField";
 import PrimaryButton from "../form/PrimaryButton";
 import Textarea from "../form/Textarea";
+import { useMutation } from "@apollo/client";
+import { CREATE_REVIEW } from "../../graphql/reviews";
+import { useHistory, useParams } from "react-router-dom";
+import { RESTAURANTS_DETAIL } from "../../graphql/restaurants";
+import * as Routes from '../../routes';
 
 const FlexTitle = styled.div`
   display: flex;
@@ -29,6 +34,12 @@ const validationSchema = yup.object({
 });
 
 const ShareReview = ({ onClick }: Props) => {
+  let newDate = new Date();
+  let { id } = useParams<{ id:string }>();
+  const [createReview, {data, loading, error}] = useMutation(CREATE_REVIEW);
+
+  // if (loading) return 'Submitting ...';
+  
   return (
     <>
       <FlexTitle>
@@ -42,13 +53,30 @@ const ShareReview = ({ onClick }: Props) => {
           rating: 1,
           review: "",
         }}
-        onSubmit={(data, { setSubmitting }) => {
+        onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
 
           // async call naar api
-          console.log(data);
+          createReview({ 
+            variables: {
+              rating: formData.rating, 
+              title: formData.name, 
+              description: formData.review,  
+              date: newDate,
+              restaurantId: Number(id),
+            },
+            refetchQueries: [
+              {
+                query: RESTAURANTS_DETAIL,
+              }
+            ]
+          });
 
           setSubmitting(false);
+          window.location.reload();
+          // // history.push({
+          // //   pathname: Routes.DETAIL_PAGE.replace(':id', String(id)),
+          // });
         }}
         validationSchema={validationSchema}
       >

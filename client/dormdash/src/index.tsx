@@ -11,16 +11,16 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 
-const errorLink = onError(({graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    graphQLErrors.map(({message }) => {
-      alert(`Graphql error ${message}`);
-    });
-  }
-});
+// const errorLink = onError(({graphQLErrors, networkError }) => {
+//   if (graphQLErrors) {
+//     graphQLErrors.map(({message }) => {
+//       alert(`Graphql error ${message}`);
+//     });
+//   }
+// });
 
 const link = from ([
-  errorLink,
+  // errorLink,
   new HttpLink({ uri: 'http://localhost:3000/graphql' }),
 ])
 

@@ -7,6 +7,7 @@ import { useQuery, gql } from "@apollo/client";
 import { RESTAURANTS_SUMMARY } from "../graphql/restaurants";
 import { RestaurantSummaries } from "../interfaces/interfaces";
 
+
 const Container = styled.div`
   margin-top: 5rem;
 
@@ -33,38 +34,52 @@ const RestaurantContainer = styled.ul`
 interface Props {}
 
 const RestaurantOverview = (props: Props) => {
+  const search = window.location.search;
+  const params = new URLSearchParams(search);
+  const query = params.get('query');
+  
+  console.log(query);
+  console.log(typeof(query));
   const { error, loading, data, refetch } = useQuery<RestaurantSummaries>(
     RESTAURANTS_SUMMARY,
     {
       fetchPolicy: "cache-first",
+      variables: { province: String(query) }
     }
   );
+
+  if (data) {
+    console.log(data);
+  }
 
   if (loading) return <div>Loading ...</div>;
 
   return (
     <BaseLayout>
-      <Container>
-        <FilterContainer>
-          <RestaurantFilter />
-        </FilterContainer>
-        <RestaurantContainer>
-          {data?.restaurants.map(restaurant => {
+      { data && (
+        <Container>
+          <FilterContainer>
+            <RestaurantFilter />
+          </FilterContainer>
+          <RestaurantContainer>
+            {data?.restaurantsByProvince.map(restaurant => {
 
-            return (
-              <RestaurantCard 
-                key={restaurant.id} 
-                id={restaurant.id}
-                name={restaurant.name}
-                picture={restaurant.picture}
-                deliveryTime={restaurant.deliveryTime}
-                category={restaurant.category}
-                reviews={restaurant.reviews}
-              />
-            );
-          })}
-        </RestaurantContainer>
-      </Container>
+              return (
+                <RestaurantCard 
+                  key={restaurant.id} 
+                  id={restaurant.id}
+                  name={restaurant.name}
+                  picture={restaurant.picture}
+                  deliveryTime={restaurant.deliveryTime}
+                  category={restaurant.category}
+                  reviews={restaurant.reviews}
+                />
+              );
+            })}
+          </RestaurantContainer>
+        </Container>
+
+      )}
     </BaseLayout>
   );
 };
