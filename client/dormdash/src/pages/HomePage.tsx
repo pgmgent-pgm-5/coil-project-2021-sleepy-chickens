@@ -1,15 +1,24 @@
-import React from 'react'
+import { BaseLayout } from "../layouts";
 
-interface Props {
-  
-}
+import Hero from "../components/hero/Hero";
+import Process from "../components/home/Process";
+import CallToActionDeliverer from "../components/home/CallToActionDeliverer";
+import CallToActionPartner from "../components/home/CallToActionPartner";
+import { Helmet } from "react-helmet";
+interface Props {}
 
 const HomePage = (props: Props) => {
   return (
-    <div>
-      <h1>test</h1>
-    </div>
-  )
-}
+    <BaseLayout>
+      <Helmet>
+        <title>Dormdash | Home</title>
+      </Helmet>
+      <Hero />
+      <Process />
+      <CallToActionDeliverer />
+      <CallToActionPartner />
+    </BaseLayout>
+  );
+};
 
-export default HomePage
+export default HomePage;
