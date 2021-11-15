@@ -6,6 +6,7 @@ import InputField from "../components/form/InputField";
 import Textarea from "../components/form/Textarea";
 import PrimaryLink from "../components/Admin/Restaurant/PrimaryLink";
 import * as Routes from "../routes";
+import { Helmet } from "react-helmet";
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.width.small};
@@ -44,6 +45,10 @@ interface Props {}
 const RestaurantDishEditPage = (props: Props) => {
   return (
     <Container>
+      <Helmet>
+        <title>Dormdashboard | Edit Dish</title>
+        <meta name="description" content="edit your dishes" />
+      </Helmet>
       <h1>Edit dish</h1>
       <Image>
         <img src="https://source.unsplash.com/1600x900/?food" alt="" />

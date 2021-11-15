@@ -4,6 +4,7 @@ import student_faq from "../data/student_faq.json";
 import FaqStudent from "../components/FAQ/FaqStudent";
 import FaqRestaurant from "../components/FAQ/FaqRestaurant";
 import FaqDeliverer from "../components/FAQ/FaqDeliverer";
+import { Helmet } from "react-helmet";
 
 const Title = styled.h1`
   margin-top: 3rem;
@@ -21,6 +22,14 @@ const Container = styled.div`
 const FAQ = () => {
   return (
     <BaseLayout>
+      <Helmet>
+        <title>Dormdash | FAQ</title>
+        <meta
+          name="description"
+          content="Got a question? here are all the frequently questions"
+        />
+      </Helmet>
+
       <Title>FAQ</Title>
       <Container>
         <h2>Student FAQ</h2>

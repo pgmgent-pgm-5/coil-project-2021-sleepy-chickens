@@ -7,6 +7,7 @@ import InputField from "../components/form/InputField";
 import Textarea from "../components/form/Textarea";
 import PrimaryLink from "../components/Admin/Restaurant/PrimaryLink";
 import * as Routes from "../routes";
+import { Helmet } from "react-helmet";
 
 const Container = styled.main`
   margin: 4rem auto;
@@ -65,6 +66,11 @@ interface Props {}
 const RestaurantDashboardProfile = (props: Props) => {
   return (
     <AdminLayout>
+      <Helmet>
+        <title>Dormdashboard | Profile</title>
+        <meta name="description" content="edit profile" />
+      </Helmet>
+
       <Container>
         <Image>
           <h1>Profile</h1>

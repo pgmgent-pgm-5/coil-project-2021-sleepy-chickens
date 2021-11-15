@@ -7,6 +7,7 @@ import { Field, Formik } from "formik";
 import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import SignInLink from "../components/form/SignInLink";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   //height: 100vh;
@@ -74,6 +75,10 @@ const BecomePartner = () => {
   return (
     <BaseLayout>
       <Container>
+        <Helmet>
+          <title>Dormdash | Partner</title>
+          <meta name="description" content="Become a partner" />
+        </Helmet>
         <FormWrapper>
           <h1>Become a partner</h1>
           <Formik

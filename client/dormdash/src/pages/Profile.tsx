@@ -5,6 +5,7 @@ import { Formik, Field } from "formik";
 import * as yup from "yup";
 import PrimaryButton from "../components/form/PrimaryButton";
 import InputField from "../components/form/InputField";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   margin-top: 2rem;
@@ -76,6 +77,11 @@ interface Props {}
 const Profile = (props: Props) => {
   return (
     <BaseLayout>
+      <Helmet>
+        <title>Dormdash | Profile</title>
+        <meta name="description" content="See your profile" />
+      </Helmet>
+
       <Container>
         <Image>
           <img src="https://randomuser.me/api/portraits/women/75.jpg" alt="" />

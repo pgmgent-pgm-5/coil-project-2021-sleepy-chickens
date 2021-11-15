@@ -7,6 +7,7 @@ import PayementForm from "../components/Checkout/PayementForm";
 import Overview from "../components/Checkout/Overview";
 import Confirm from "../components/Checkout/Confirm";
 import Error from "../components/Checkout/Error";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div``;
 
@@ -58,6 +59,9 @@ const Checkout = (props: Props) => {
 
   return (
     <BaseLayout>
+      <Helmet>
+        <title>Dormdash | Checkout</title>
+      </Helmet>
       <Container>
         <ProgressBar activeStep={activeStep} steps={steps} />
         <ActiveComponent />

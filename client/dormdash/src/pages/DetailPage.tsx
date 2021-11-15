@@ -16,6 +16,7 @@ import { RESTAURANTS_DETAIL } from "../graphql/restaurants";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Review } from "../interfaces/interfaces";
+import { Helmet } from "react-helmet";
 
 const DetailReviewContainer = styled.ul`
   @media (min-width: ${(props) => props.theme.width.small}) {
@@ -123,6 +124,14 @@ const DetailPage = (props: Props) => {
     <BaseLayout>
       {data && (
         <>
+          <Helmet>
+            <title>Dormdash | {data.getRestaurantById.name}</title>
+            <meta
+              name="description"
+              content={`Shop your favorite dishes from ${data.getRestaurantById.name}`}
+            />
+          </Helmet>
+
           <Modal
             open={open}
             onClick={handleClick}

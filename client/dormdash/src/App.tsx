@@ -24,12 +24,21 @@ import {
 } from "./pages";
 import RestaurantOverview from "./pages/RestaurantOverview";
 import ScrollToTop from "./components/ScrollToTop ";
+import { Helmet } from "react-helmet";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Router>
+        <Helmet>
+          <title>Dormdash</title>
+          <meta
+            name="description"
+            content="We are Dormdash, a food delivery service that connects students with restaurants in their city. Dormdash started as a side project for some hungry students - we always studied late into the night and had no food to eat. We created Dormdash as a solution to those late nights. No more missing meals!"
+          />
+          <meta name="keywords" content="delivery, food, students meals" />
+        </Helmet>
         <AnimatePresence exitBeforeEnter>
           <ScrollToTop />
           <Switch>
