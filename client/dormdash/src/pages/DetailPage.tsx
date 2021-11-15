@@ -12,6 +12,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "swiper/swiper.min.css";
+import { RESTAURANTS_DETAIL } from "../graphql/restaurants";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
+import { Review } from "../interfaces/interfaces";
 
 const DetailReviewContainer = styled.ul`
   @media (min-width: ${(props) => props.theme.width.small}) {
@@ -66,35 +70,75 @@ interface Props {}
 
 const DetailPage = (props: Props) => {
   SwiperCore.use([Navigation]);
+  let { id } = useParams<{ id:string }>();
+  console.log(id);
+
+  const { error, loading, data, refetch } = useQuery(RESTAURANTS_DETAIL, {
+    variables: { id: Number(id) }  
+  });
 
   const [open, setOpen] = useState(false);
-  const [id, setId] = useState("");
+  const [modalId, setModalId] = useState("");
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(!open);
-    setId(e.currentTarget.id);
+    setModalId(e.currentTarget.id);
   };
 
+  let averageRating:number = 0;
   useEffect(() => {
-    if (open) {
+    
+  }, [data]);
+
+  if(data) {
+    let numberOfReviews:number = 0;
+    let totalRating:number = 0;
+    
+
+      numberOfReviews = data.getRestaurantById.reviews.length; 
+
+      data.getRestaurantById.reviews.map((review:Review) => {
+        totalRating += review.rating;
+      })
+
+    if (numberOfReviews > 0) {
+      console.log(((totalRating / numberOfReviews).toFixed(1)));
+      averageRating= Number((totalRating / numberOfReviews).toFixed(1));
+    }
+  }
+
+  useEffect(() => {
+    if (open) {  
       document.body.style.overflow = "hidden";
     } else if (!open) {
       document.body.style.overflow = "auto";
     }
   }, [open]);
 
+
+  data && console.log('string data', data.getRestaurantById.city);
+  
+
+  
+
+  if (loading) return <div>Loading ...</div>;
+
+  
+
   return (
     <BaseLayout>
-      <Modal open={open} onClick={handleClick} id={id} />
+    {data && (
+      <>
+      <Modal open={open} onClick={handleClick} id={modalId} />
 
-      <DetailHero onClick={handleClick} open={open} />
+      <DetailHero onClick={handleClick}  open={open} />
 
       <DetailReviewContainer>
         <FlexContainerTitle>
           <h2>Reviews</h2>
           <AddReviewButton onClick={handleClick} open={open} />
-          <p>4.1 Rating</p>
+          <p>{averageRating} Rating</p>
         </FlexContainerTitle>
 
         <FlexContainer>
@@ -142,6 +186,8 @@ const DetailPage = (props: Props) => {
         <DetailDishCard />
         <DetailDishCard />
       </DetailDishCardContainer>
+    </>
+     )}
     </BaseLayout>
   );
 };

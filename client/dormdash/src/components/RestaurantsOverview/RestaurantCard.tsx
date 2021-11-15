@@ -1,8 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RestaurantSummary } from "../../interfaces/interfaces";
+import * as Routes from '../../routes';
 
-const Container = styled.div`
+const Container = styled.li`
   width: 100%;
   min-width: 10rem;
   position: relative;
@@ -80,7 +82,7 @@ const RestaurantCard = ({
 }: RestaurantSummary) => {
   const numberOfReviews = reviews.length; 
   let totalRating = 0;
-  reviews.map(review => {
+  reviews.map((review, index) => {
     totalRating += review.rating;
   })
 
@@ -88,25 +90,27 @@ const RestaurantCard = ({
   if (numberOfReviews === 0) {
     averageRating = null;
   } else {
-    averageRating = totalRating / numberOfReviews;
+    averageRating = (totalRating / numberOfReviews).toFixed(1);
   }
-  console.log('picture', picture);
+  
 
   return (
-    <Container>
-      <Rating>
-        <span>{averageRating}</span>
-      </Rating>
+    <Container key={id}>
+      <Link to={Routes.DETAIL_PAGE.replace(':id', String(id))}>
+        <Rating>
+          <span>{averageRating}</span>
+        </Rating>
 
-      <Image picture={picture}></Image>
+        <Image picture={picture}></Image>
 
-      <Content>
-        <h3>{name}</h3>
-        <div>
-          <span>{category.name}</span>
-          <span>{deliveryTime} min</span>
-        </div>
-      </Content>
+        <Content>
+          <h3>{name}</h3>
+          <div>
+            <span>{category.name}</span>
+            <span>{deliveryTime} min</span>
+          </div>
+        </Content>
+      </Link>
     </Container>
   );
 };
