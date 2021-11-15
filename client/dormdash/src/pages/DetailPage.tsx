@@ -15,7 +15,7 @@ import "swiper/swiper.min.css";
 import { RESTAURANTS_DETAIL } from "../graphql/restaurants";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { Review } from "../interfaces/interfaces";
+import { Dish, Review } from "../interfaces/interfaces";
 import { Helmet } from "react-helmet";
 
 const DetailReviewContainer = styled.ul`
@@ -192,7 +192,15 @@ const DetailPage = (props: Props) => {
 
           <DetailDishCardContainer>
             <h2>Menu</h2>
-            <DetailDishCard />
+            {data.getRestaurantById.dishes.map((dish: Dish, index: number) => (
+              <DetailDishCard
+                key={index}
+                name={dish.name}
+                price={dish.price}
+                description={dish.description}
+                picture={dish.picture}
+              />
+            ))}
           </DetailDishCardContainer>
         </>
       )}

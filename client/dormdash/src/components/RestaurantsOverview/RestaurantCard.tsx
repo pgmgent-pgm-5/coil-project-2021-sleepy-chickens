@@ -13,15 +13,14 @@ const Container = styled.li`
 
   @media (min-width: ${(props) => props.theme.width.small}) {
     flex-grow: 1;
-    flex-basis: calc(33% - 2rem);
+    flex-basis: calc(50% - 2rem);
     margin: 0 1rem;
     margin-bottom: 2rem;
+
+    &:last-child {
+      max-width: calc(50% - 2rem);
+    }
   }
-  //   @media (min-width: ${(props) => props.theme.width.medium}) {
-  //     margin: 0 1rem;
-  //     margin-bottom: 2rem;
-  //     flex-basis: calc(33% - 2rem);
-  //   }
 
   a {
     color: ${(props) => props.theme.colors.black};

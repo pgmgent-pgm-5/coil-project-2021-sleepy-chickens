@@ -72,7 +72,7 @@ const Hero = () => {
     <ImgContainer>
       <img src={heroImg} alt="A variety of food" />
       <SearchContainer>
-        <h1>Lorem ipsum dolor sit amet</h1>
+        <h1>Your favourite meals delivered to your dorm</h1>
 
         <Formik
           initialValues={{

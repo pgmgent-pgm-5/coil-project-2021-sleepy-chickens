@@ -29,6 +29,8 @@ const FilterContainer = styled.div`
 const RestaurantContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 interface Props {}
@@ -72,15 +74,26 @@ const RestaurantOverview = (props: Props) => {
             <RestaurantContainer>
               {data?.restaurantsByProvince.map((restaurant) => {
                 return (
-                  <RestaurantCard
-                    key={restaurant.id}
-                    id={restaurant.id}
-                    name={restaurant.name}
-                    picture={restaurant.picture}
-                    deliveryTime={restaurant.deliveryTime}
-                    category={restaurant.category}
-                    reviews={restaurant.reviews}
-                  />
+                  <>
+                    <RestaurantCard
+                      key={restaurant.id}
+                      id={restaurant.id}
+                      name={restaurant.name}
+                      picture={restaurant.picture}
+                      deliveryTime={restaurant.deliveryTime}
+                      category={restaurant.category}
+                      reviews={restaurant.reviews}
+                    />
+                    <RestaurantCard
+                      key={restaurant.id}
+                      id={restaurant.id}
+                      name={restaurant.name}
+                      picture={restaurant.picture}
+                      deliveryTime={restaurant.deliveryTime}
+                      category={restaurant.category}
+                      reviews={restaurant.reviews}
+                    />
+                  </>
                 );
               })}
             </RestaurantContainer>
