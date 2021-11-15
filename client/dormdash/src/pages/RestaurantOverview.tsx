@@ -49,22 +49,11 @@ const RestaurantOverview = (props: Props) => {
           <RestaurantFilter />
         </FilterContainer>
         <RestaurantContainer>
-<<<<<<< HEAD
-          {data?.restaurants.map((restaurant) => {
-            console.log("headCategories", restaurant.category);
-            return (
-              // <li key={restaurant.id}>
-              //   <p>{restaurant.name}</p>
-              // </li>
-              <RestaurantCard
-                key={restaurant.id}
-=======
           {data?.restaurants.map(restaurant => {
 
             return (
               <RestaurantCard 
                 key={restaurant.id} 
->>>>>>> 78115307af5df55d7c245b2085be3e7ce3432bc1
                 id={restaurant.id}
                 name={restaurant.name}
                 picture={restaurant.picture}
