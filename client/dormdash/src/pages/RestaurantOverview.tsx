@@ -6,7 +6,7 @@ import RestaurantFilter from "../components/RestaurantsOverview/RestaurantFilter
 import { useQuery, gql } from "@apollo/client";
 import { RESTAURANTS_SUMMARY } from "../graphql/restaurants";
 import { RestaurantSummaries } from "../interfaces/interfaces";
-
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -29,6 +29,8 @@ const FilterContainer = styled.div`
 const RestaurantContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 interface Props {}
@@ -36,15 +38,15 @@ interface Props {}
 const RestaurantOverview = (props: Props) => {
   const search = window.location.search;
   const params = new URLSearchParams(search);
-  const query = params.get('query');
-  
+  const query = params.get("query");
+
   console.log(query);
-  console.log(typeof(query));
+  console.log(typeof query);
   const { error, loading, data, refetch } = useQuery<RestaurantSummaries>(
     RESTAURANTS_SUMMARY,
     {
       fetchPolicy: "cache-first",
-      variables: { province: String(query) }
+      variables: { province: String(query) },
     }
   );
 
@@ -56,29 +58,36 @@ const RestaurantOverview = (props: Props) => {
 
   return (
     <BaseLayout>
-      { data && (
-        <Container>
-          <FilterContainer>
-            <RestaurantFilter />
-          </FilterContainer>
-          <RestaurantContainer>
-            {data?.restaurantsByProvince.map(restaurant => {
-
-              return (
-                <RestaurantCard 
-                  key={restaurant.id} 
-                  id={restaurant.id}
-                  name={restaurant.name}
-                  picture={restaurant.picture}
-                  deliveryTime={restaurant.deliveryTime}
-                  category={restaurant.category}
-                  reviews={restaurant.reviews}
-                />
-              );
-            })}
-          </RestaurantContainer>
-        </Container>
-
+      {data && (
+        <>
+          <Helmet>
+            <title>Dormdash | {query}</title>
+            <meta
+              name="description"
+              content={`discover your favorite restaurants in ${query}`}
+            />
+          </Helmet>
+          <Container>
+            <FilterContainer>
+              <RestaurantFilter />
+            </FilterContainer>
+            <RestaurantContainer>
+              {data?.restaurantsByProvince.map((restaurant) => {
+                return (
+                  <RestaurantCard
+                    key={restaurant.id}
+                    id={restaurant.id}
+                    name={restaurant.name}
+                    picture={restaurant.picture}
+                    deliveryTime={restaurant.deliveryTime}
+                    category={restaurant.category}
+                    reviews={restaurant.reviews}
+                  />
+                );
+              })}
+            </RestaurantContainer>
+          </Container>
+        </>
       )}
     </BaseLayout>
   );

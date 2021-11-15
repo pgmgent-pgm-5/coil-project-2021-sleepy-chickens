@@ -46,7 +46,7 @@ const TotalOverviewContainer = styled.div`
 `;
 
 const validationSchema = yup.object({
-  streetNumber: yup.string().required("Street number is required"),
+  houseNumber: yup.string().required("House number is required"),
   street: yup.string().required("Street is required"),
   city: yup.string().required("City is required"),
   zipCode: yup.string().required("Zip code is required"),
@@ -68,7 +68,7 @@ const DeliveryAddressForm = ({ next }: Props) => {
     <Container>
       <Formik
         initialValues={{
-          streetNumber: "",
+          houseNumber: "",
           street: "",
           city: "",
           zipCode: "",
@@ -92,8 +92,8 @@ const DeliveryAddressForm = ({ next }: Props) => {
               <Field
                 type="input"
                 as={InputField}
-                name="streetNumber"
-                placeholder="Street number"
+                name="houseNumber"
+                placeholder="House number"
               />
               <Field
                 type="input"

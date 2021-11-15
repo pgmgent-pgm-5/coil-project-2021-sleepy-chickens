@@ -22,16 +22,16 @@ export interface Restaurant {
   picture: string;
   street: string;
   streetnumber: number;
-  postalcode: string; 
+  postalcode: string;
   city: string;
   deliveryTime: number;
   deliveryTimes: string;
   category: Category;
-  reviews: Review[]
+  reviews: Review[];
 }
 
 export interface RestaurantSummaries {
-  restaurantsByProvince: RestaurantSummary[]
+  restaurantsByProvince: RestaurantSummary[];
 }
 
 export interface RestaurantSummary {
@@ -40,7 +40,7 @@ export interface RestaurantSummary {
   picture: string;
   deliveryTime: string;
   category: Category;
-  reviews: ReviewRating[]
+  reviews: ReviewRating[];
 }
 
 export interface Category {
@@ -54,6 +54,12 @@ export interface Review {
   rating: number;
   title: string;
   date: Date;
-  description: string ;
+  description: string;
+}
 
+export interface Dish {
+  name: string;
+  picture: string;
+  price: number;
+  description: string;
 }

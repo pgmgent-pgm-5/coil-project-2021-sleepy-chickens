@@ -11,6 +11,8 @@ import PrimaryButton from "../components/form/PrimaryButton";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useUser } from "../context/AuthenticationContext";
+import { Helmet } from "react-helmet";
+
 
 const Container = styled.div`
   height: 100vh;
@@ -84,6 +86,10 @@ const SignIn = () => {
   
   return (
     <BaseLayout>
+      <Helmet>
+        <title>Dormdash | Sign In</title>
+        <meta name="description" content="Sign in to your DormDash account" />
+      </Helmet>
       <Container>
         <FormWrapper>
           <h1>Welcome back</h1>

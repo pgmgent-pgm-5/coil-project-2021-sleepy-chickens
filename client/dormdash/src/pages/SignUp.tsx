@@ -6,6 +6,7 @@ import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import backgroundImage from "../assets/SignUpBg.png";
 import SignInLink from "../components/form/SignInLink";
+import { Helmet } from "react-helmet";
 
 const Container = styled.div`
   //height: 100vh;
@@ -67,6 +68,10 @@ const SignUp = () => {
   return (
     <BaseLayout>
       <Container>
+        <Helmet>
+          <title>Dormdash | Sign Up</title>
+          <meta name="description" content="Sign up to DormDash" />
+        </Helmet>
         <FormWrapper>
           <h1>Sign Up</h1>
           <Formik

@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import { BaseLayout } from "../layouts";
 
@@ -26,6 +27,10 @@ const Container = styled.div`
 const AboutUs = () => {
   return (
     <BaseLayout>
+      <Helmet>
+        <title>Dormdash | About us</title>
+        <meta name="description" content="about dormdash" />
+      </Helmet>
       <Container>
         <h1>About us</h1>
         <div>

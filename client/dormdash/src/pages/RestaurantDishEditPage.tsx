@@ -9,6 +9,8 @@ import * as Routes from "../routes";
 import { DISH_BY_ID, UPDATE_DISH } from "../graphql/dishes";
 import { useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
+
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.width.small};
@@ -77,6 +79,10 @@ const RestaurantDishEditPage = (props: Props) => {
       {
         data && (
           <>
+            <Helmet>
+              <title>Dormdashboard | Edit Dish</title>
+              <meta name="description" content="edit your dishes" />
+            </Helmet>
             <h1>Edit dish</h1>
             <Image>
               <img src="https://source.unsplash.com/1600x900/?food" alt="" />

@@ -10,6 +10,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_DISH } from "../graphql/dishes";
 import { RESTAURANT_DISHES } from "../graphql/restaurants";
+import { Helmet } from "react-helmet";
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.width.small};
@@ -37,13 +38,17 @@ const validationSchema = yup.object({
 interface Props {}
 
 const RestaurantDishAddPage = (props: Props) => {
-  let { restaurantId } = useParams<{ restaurantId:string }>();
+  let { restaurantId } = useParams<{ restaurantId: string }>();
   const history = useHistory();
-  const [createDish, {data, loading, error}] = useMutation(CREATE_DISH);
-
+  const [createDish, { data, loading, error }] = useMutation(CREATE_DISH);
 
   return (
     <Container>
+      <Helmet>
+        <title>Dormdashboard | Edit Dish</title>
+        <meta name="description" content="edit your dishes" />
+      </Helmet>
+
       <h1>Add dish</h1>
       <Formik
         // Veranderen naar values van current user
@@ -74,10 +79,12 @@ const RestaurantDishAddPage = (props: Props) => {
             ]
           })
 
-
           setSubmitting(false);
           history.push({
-            pathname: Routes.DISHES.replace(':restaurantId', String(restaurantId)),
+            pathname: Routes.DISHES.replace(
+              ":restaurantId",
+              String(restaurantId)
+            ),
           });
 
           // fix random magic bug

@@ -55,7 +55,7 @@ const Price = styled.p`
   }
 `;
 
-const Image = styled.div`
+const Image = styled.div<ImageProps>`
   display: none;
 
   border-radius: ${(props) => props.theme.borderRadius.small};
@@ -64,33 +64,34 @@ const Image = styled.div`
   min-width: 7rem;
   max-width: 12rem;
   height: 7rem;
-  background-image: url("https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80");
+  background-image: url("${(props) => props.picture}");
   background-size: cover;
   background-position: center;
 `;
 
-interface Props {}
+interface Props {
+  name: string;
+  price: number;
+  description: string;
+  picture: string;
+}
 
-const DetailDishCard = (props: Props) => {
+interface ImageProps {
+  picture: string;
+}
+
+const DetailDishCard = ({ name, picture, price, description }: Props) => {
   return (
     <Container>
       <Link to="">
         <Content>
-          <h3>Title</h3>
-          <MenuText>
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna
-          </MenuText>
+          <h3>{name}</h3>
+          <MenuText>{description}</MenuText>
           <Price>
-            € <span>15.50</span>
+            € <span>{price}</span>
           </Price>
         </Content>
-        <Image>
-          {/* <img
-            src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1171&q=80"
-            alt=""
-          /> */}
-        </Image>
+        <Image picture={picture}></Image>
       </Link>
     </Container>
   );
