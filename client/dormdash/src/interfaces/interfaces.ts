@@ -31,7 +31,7 @@ export interface Restaurant {
 }
 
 export interface RestaurantSummaries {
-  restaurants: RestaurantSummary[]
+  restaurantsByProvince: RestaurantSummary[]
 }
 
 export interface RestaurantSummary {

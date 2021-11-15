@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const RESTAURANTS_SUMMARY = gql`
-{
-  restaurants {
+query ($province: String!) {
+  restaurantsByProvince(province: $province) {
     id
     name
     picture
@@ -12,6 +12,12 @@ export const RESTAURANTS_SUMMARY = gql`
     }
     reviews {
       rating
+    }
+    dishes {
+      name
+      picture
+      description
+      price
     }
   }
 }
