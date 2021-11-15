@@ -6,7 +6,8 @@ import { rows } from "../../../data/MockDataRestaurantDishes";
 import { Link, useParams } from "react-router-dom";
 import * as Routes from "../../../routes";
 import { useQuery } from "@apollo/client";
-import { RESTAURANT_MENUS } from "../../../graphql/restaurants";
+import { RESTAURANT_DISHES } from "../../../graphql/restaurants";
+import { useState } from "react";
 
 const Container = styled.div`
   margin-top: 1rem;
@@ -70,16 +71,20 @@ const columns: GridColDef[] = [
     headerName: "Action",
     width: 100,
     renderCell: (params) => {
+
       return (
         <Actions>
-          <Link to={Routes.DISH_EDITPAGE.replace(":id", params.row.id)}>
+          <Link to={Routes.DISH_EDITPAGE.replace(":dishId", params.row.id)}>
             <Button>
               <BiEdit />
             </Button>
           </Link>
-          <Button>
-            <RiDeleteBin6Line />
-          </Button>
+          <Link to={Routes.DISH_REMOVE.replace(":dishId", params.row.id)}>
+            <Button type="submit">
+                <RiDeleteBin6Line />
+              </Button>
+          </Link>
+            
         </Actions>
       );
     },
@@ -92,9 +97,8 @@ const RestaurantDishes = (props: Props) => {
   let { restaurantId } = useParams<{ restaurantId: string }>();
   console.log(restaurantId);
   const { error, loading, data, refetch } = useQuery(
-    RESTAURANT_MENUS,
+    RESTAURANT_DISHES,
     {
-      fetchPolicy: "cache-first",
       variables: { id: Number(restaurantId) }
     }
   );

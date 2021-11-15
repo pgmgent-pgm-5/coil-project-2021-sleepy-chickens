@@ -9,7 +9,7 @@ import PrimaryLink from "../components/Admin/Restaurant/PrimaryLink";
 import { useHistory, useParams } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { CREATE_DISH } from "../graphql/dishes";
-import { RESTAURANT_MENUS } from "../graphql/restaurants";
+import { RESTAURANT_DISHES } from "../graphql/restaurants";
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.width.small};
@@ -69,7 +69,7 @@ const RestaurantDishAddPage = (props: Props) => {
             },
             refetchQueries: [
               {
-                query: RESTAURANT_MENUS
+                query: RESTAURANT_DISHES
               }
             ]
           })
@@ -79,6 +79,9 @@ const RestaurantDishAddPage = (props: Props) => {
           history.push({
             pathname: Routes.DISHES.replace(':restaurantId', String(restaurantId)),
           });
+
+          // fix random magic bug
+          window.location.reload();
         }}
         validationSchema={validationSchema}
       >
@@ -116,7 +119,7 @@ const RestaurantDishAddPage = (props: Props) => {
           </form>
         )}
       </Formik>
-      <PrimaryLink link={Routes.DISHES}>Go back</PrimaryLink>
+      <PrimaryLink link={Routes.DISHES.replace('restaurantId', '1')}>Go back</PrimaryLink>
     </Container>
   );
 };

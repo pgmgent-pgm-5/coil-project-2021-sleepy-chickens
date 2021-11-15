@@ -10,6 +10,7 @@ import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import { useUser } from "../context/AuthenticationContext";
 
 const Container = styled.div`
   height: 100vh;
@@ -66,8 +67,21 @@ const validationSchema = yup.object({
   password: yup.string().required("Password is required"),
 });
 
+
+
 const SignIn = () => {
-  //const history = useHistory();
+  const history = useHistory();
+
+  const handleUserContext = useUser();
+
+  const handleLoginContext = ({ email, id }: { email: string; id: number }) => {
+    handleUserContext!.dispatch({
+      type: "setUser",
+      payload: { email: email, id: id },
+    });
+    return history.push("/");
+  };
+  
   return (
     <BaseLayout>
       <Container>
@@ -78,12 +92,27 @@ const SignIn = () => {
               email: "",
               password: "",
             }}
-            onSubmit={(data, { setSubmitting }) => {
+            onSubmit={ async (data, { setSubmitting }) => {
               setSubmitting(true);
 
-              // async call naar api
-              console.log(data);
-              //history.push(Routes.LANDING);
+              // TODO: change to path defined in .env or config file
+              const request = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+              });
+              const response = await request.json();
+              console.log(response);
+              if (response.statusCode === 401) {
+                // TODO: Handle error code (unauthorized request == wrong password/username combination);
+                return;
+              }
+              // Correct login assumed
+              handleLoginContext(response);
+              
 
               setSubmitting(false);
             }}

@@ -50,7 +50,7 @@ query ($id: Int!) {
 }
 `;
 
-export const RESTAURANT_MENUS = gql`
+export const RESTAURANT_DISHES = gql`
   query ($id: Int!) {
     getRestaurantById(id: $id) {
       id

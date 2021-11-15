@@ -13,6 +13,7 @@ import RestaurantDashboardDishes from "./RestaurantDashboardDishes";
 import RestaurantDashboardProfile from "./RestaurantDashboardProfile";
 import RestaurantDishEditPage from "./RestaurantDishEditPage";
 import RestaurantDishAddPage from "./RestaurantDishAddPage";
+import RemoveDish from "./RemoveDish";
 
 export {
   HomePage,
@@ -30,4 +31,5 @@ export {
   RestaurantDashboardProfile,
   RestaurantDishEditPage,
   RestaurantDishAddPage,
+  RemoveDish,
 };

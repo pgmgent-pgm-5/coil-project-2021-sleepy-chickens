@@ -6,6 +6,9 @@ import InputField from "../components/form/InputField";
 import Textarea from "../components/form/Textarea";
 import PrimaryLink from "../components/Admin/Restaurant/PrimaryLink";
 import * as Routes from "../routes";
+import { DISH_BY_ID, UPDATE_DISH } from "../graphql/dishes";
+import { useMutation, useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.width.small};
@@ -36,66 +39,115 @@ const validationSchema = yup.object({
   dishTitle: yup.string().required("Required"),
   price: yup.number().required("Required"),
   description: yup.string().required("Required"),
-  image: yup.string().required("Required"),
+  // image: yup.string().required("Required"),
 });
 
 interface Props {}
 
 const RestaurantDishEditPage = (props: Props) => {
+  let { dishId } = useParams<{ dishId: string }>();
+  console.log(dishId);
+  
+  const { error, loading, data, refetch } = useQuery(
+    DISH_BY_ID,
+    {
+      fetchPolicy: "cache-first",
+      variables: { id: Number(dishId) }
+    }
+  );
+
+  let restaurantId:number;
+  let picture:string;
+  if (data) {
+    restaurantId = data.getDish.restaurantId;
+    picture = data.getDish.picture;
+  }
+
+  const [updateDish, {data:updateData, loading: updateLoading, error:updateError}] = useMutation(UPDATE_DISH);
+
+  if(data) {
+    console.log(data.getDish.name);
+    console.log(typeof(Number(dishId)));
+  }
+  
+  
+
   return (
     <Container>
-      <h1>Edit dish</h1>
-      <Image>
-        <img src="https://source.unsplash.com/1600x900/?food" alt="" />
-      </Image>
-      <Formik
-        // Veranderen naar values van current user
-        initialValues={{
-          dishTitle: "Spicy Chicken",
-          price: 10,
-          description:
-            "Juicy grilled Farm chicken with healthy avocado, corn, jalapeños, feta cheese & sweet potato. Dressed with homemade chili mayo and topped off with chili flakes, spring onions & nachos",
-          image: "",
-        }}
-        onSubmit={(data, { setSubmitting }) => {
-          setSubmitting(true);
+      {
+        data && (
+          <>
+            <h1>Edit dish</h1>
+            <Image>
+              <img src="https://source.unsplash.com/1600x900/?food" alt="" />
+            </Image>
+            <Formik
+              // Veranderen naar values van current user
+              initialValues={{
+                dishTitle: data.getDish.name,
+                price: data.getDish.price,
+                quantity: data.getDish.quantity,
+                description: data.getDish.description,
+                image: '',
+              }}
+              onSubmit={(formData, { setSubmitting }) => {
+                setSubmitting(true);
 
-          // async call naar api
-          console.log(data);
+                // async call naar api
+                updateDish({
+                  variables: {
+                    id: Number(dishId),
+                    restaurantId: Number(restaurantId), 
+                    name: formData.dishTitle,
+                    description: formData.description,
+                    price: formData.price,
+                    quantity: formData.quantity,
+                    picture: picture
+                  }
+                })
 
-          setSubmitting(false);
-        }}
-        validationSchema={validationSchema}
-      >
-        {({ values, handleSubmit, isSubmitting, handleChange, handleBlur }) => (
-          <form onSubmit={handleSubmit}>
-            <Field
-              type="text"
-              as={InputField}
-              name="dishTitle"
-              placeholder={"Title"}
-            />
-            <Field
-              type="number"
-              as={InputField}
-              name="price"
-              placeholder="Price"
-            />
-            <Field as={Textarea} name="description" placeholder="Description" />
-            <Field
-              type="file"
-              as={InputField}
-              name="image"
-              placeholder="Dish image"
-            />
-            <PrimaryButton disabled={isSubmitting} type="submit">
-              Update
-            </PrimaryButton>
-            {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-          </form>
-        )}
-      </Formik>
-      <PrimaryLink link={Routes.DISHES}>Go back</PrimaryLink>
+                setSubmitting(false);
+              }}
+              validationSchema={validationSchema}
+            >
+              {({ values, handleSubmit, isSubmitting, handleChange, handleBlur }) => (
+                <form onSubmit={handleSubmit}>
+                  <Field
+                    type="text"
+                    as={InputField}
+                    name="dishTitle"
+                    placeholder={"Title"}
+                  />
+                  <Field
+                    type="number"
+                    as={InputField}
+                    name="price"
+                    placeholder="Price"
+                  />
+                  <Field
+                    type="number"
+                    as={InputField}
+                    name="quantity"
+                    placeholder="Quantity"
+                  />
+                  <Field as={Textarea} name="description" placeholder="Description" />
+                  <Field
+                    type="file"
+                    as={InputField}
+                    name="image"
+                    placeholder="Dish image"
+                  />
+                  <PrimaryButton disabled={isSubmitting} type="submit">
+                    Update
+                  </PrimaryButton>
+                  {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+                </form>
+              )}
+            </Formik>
+            <PrimaryLink link={Routes.DISHES.replace(':restaurantId', "1")}>Go back</PrimaryLink>
+          </>
+        )
+      }
     </Container>
   );
 };
