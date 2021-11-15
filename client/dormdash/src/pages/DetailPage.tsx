@@ -70,11 +70,11 @@ interface Props {}
 
 const DetailPage = (props: Props) => {
   SwiperCore.use([Navigation]);
-  let { id } = useParams<{ id:string }>();
+  let { id } = useParams<{ id: string }>();
   console.log(id);
 
   const { error, loading, data, refetch } = useQuery(RESTAURANTS_DETAIL, {
-    variables: { id: Number(id) }  
+    variables: { id: Number(id) },
   });
 
   const [open, setOpen] = useState(false);
@@ -86,108 +86,107 @@ const DetailPage = (props: Props) => {
     setModalId(e.currentTarget.id);
   };
 
-  let averageRating:number = 0;
+  let averageRating: number = 0;
   useEffect(() => {
-    
+    console.log(data);
   }, [data]);
 
-  if(data) {
-    let numberOfReviews:number = 0;
-    let totalRating:number = 0;
-    
+  if (data) {
+    let numberOfReviews: number = 0;
+    let totalRating: number = 0;
 
-      numberOfReviews = data.getRestaurantById.reviews.length; 
+    numberOfReviews = data.getRestaurantById.reviews.length;
 
-      data.getRestaurantById.reviews.map((review:Review) => {
-        totalRating += review.rating;
-      })
+    data.getRestaurantById.reviews.map((review: Review) => {
+      totalRating += review.rating;
+    });
 
     if (numberOfReviews > 0) {
-      console.log(((totalRating / numberOfReviews).toFixed(1)));
-      averageRating= Number((totalRating / numberOfReviews).toFixed(1));
+      console.log((totalRating / numberOfReviews).toFixed(1));
+      averageRating = Number((totalRating / numberOfReviews).toFixed(1));
     }
   }
 
   useEffect(() => {
-    if (open) {  
+    if (open) {
       document.body.style.overflow = "hidden";
     } else if (!open) {
       document.body.style.overflow = "auto";
     }
   }, [open]);
 
-
-  data && console.log('string data', data.getRestaurantById.city);
-  
-
-  
+  data && console.log("string data", data.getRestaurantById.city);
 
   if (loading) return <div>Loading ...</div>;
 
-  
-
   return (
     <BaseLayout>
-    {data && (
-      <>
-      <Modal open={open} onClick={handleClick} id={modalId} />
+      {data && (
+        <>
+          <Modal
+            open={open}
+            onClick={handleClick}
+            id={modalId}
+            name={data.getRestaurantById.name}
+            street={data.getRestaurantById.street}
+            streetnumber={data.getRestaurantById.streetnumber}
+            postalcode={data.getRestaurantById.postalcode}
+            city={data.getRestaurantById.city}
+            province={data.getRestaurantById.province}
+          />
 
-      <DetailHero onClick={handleClick}  open={open} />
+          <DetailHero
+            onClick={handleClick}
+            open={open}
+            category={data.getRestaurantById.category.name}
+            restaurantName={data.getRestaurantById.name}
+            deliveryTime={data.getRestaurantById.deliveryTime}
+            logo={data.getRestaurantById.logo}
+            picture={data.getRestaurantById.picture}
+          />
 
-      <DetailReviewContainer>
-        <FlexContainerTitle>
-          <h2>Reviews</h2>
-          <AddReviewButton onClick={handleClick} open={open} />
-          <p>{averageRating} Rating</p>
-        </FlexContainerTitle>
+          <DetailReviewContainer>
+            <FlexContainerTitle>
+              <h2>Reviews</h2>
+              <AddReviewButton onClick={handleClick} open={open} />
+              <p>{averageRating} Rating</p>
+            </FlexContainerTitle>
 
-        <FlexContainer>
-          <Swiper
-            navigation={true}
-            breakpoints={{
-              320: {
-                width: 320,
-                slidesPerView: 1,
-              },
-            }}
-          >
-            <SwiperSlide>
-              <DetailReviewCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <DetailReviewCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <DetailReviewCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <DetailReviewCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <DetailReviewCard />
-            </SwiperSlide>
-            <SwiperSlide>
-              <DetailReviewCard />
-            </SwiperSlide>
-          </Swiper>
-        </FlexContainer>
-      </DetailReviewContainer>
+            <FlexContainer>
+              <Swiper
+                navigation={true}
+                breakpoints={{
+                  320: {
+                    width: 320,
+                    slidesPerView: 1,
+                  },
+                }}
+              >
+                {data.getRestaurantById.reviews.map(
+                  (review: Review, index: number) => (
+                    <SwiperSlide>
+                      <DetailReviewCard
+                        key={index}
+                        reviewTitle={review.title}
+                        description={review.description}
+                        rating={review.rating}
+                        date={review.date}
+                      />
+                    </SwiperSlide>
+                  )
+                )}
+              </Swiper>
+            </FlexContainer>
+          </DetailReviewContainer>
 
-      <Devider />
+          <Devider />
 
-      <DetailDishCardContainer>
-        <h2>Menu</h2>
-        <DetailDishCard />
-        <DetailDishCard />
-        <DetailDishCard />
-        <DetailDishCard />
-        <DetailDishCard />
-        <DetailDishCard />
-        <DetailDishCard />
-        <DetailDishCard />
-      </DetailDishCardContainer>
-    </>
-     )}
+          <DetailDishCardContainer>
+            <h2>Menu</h2>
+            <DetailDishCard />
+          </DetailDishCardContainer>
+        </>
+      )}
     </BaseLayout>
   );
 };

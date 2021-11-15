@@ -9,6 +9,17 @@ const Container = styled.li`
   overflow: hidden;
   width: calc(20rem - 3rem);
   min-width: calc(20rem - 3rem);
+  height: 20rem;
+  max-height: 20rem;
+  overflow: hidden;
+
+  h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
 `;
 
 const RatingDate = styled.div`
@@ -18,24 +29,31 @@ const RatingDate = styled.div`
   }
 `;
 
-interface Props {}
+interface Props {
+  date: Date;
+  reviewTitle: string;
+  description: string;
+  rating: number;
+}
 
-const DetailReviewCard = (props: Props) => {
+const DetailReviewCard = ({
+  reviewTitle,
+  description,
+  date,
+  rating,
+}: Props) => {
+  const d = new Date(date);
+  const dateString = `${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
   return (
     <Container>
-      <h3>Name</h3>
+      <h3>{reviewTitle}</h3>
       <RatingDate>
-        <span>4/5</span>
+        <span>{rating}/5</span>
         <span>-</span>
-        <span>10/10/2021</span>
+        <span>{dateString}</span>
       </RatingDate>
       <div>
-        <p>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo.{" "}
-        </p>
+        <p>{description}</p>
       </div>
     </Container>
   );

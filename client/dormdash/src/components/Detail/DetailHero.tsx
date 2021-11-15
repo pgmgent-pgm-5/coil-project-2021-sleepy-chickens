@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 
-const Container = styled.div`
+const Container = styled.div<PictureProps>`
   margin-top: 3rem;
-  background-image: url("https://images.unsplash.com/photo-1571805618149-3a772570ebcd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80");
+  background-image: url("${(props) => props.picture}");
   height: 15rem;
   background-size: cover;
   background-position: center;
@@ -64,9 +64,9 @@ const RestaurantContentContainer = styled.div`
   }
 `;
 
-const Image = styled.div`
+const Image = styled.div<LogoProps>`
   margin-right: 1rem;
-  background-image: url("https://images.unsplash.com/photo-1590874315261-788881621f7a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1074&q=80");
+  background-image: url("${(props) => props.logo}");
   background-size: cover;
   background-position: center;
   width: 4rem;
@@ -92,12 +92,33 @@ const RestaurantContent = styled.div`
 interface Props {
   open: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  category: string;
+  restaurantName: string;
+  deliveryTime: string;
+  logo: string;
+  picture: string;
 }
 
-const DetailHero = ({ open, onClick }: Props) => {
+interface LogoProps {
+  logo: string;
+}
+
+interface PictureProps {
+  picture: string;
+}
+
+const DetailHero = ({
+  open,
+  onClick,
+  category,
+  restaurantName,
+  deliveryTime,
+  logo,
+  picture,
+}: Props) => {
   return (
     <>
-      <Container>
+      <Container picture={picture}>
         <BgContainer></BgContainer>
         <InfoButton onClick={onClick} id="info">
           <span>
@@ -106,12 +127,12 @@ const DetailHero = ({ open, onClick }: Props) => {
         </InfoButton>
       </Container>
       <RestaurantContentContainer>
-        <Image></Image>
+        <Image logo={logo}></Image>
         <RestaurantContent>
-          <h1>Restaurant name</h1>
+          <h1>{restaurantName}</h1>
           <div>
-            <span>Category</span>
-            <span>30min</span>
+            <span>{category}</span>
+            <span>{deliveryTime} min</span>
           </div>
         </RestaurantContent>
       </RestaurantContentContainer>

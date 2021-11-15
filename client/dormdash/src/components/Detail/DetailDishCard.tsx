@@ -79,7 +79,7 @@ const DetailDishCard = (props: Props) => {
           <h3>Title</h3>
           <MenuText>
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna{" "}
+            eiusmod tempor incididunt ut labore et dolore magna
           </MenuText>
           <Price>
             € <span>15.50</span>

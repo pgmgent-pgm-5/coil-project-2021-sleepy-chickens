@@ -3,13 +3,7 @@ import styled from "styled-components";
 import RestaurantInfo from "./RestaurantInfo";
 import ShareReview from "./ShareReview";
 
-interface Props {
-  id?: string;
-  open: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-}
-
-const Container = styled.div<Props>`
+const Container = styled.div<ContainerOpen>`
   display: ${({ open }) => (open ? "block" : "none")};
 `;
 
@@ -42,12 +36,48 @@ const ModalContent = styled.div`
   }
 `;
 
-const Modal = ({ onClick, open, id }: Props) => {
+interface Props {
+  id?: string;
+  open: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  name: string;
+  street: string;
+  streetnumber: number;
+  postalcode: number | string;
+  city: string;
+  province: string;
+}
+
+interface ContainerOpen {
+  open: boolean;
+}
+
+const Modal = ({
+  onClick,
+  open,
+  id,
+  name,
+  street,
+  streetnumber,
+  postalcode,
+  city,
+  province,
+}: Props) => {
   return (
     <Container open={open}>
       <BlurContainer></BlurContainer>
       <ModalContent>
-        {id && id === "info" && <RestaurantInfo onClick={onClick} />}
+        {id && id === "info" && (
+          <RestaurantInfo
+            onClick={onClick}
+            name={name}
+            street={street}
+            streetnumber={streetnumber}
+            postalcode={postalcode}
+            city={city}
+            province={province}
+          />
+        )}
         {id && id === "review" && <ShareReview onClick={onClick} />}
       </ModalContent>
     </Container>

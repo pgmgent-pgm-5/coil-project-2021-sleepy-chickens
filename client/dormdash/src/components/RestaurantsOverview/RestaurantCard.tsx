@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RestaurantSummary } from "../../interfaces/interfaces";
-import * as Routes from '../../routes';
+import * as Routes from "../../routes";
 
 const Container = styled.li`
   width: 100%;
@@ -22,6 +22,10 @@ const Container = styled.li`
   //     margin-bottom: 2rem;
   //     flex-basis: calc(33% - 2rem);
   //   }
+
+  a {
+    color: ${(props) => props.theme.colors.black};
+  }
 `;
 
 const Image = styled.div<Picture>`
@@ -71,20 +75,19 @@ interface Picture {
   picture: string;
 }
 
-
 const RestaurantCard = ({
   id,
   name,
   picture,
   deliveryTime,
   category,
-  reviews
+  reviews,
 }: RestaurantSummary) => {
-  const numberOfReviews = reviews.length; 
+  const numberOfReviews = reviews.length;
   let totalRating = 0;
   reviews.map((review, index) => {
     totalRating += review.rating;
-  })
+  });
 
   let averageRating = null;
   if (numberOfReviews === 0) {
@@ -92,11 +95,10 @@ const RestaurantCard = ({
   } else {
     averageRating = (totalRating / numberOfReviews).toFixed(1);
   }
-  
 
   return (
     <Container key={id}>
-      <Link to={Routes.DETAIL_PAGE.replace(':id', String(id))}>
+      <Link to={Routes.DETAIL_PAGE.replace(":id", String(id))}>
         <Rating>
           <span>{averageRating}</span>
         </Rating>

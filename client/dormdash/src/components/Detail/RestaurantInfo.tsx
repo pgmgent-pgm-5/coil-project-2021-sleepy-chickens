@@ -15,6 +15,10 @@ const Container = styled.div`
   h3 {
     margin-bottom: 0.5rem;
   }
+
+  div p span {
+    font-size: ${(props) => props.theme.fontSizes.normal};
+  }
 `;
 
 const Flex = styled.div`
@@ -25,13 +29,27 @@ const Flex = styled.div`
 
 interface Props {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  name: string;
+  street: string;
+  streetnumber: number;
+  postalcode: number | string;
+  city: string;
+  province: string;
 }
 
-const RestaurantInfo = ({ onClick }: Props) => {
+const RestaurantInfo = ({
+  onClick,
+  name,
+  street,
+  streetnumber,
+  postalcode,
+  city,
+  province,
+}: Props) => {
   return (
     <>
       <FlexTitle>
-        <h2>Restaurant name</h2>
+        <h2>{name}</h2>
         <ModalCloseButton onClick={onClick} />
       </FlexTitle>
 
@@ -65,7 +83,15 @@ const RestaurantInfo = ({ onClick }: Props) => {
 
       <Container>
         <h3>Address</h3>
-        <p>Industrieweg 232 9030 Gent</p>
+        <p>
+          <span>
+            {street} {streetnumber},
+          </span>
+          <br />
+          <span>
+            {postalcode} {city}, {province}
+          </span>
+        </p>
       </Container>
     </>
   );
