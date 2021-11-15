@@ -33,9 +33,12 @@ const RestaurantContainer = styled.ul`
 interface Props {}
 
 const RestaurantOverview = (props: Props) => {
-  const { error, loading, data, refetch } = useQuery<RestaurantSummaries>(RESTAURANTS_SUMMARY, {
-    fetchPolicy: "cache-first"
-  });
+  const { error, loading, data, refetch } = useQuery<RestaurantSummaries>(
+    RESTAURANTS_SUMMARY,
+    {
+      fetchPolicy: "cache-first",
+    }
+  );
 
   useEffect(() => {
     console.log(data);
@@ -50,15 +53,14 @@ const RestaurantOverview = (props: Props) => {
           <RestaurantFilter />
         </FilterContainer>
         <RestaurantContainer>
-          {data?.restaurants.map(restaurant => {
-
-            console.log("headCategories",restaurant.category);
+          {data?.restaurants.map((restaurant) => {
+            console.log("headCategories", restaurant.category);
             return (
               // <li key={restaurant.id}>
               //   <p>{restaurant.name}</p>
               // </li>
-              <RestaurantCard 
-                key={restaurant.id} 
+              <RestaurantCard
+                key={restaurant.id}
                 id={restaurant.id}
                 name={restaurant.name}
                 picture={restaurant.picture}
@@ -66,12 +68,9 @@ const RestaurantOverview = (props: Props) => {
                 category={restaurant.category}
                 reviews={restaurant.reviews}
               />
-            )
-            
+            );
           })}
-         
         </RestaurantContainer>
-        
       </Container>
     </BaseLayout>
   );

@@ -1,10 +1,13 @@
 import styled from "styled-components";
 import { Formik, Field, Form } from "formik";
 import * as yup from "yup";
+import * as Routes from "../../routes";
 
 import SearchField from "../form/SearchField";
 import { Button } from "../form/Button";
 import heroImg from "../../assets/homeHero.webp";
+import { useHistory } from "react-router";
+import { useState } from "react";
 
 const ImgContainer = styled.div`
   position: relative;
@@ -57,10 +60,14 @@ const SearchContainer = styled.div`
 `;
 
 const validationSchema = yup.object({
-  Search: yup.string().required().min(10),
+  search: yup.string().required(),
 });
 
 const Hero = () => {
+  const [city, setCity] = useState("");
+  const history = useHistory();
+  console.log(history);
+
   return (
     <ImgContainer>
       <img src={heroImg} alt="A variety of food" />
@@ -71,14 +78,19 @@ const Hero = () => {
           initialValues={{
             search: "",
           }}
-          validationSchema={validationSchema}
           onSubmit={(data, { setSubmitting }) => {
             setSubmitting(true);
             console.log(data);
             setSubmitting(false);
+            history.push({
+              pathname: Routes.RESTAURANTS_OVERVIEW,
+              search: `?query=${data.search}`,
+              //   state: { detail: "some_value" },
+            });
           }}
+          validationSchema={validationSchema}
         >
-          {({ values, errors, isSubmitting }) => (
+          {({ values, isSubmitting, handleSubmit }) => (
             <Form>
               <Field
                 placeholder="City"
@@ -90,8 +102,7 @@ const Hero = () => {
                 Search
               </Button>
 
-              {/* <pre>{JSON.stringify(values, null, 2)}</pre>
-            <pre>{JSON.stringify(errors, null, 2)}</pre> */}
+              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
             </Form>
           )}
         </Formik>

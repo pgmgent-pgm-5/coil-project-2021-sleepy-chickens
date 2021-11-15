@@ -9,6 +9,7 @@ import backgroundImage from "../assets/SignInBg.png";
 import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 const Container = styled.div`
   height: 100vh;
@@ -66,6 +67,7 @@ const validationSchema = yup.object({
 });
 
 const SignIn = () => {
+  //const history = useHistory();
   return (
     <BaseLayout>
       <Container>
@@ -81,6 +83,7 @@ const SignIn = () => {
 
               // async call naar api
               console.log(data);
+              //history.push(Routes.LANDING);
 
               setSubmitting(false);
             }}
