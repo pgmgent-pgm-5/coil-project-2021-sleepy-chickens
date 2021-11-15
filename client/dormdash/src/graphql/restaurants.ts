@@ -13,12 +13,6 @@ query ($province: String!) {
     reviews {
       rating
     }
-    dishes {
-      name
-      picture
-      description
-      price
-    }
   }
 }
 `;
@@ -46,6 +40,26 @@ query ($id: Int!) {
     category {
       name
     }
+    dishes {
+      name
+      picture
+      description
+      price
+    }
   }
 }
+`;
+
+export const RESTAURANT_MENUS = gql`
+  query ($id: Int!) {
+    getRestaurantById(id: $id) {
+      id
+      dishes {
+        description
+        price
+        id
+        name
+      }
+    }
+  }
 `;

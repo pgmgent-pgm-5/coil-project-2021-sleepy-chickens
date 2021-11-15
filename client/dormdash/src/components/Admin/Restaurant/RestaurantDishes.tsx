@@ -3,8 +3,10 @@ import styled from "styled-components";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
 import { rows } from "../../../data/MockDataRestaurantDishes";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as Routes from "../../../routes";
+import { useQuery } from "@apollo/client";
+import { RESTAURANT_MENUS } from "../../../graphql/restaurants";
 
 const Container = styled.div`
   margin-top: 1rem;
@@ -43,10 +45,26 @@ const Button = styled.button`
   }
 `;
 
+const PriceField = styled.span`
+  overflow-x: hidden;
+  width: 2rem;
+`;
+
 const columns: GridColDef[] = [
   { field: "id", headerName: "id", width: 100 },
-  { field: "title", headerName: "Title", width: 200 },
-  { field: "description", headerName: "Description", width: 700 },
+  { field: "name", headerName: "Title", width: 200 },
+  { 
+    field: "price",
+    headerName: "Price", 
+    width: 150,
+    renderCell: (params )=> {
+      return (
+        <PriceField>
+           {params.row.price}
+        </PriceField>
+      )
+    }},
+  { field: "description", headerName: "Description", width: 500 },
   {
     field: "action",
     headerName: "Action",
@@ -71,10 +89,29 @@ const columns: GridColDef[] = [
 interface Props {}
 
 const RestaurantDishes = (props: Props) => {
+  let { restaurantId } = useParams<{ restaurantId: string }>();
+  console.log(restaurantId);
+  const { error, loading, data, refetch } = useQuery(
+    RESTAURANT_MENUS,
+    {
+      fetchPolicy: "cache-first",
+      variables: { id: Number(restaurantId) }
+    }
+  );
+
+
+  if (data) {
+    console.log(data.getRestaurantById.dishes);
+  }
+
   return (
-    <Container>
-      <DataGrid rows={rows} columns={columns} pageSize={7} checkboxSelection />
-    </Container>
+     
+      <Container>
+        { data && (
+          <DataGrid rows={data.getRestaurantById.dishes} columns={columns} pageSize={7} checkboxSelection />
+        )}
+      </Container>
+
   );
 };
 

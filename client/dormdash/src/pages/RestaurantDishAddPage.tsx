@@ -6,6 +6,10 @@ import InputField from "../components/form/InputField";
 import Textarea from "../components/form/Textarea";
 import * as Routes from "../routes";
 import PrimaryLink from "../components/Admin/Restaurant/PrimaryLink";
+import { useHistory, useParams } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { CREATE_DISH } from "../graphql/dishes";
+import { RESTAURANT_MENUS } from "../graphql/restaurants";
 
 const Container = styled.main`
   max-width: ${(props) => props.theme.width.small};
@@ -25,6 +29,7 @@ const Container = styled.main`
 const validationSchema = yup.object({
   dishTitle: yup.string().required("Required"),
   price: yup.number().required("Required"),
+  quantity: yup.number().required("Required"),
   description: yup.string().required("Required"),
   image: yup.string().required("Required"),
 });
@@ -32,6 +37,11 @@ const validationSchema = yup.object({
 interface Props {}
 
 const RestaurantDishAddPage = (props: Props) => {
+  let { restaurantId } = useParams<{ restaurantId:string }>();
+  const history = useHistory();
+  const [createDish, {data, loading, error}] = useMutation(CREATE_DISH);
+
+
   return (
     <Container>
       <h1>Add dish</h1>
@@ -40,16 +50,35 @@ const RestaurantDishAddPage = (props: Props) => {
         initialValues={{
           dishTitle: "",
           price: 0,
+          quantity: 0,
           description: "",
           image: "",
         }}
-        onSubmit={(data, { setSubmitting }) => {
+        onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
 
           // async call naar api
-          console.log(data);
+          createDish({
+            variables: {
+              restaurantId: Number(restaurantId),
+              name: formData.dishTitle,
+              description: formData.description,
+              picture: formData.image,
+              price: formData.price,
+              quantity: formData.quantity,
+            },
+            refetchQueries: [
+              {
+                query: RESTAURANT_MENUS
+              }
+            ]
+          })
+
 
           setSubmitting(false);
+          history.push({
+            pathname: Routes.DISHES.replace(':restaurantId', String(restaurantId)),
+          });
         }}
         validationSchema={validationSchema}
       >
@@ -66,6 +95,12 @@ const RestaurantDishAddPage = (props: Props) => {
               as={InputField}
               name="price"
               placeholder="Price"
+            />
+            <Field
+              type="number"
+              as={InputField}
+              name="quantity"
+              placeholder="Quantity"
             />
             <Field as={Textarea} name="description" placeholder="Description" />
             <Field

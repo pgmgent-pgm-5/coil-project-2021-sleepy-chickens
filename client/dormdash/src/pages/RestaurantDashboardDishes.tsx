@@ -26,7 +26,7 @@ const RestaurantDashboardDishes = (props: Props) => {
     <AdminLayout>
       <Title>
         <h1>Restaurant dishes</h1>
-        <PrimaryButtonLink link={Routes.DISH_ADD}>Add dish</PrimaryButtonLink>
+        <PrimaryButtonLink link={Routes.DISH_ADD.replace(':restaurantId', '1')}>Add dish</PrimaryButtonLink>
       </Title>
       <RestaurantDishes />
     </AdminLayout>

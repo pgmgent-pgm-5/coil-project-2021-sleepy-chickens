@@ -108,6 +108,7 @@ const CallToAction = styled.div<Props>`
 
 const Navigation = ({ open }: Props) => {
   const location = useRouteMatch();
+  console.log(location.path);
 
   return (
     <Container open={open}>
@@ -118,13 +119,13 @@ const Navigation = ({ open }: Props) => {
           <Nav>
             <ul>
               <li>
-                <Link to={Routes.DASHBOARD_RESTAURANT_HOME}>Home</Link>
+                <Link to={Routes.DASHBOARD_RESTAURANT_HOME.replace(':restaurantId', "1")}>Home</Link>
               </li>
               <li>
-                <Link to={Routes.PROFILE_RESTAURANT}>Profile</Link>
+                <Link to={Routes.PROFILE_RESTAURANT.replace(':restaurantId', "1")}>Profile</Link>
               </li>
               <li>
-                <Link to={Routes.DISHES}>Dishes</Link>
+                <Link to={Routes.DISHES.replace(':restaurantId', "1")}>Dishes</Link>
               </li>
             </ul>
           </Nav>

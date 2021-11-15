@@ -95,10 +95,10 @@ const Header = () => {
     <HeaderContainer>
       <Wrapper>
         <FlexContainer>
-          {location.path === Routes.DASHBOARD_RESTAURANT_HOME ||
+          {location.path === Routes.DASHBOARD_RESTAURANT_HOME.replace(':restaurantId', "1") ||
           location.path === Routes.DISHES ||
           location.path === Routes.PROFILE_RESTAURANT ? (
-            <Link to={Routes.DASHBOARD_RESTAURANT_HOME}>
+            <Link to={Routes.DASHBOARD_RESTAURANT_HOME.replace(':restaurantId', "1")}>
               <Logo open={open}>
                 <img src={logo} alt="logo" />
                 <h1>Dormdash(board)</h1>
