@@ -53,7 +53,11 @@ function App() {
               />
               <Route exact path={Routes.SIGN_IN} component={SignIn} />
               <Route exact path={Routes.SIGN_UP} component={SignUp} />
-              <Route exact path={Routes.BECOME_DRIVER} component={BecomeDriver} />
+              <Route
+                exact
+                path={Routes.BECOME_DRIVER}
+                component={BecomeDriver}
+              />
               <Route
                 exact
                 path={Routes.BECOME_PARTNER}
@@ -89,11 +93,7 @@ function App() {
                 path={Routes.DISH_ADD}
                 component={RestaurantDishAddPage}
               />
-              <Route
-                exact
-                path={Routes.DISH_REMOVE}
-                component={RemoveDish}
-              />
+              <Route exact path={Routes.DISH_REMOVE} component={RemoveDish} />
             </Switch>
           </AnimatePresence>
         </Router>
