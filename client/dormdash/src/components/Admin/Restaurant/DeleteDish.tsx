@@ -29,7 +29,8 @@ export const DeleteDish = (props: Props) => {
       },
       refetchQueries: [
         {
-          query: RESTAURANT_DISHES
+          query: RESTAURANT_DISHES,
+          variables: { id: 1}
         }
       ]
     })

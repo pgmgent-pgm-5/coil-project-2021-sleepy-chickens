@@ -10,6 +10,7 @@ import { DISH_BY_ID, UPDATE_DISH } from "../graphql/dishes";
 import { useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { RESTAURANT_DISHES } from "../graphql/restaurants";
 
 
 const Container = styled.main`
@@ -109,7 +110,13 @@ const RestaurantDishEditPage = (props: Props) => {
                     price: formData.price,
                     quantity: formData.quantity,
                     picture: picture
-                  }
+                  },
+                  refetchQueries: [
+                    {
+                      query: RESTAURANT_DISHES,
+                      variables: { id: Number(restaurantId)}
+                    }
+                  ]
                 })
 
                 setSubmitting(false);

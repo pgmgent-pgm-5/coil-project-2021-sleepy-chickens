@@ -52,8 +52,8 @@ export const DISH_BY_ID = gql`
   query ($id: Int!) {
     getDish(id: $id) {
       id
-      description,
-      restaurantId,
+      description
+      restaurantId
       picture
       price
       name
