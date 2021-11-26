@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as HashRouter, Switch, Route } from "react-router-dom";
 import * as Routes from "./routes";
 import GlobalStyle from "./theme/globalStyles";
 import { ThemeProvider } from "styled-components";
@@ -33,7 +33,7 @@ function App() {
     <UserProvider>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Router>
+        <HashRouter>
           <Helmet>
             <title>Dormdash</title>
             <meta
@@ -53,7 +53,11 @@ function App() {
               />
               <Route exact path={Routes.SIGN_IN} component={SignIn} />
               <Route exact path={Routes.SIGN_UP} component={SignUp} />
-              <Route exact path={Routes.BECOME_DRIVER} component={BecomeDriver} />
+              <Route
+                exact
+                path={Routes.BECOME_DRIVER}
+                component={BecomeDriver}
+              />
               <Route
                 exact
                 path={Routes.BECOME_PARTNER}
@@ -89,14 +93,10 @@ function App() {
                 path={Routes.DISH_ADD}
                 component={RestaurantDishAddPage}
               />
-              <Route
-                exact
-                path={Routes.DISH_REMOVE}
-                component={RemoveDish}
-              />
+              <Route exact path={Routes.DISH_REMOVE} component={RemoveDish} />
             </Switch>
           </AnimatePresence>
-        </Router>
+        </HashRouter>
       </ThemeProvider>
     </UserProvider>
   );
