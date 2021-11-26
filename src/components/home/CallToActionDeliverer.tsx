@@ -44,8 +44,10 @@ const CallToActionDeliverer = (props: Props) => {
       <Content>
         <h2>Become a deliverer!</h2>
         <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat
+          When you sign up to be a deliverer, you become your own boss. You’ll
+          make your own hours, design your own schedule, and manage your own
+          orders. All you need to do is click Sign Up and tell us about
+          yourself. It’s that easy!
         </p>
         <PrimaryButtonLink link={Routes.BECOME_DRIVER}>
           Sign up
