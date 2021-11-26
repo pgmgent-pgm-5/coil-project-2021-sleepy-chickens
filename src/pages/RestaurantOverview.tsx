@@ -7,6 +7,7 @@ import { useQuery, gql } from "@apollo/client";
 import { RESTAURANTS_SUMMARY } from "../graphql/restaurants";
 import { RestaurantSummaries } from "../interfaces/interfaces";
 import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div`
   margin-top: 5rem;
@@ -36,7 +37,7 @@ const RestaurantContainer = styled.ul`
 interface Props {}
 
 const RestaurantOverview = (props: Props) => {
-  const search = window.location.search;
+  const search = useLocation().search;
   const params = new URLSearchParams(search);
   const query = params.get("query");
 
@@ -49,6 +50,9 @@ const RestaurantOverview = (props: Props) => {
       variables: { province: String(query) },
     }
   );
+
+  console.log(data);
+  console.log(query);
 
   if (data) {
     console.log(data);
