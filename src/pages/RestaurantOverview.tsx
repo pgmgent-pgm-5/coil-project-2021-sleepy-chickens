@@ -46,7 +46,7 @@ const RestaurantOverview = (props: Props) => {
   const { error, loading, data, refetch } = useQuery<RestaurantSummaries>(
     RESTAURANTS_SUMMARY,
     {
-      fetchPolicy: "cache-first",
+      //   fetchPolicy: "cache-first",
       variables: { province: String(query) },
     }
   );
