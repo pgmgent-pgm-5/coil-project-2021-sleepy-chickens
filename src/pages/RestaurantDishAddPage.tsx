@@ -74,7 +74,8 @@ const RestaurantDishAddPage = (props: Props) => {
             },
             refetchQueries: [
               {
-                query: RESTAURANT_DISHES
+                query: RESTAURANT_DISHES,
+                variables: { id: Number(restaurantId)}
               }
             ]
           })
@@ -87,8 +88,8 @@ const RestaurantDishAddPage = (props: Props) => {
             ),
           });
 
-          // fix random magic bug
-          window.location.reload();
+          // // fix random magic bug
+          // window.location.reload();
         }}
         validationSchema={validationSchema}
       >

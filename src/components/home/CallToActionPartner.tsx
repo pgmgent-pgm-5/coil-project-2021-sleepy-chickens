@@ -39,8 +39,10 @@ const CallToActionPartner = (props: Props) => {
       <Content>
         <h2>Become a partner!</h2>
         <p>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat
+          Get your restaurant noticed. By signing up with Dormdash, you’ll
+          connect your business with thousands of hungry students. To get
+          started, click Sign Up and tell us a little bit about yourself. We’ll
+          do the rest!
         </p>
         <PrimaryButtonLink link={Routes.BECOME_PARTNER}>
           Sign up

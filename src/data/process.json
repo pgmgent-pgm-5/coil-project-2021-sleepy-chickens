@@ -4,20 +4,20 @@
     "name": "location",
     "title": "Enter your location",
     "lottie": "https://assets4.lottiefiles.com/packages/lf20_svy4ivvy.json",
-    "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    "text": "Put in your city or state to see which restaurants are near you."
   },
   {
     "id": 2,
     "name": "meal",
     "title": "Choose your meal",
     "lottie": "https://assets5.lottiefiles.com/packages/lf20_2i1jrx6r.json",
-    "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    "text": "Take a look at what each restaurant is offering and choose your favourites!"
   },
   {
     "id": 3,
     "name": "pay and deliver",
     "title": "Pay and get delivered",
     "lottie": "https://assets10.lottiefiles.com/private_files/lf30_J5NRAx.json",
-    "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+    "text": "Enter your payment information, and sit back and relax as your food is made and delivered!"
   }
 ]
