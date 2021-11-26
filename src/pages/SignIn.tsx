@@ -13,7 +13,6 @@ import { useHistory } from "react-router";
 import { useUser } from "../context/AuthenticationContext";
 import { Helmet } from "react-helmet";
 
-
 const Container = styled.div`
   height: 100vh;
   overflow: hidden;
@@ -69,8 +68,6 @@ const validationSchema = yup.object({
   password: yup.string().required("Password is required"),
 });
 
-
-
 const SignIn = () => {
   const history = useHistory();
 
@@ -83,7 +80,7 @@ const SignIn = () => {
     });
     return history.push("/");
   };
-  
+
   return (
     <BaseLayout>
       <Helmet>
@@ -98,7 +95,7 @@ const SignIn = () => {
               email: "",
               password: "",
             }}
-            onSubmit={ async (data, { setSubmitting }) => {
+            onSubmit={async (data, { setSubmitting }) => {
               setSubmitting(true);
 
               // TODO: change to path defined in .env or config file
@@ -118,7 +115,6 @@ const SignIn = () => {
               }
               // Correct login assumed
               handleLoginContext(response);
-              
 
               setSubmitting(false);
             }}

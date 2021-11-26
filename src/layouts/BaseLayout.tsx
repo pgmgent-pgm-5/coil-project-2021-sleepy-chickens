@@ -20,7 +20,6 @@ interface BaseLayoutProps {
 }
 
 const BaseLayout = ({ children }: BaseLayoutProps) => {
-  
   return (
     <motion.div
       initial={{
