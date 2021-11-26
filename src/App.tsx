@@ -1,4 +1,4 @@
-import { BrowserRouter as HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route } from "react-router-dom";
 import * as Routes from "./routes";
 import GlobalStyle from "./theme/globalStyles";
 import { ThemeProvider } from "styled-components";
