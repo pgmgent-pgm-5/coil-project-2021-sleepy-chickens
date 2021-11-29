@@ -8,6 +8,11 @@ import InputField from "../components/form/InputField";
 import PrimaryButton from "../components/form/PrimaryButton";
 import SignInLink from "../components/form/SignInLink";
 import { Helmet } from "react-helmet";
+import { useHistory } from "react-router-dom";
+import { useUser } from "../context/AuthenticationContext";
+import { useLazyQuery, useMutation } from "@apollo/client";
+import Textarea from "../components/form/Textarea";
+import { CREATE_RESTAURANT } from "../graphql/restaurants";
 
 const Container = styled.div`
   //height: 100vh;
@@ -53,15 +58,18 @@ const phoneRegExp =
 const validationSchema = yup.object({
   restaurantName: yup.string().required("Required"),
   typeOfCuisine: yup.string().required("Required"),
+  description: yup.string().required("Required"),
   logo: yup.string().required("Required"),
-  streetAndNumber: yup.string().required("Required"),
+  deliveryTime: yup.number().required("Required"),
+  street: yup.string().required("Required"),
+  streetnumber: yup.number().required("Required"),
   city: yup.string().required("Required"),
   postalCode: yup.string().required("Required"),
   province: yup.string().required("Required"),
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
   email: yup.string().email("Invalid email address").required("Required"),
-  tel: yup
+  phone: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("Required"),
@@ -72,6 +80,21 @@ const validationSchema = yup.object({
 });
 
 const BecomePartner = () => {
+  const handleUserContext = useUser();
+  const history = useHistory();
+
+  const [createRestaurant, { error, loading, data}] = useMutation(CREATE_RESTAURANT);
+
+  const handleLoginContext = ({ email, id }: { email: string; id: number }) => {
+    handleUserContext!.dispatch({
+      type: 'setUser',
+      payload: { email: email, id: id },
+    });
+    return history.push(`/dashboard-restaurant/${id}`);
+  };
+
+  
+
   return (
     <BaseLayout>
       <Container>
@@ -85,22 +108,83 @@ const BecomePartner = () => {
             initialValues={{
               restaurantName: "",
               typeOfCuisine: "",
+              description: "",
               logo: "",
-              streetAndNumber: "",
+              deliveryTime: 0,
+              street: "",
+              streetnumber: 0,
               city: "",
               postalCode: "",
               province: "",
               firstName: "",
               lastName: "",
               email: "",
-              tel: "",
+              phone: "",
               password: "",
             }}
-            onSubmit={(data, { setSubmitting }) => {
+            onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
 
-              // async call naar api
-              console.log(data);
+              const newUser = { 'firstName': formData.firstName, 'lastName': formData.lastName, 'email': formData.email, 'phone': formData.phone, 'password': formData.password, 'role': 'restaurant', 'studentNumber': null };
+
+              const request = await fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+              });
+              const response = await request.json();
+    
+              if (response.statusCode === 401) {
+                // TODO: Handle error code (unauthorized request == wrong password/username combination);
+                return;
+              }
+
+              let catId;
+              switch (formData.typeOfCuisine) {
+                case 'sushi':
+                  catId = 1;
+                  break;
+                case 'hamburgers':
+                  catId = 2;
+                  break;
+                case 'pizza':
+                  catId = 3;
+                  break;
+                case 'pita':
+                  catId = 4;
+                  break;
+                case 'pasta':
+                  catId = 5;
+                  break;
+              
+                default:
+                  catId = 5;
+                  break;
+              };
+              console.log('response', response);
+              console.log('number', formData.streetnumber);
+              console.log(typeof formData.streetnumber);
+
+              createRestaurant({variables: { 
+                userId: Number(response.id),
+                categoryId: Number(catId),
+                name: formData.restaurantName,
+                description: formData.description,
+                logo: formData.logo,
+                picture: "picture",
+                street: formData.street,
+                streetnumber: Number(formData.streetnumber),
+                postalcode: formData.postalCode,
+                city: formData.city,
+                province: formData.province,
+                deliveryTime: formData.deliveryTime,
+                deliveryTimes: " monday... "
+              }});
+
+             handleLoginContext(response);
 
               setSubmitting(false);
             }}
@@ -127,6 +211,12 @@ const BecomePartner = () => {
                   name="typeOfCuisine"
                   placeholder="Type of cuisine"
                 />
+                <Field
+                  type="textarea"
+                  as={Textarea}
+                  name="description"
+                  placeholder="Description"
+                />
                 {/* Nog te veranderen in andere component */}
                 <Field
                   type="file"
@@ -135,10 +225,22 @@ const BecomePartner = () => {
                   placeholder="Logo"
                 />
                 <Field
+                  type="number"
+                  as={InputField}
+                  name="deliveryTime"
+                  placeholder="deliveryTime"
+                />
+                <Field
                   type="text"
                   as={InputField}
-                  name="streetAndNumber"
-                  placeholder="Street + nr."
+                  name="street"
+                  placeholder="Street"
+                />
+                <Field
+                  type="number"
+                  as={InputField}
+                  name="streetnumber"
+                  placeholder="nr."
                 />
                 <Field
                   type="text"
@@ -179,7 +281,7 @@ const BecomePartner = () => {
                 <Field
                   type="tel"
                   as={InputField}
-                  name="tel"
+                  name="phone"
                   placeholder="Telephone number"
                 />
                 <Field

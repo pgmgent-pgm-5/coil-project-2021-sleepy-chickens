@@ -3,6 +3,8 @@ import Devider from "../layout/Partial/Devider";
 import RestaurantFilterCategories from "./RestaurantFilterCategories";
 import styled from "styled-components";
 import RestaurantSort from "./RestaurantSort";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const Container = styled.div``;
 
@@ -19,9 +21,21 @@ const TitleContainer = styled.div`
   }
 `;
 
-interface Props {}
 
-const RestaurantFilter = (props: Props) => {
+
+const RestaurantFilter = ({onCatChange}: any) => {
+  const [cat, setCat] = useState('')
+  
+  const handleCategoryChange = (isSelected: string) => {
+    setCat(isSelected);
+  }
+
+  useEffect(() => {
+    if(typeof onCatChange === 'function') {
+      onCatChange(cat);
+    }
+  }, [cat]);
+
   return (
     <Container>
       <TitleContainer>
@@ -31,7 +45,7 @@ const RestaurantFilter = (props: Props) => {
         </h1>
       </TitleContainer>
       <Devider />
-      <RestaurantFilterCategories />
+      <RestaurantFilterCategories onCategoryChange={handleCategoryChange} />
       <Devider />
       <RestaurantSort />
       <Devider />
