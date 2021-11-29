@@ -73,12 +73,16 @@ const SignIn = () => {
 
   const handleUserContext = useUser();
 
-  const handleLoginContext = ({ email, id }: { email: string; id: number }) => {
+  const handleLoginContext = ({ id, email, role }: { id: number, email: string, role: string  }) => {
     handleUserContext!.dispatch({
       type: "setUser",
-      payload: { email: email, id: id },
+      payload: { id: id, email: email },
     });
-    return history.push("/");
+    if (role === 'restaurant') {
+      return history.push(`/dashboard-restaurant/${id}`);
+    } else {
+      return history.push("/");
+    }
   };
 
   return (

@@ -6,6 +6,12 @@ import * as yup from "yup";
 import PrimaryButton from "../components/form/PrimaryButton";
 import InputField from "../components/form/InputField";
 import { Helmet } from "react-helmet";
+import { useUser } from "../context/AuthenticationContext";
+import { useMutation, useQuery } from "@apollo/client";
+import { PROFILE_DETAIL, UPDATE_PROFILE } from "../graphql/users";
+
+import defaultImg from '../assets/default_profile.png';
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   margin-top: 2rem;
@@ -66,7 +72,7 @@ const validationSchema = yup.object({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
   email: yup.string().email("Invalid email address").required("Required"),
-  tel: yup
+  phone: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("Required"),
@@ -75,78 +81,132 @@ const validationSchema = yup.object({
 interface Props {}
 
 const Profile = (props: Props) => {
+  const userContext = useUser();
+  const history = useHistory();
+  console.log('userId', userContext?.state.id)
+  
+  const { error, loading, data, refetch } = useQuery(PROFILE_DETAIL, {
+    variables: { id: Number(userContext?.state.id) },
+  });
+
+  const [updateProfile, {data:updateData, loading: updateLoading, error:updateError}] = useMutation(UPDATE_PROFILE);
+
+  const handleLogout = async () => {
+    const request = await fetch('http://localhost:3000/logout', {
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    if (request.status === 200) {
+      userContext!.dispatch({
+        type: 'setUser',
+        payload: {
+          id: undefined,
+          email: undefined,
+        },
+      });
+      history.push('/');
+    }
+  };
+
+
+
+  if (error ) return <p>{error.message}</p>
+  if (updateError ) return <p>{updateError.message}</p>
+
+  if (loading || updateLoading) return <div>Loading ...</div>;
+
+
   return (
     <BaseLayout>
-      <Helmet>
-        <title>Dormdash | Profile</title>
-        <meta name="description" content="See your profile" />
-      </Helmet>
+      { data && (
+        <>
+          <Helmet>
+            <title>Dormdash | Profile</title>
+            <meta name="description" content="See your profile" />
+          </Helmet>
 
-      <Container>
-        <Image>
-          <img src="https://randomuser.me/api/portraits/women/75.jpg" alt="" />
-          <button>Logout</button>
-        </Image>
-        <FormContainer>
-          <Formik
-            // Veranderen naar values van current user
-            initialValues={{
-              firstName: "Jan",
-              lastName: "deschacht",
-              email: "jan@email.com",
-              tel: "0475757575",
-            }}
-            onSubmit={(data, { setSubmitting }) => {
-              setSubmitting(true);
+          <Container>
+            <Image>
+              <img src={data.findOneUser.picture ? data.findOneUser.picture : defaultImg} alt={data.findOneUser.firstName} />
+              <button onClick={() => handleLogout()}>Logout</button>
+            </Image>
+            <FormContainer>
+              <Formik
+                // Veranderen naar values van current user
+                initialValues={{
+                  firstName: data.findOneUser.firstName,
+                  lastName: data.findOneUser.lastName,
+                  email: data.findOneUser.email,
+                  phone: data.findOneUser.phone,
+                }}
+                onSubmit={(formData, { setSubmitting }) => {
+                  setSubmitting(true);
 
-              // async call naar api
-              console.log(data);
+                  updateProfile({
+                    variables: {
+                      id: Number(userContext?.state.id),
+                      firstName: formData.firstName, 
+                      lastName: formData.lastName,
+                      email: formData.email,
+                      phone: formData.phone,
+                      role: 'student',
+                    },
+                    refetchQueries: [
+                      {
+                        query: PROFILE_DETAIL,
+                        variables: { id: Number(userContext?.state.id)}
+                      }
+                    ]
+                  })
 
-              setSubmitting(false);
-            }}
-            validationSchema={validationSchema}
-          >
-            {({
-              values,
-              handleSubmit,
-              isSubmitting,
-              handleChange,
-              handleBlur,
-            }) => (
-              <form onSubmit={handleSubmit}>
-                <Field
-                  type="text"
-                  as={InputField}
-                  name="firstName"
-                  placeholder={"Firstname"}
-                />
-                <Field
-                  type="text"
-                  as={InputField}
-                  name="lastName"
-                  placeholder="Lastname"
-                />
-                <Field
-                  type="email"
-                  as={InputField}
-                  name="email"
-                  placeholder="E-mail"
-                />
-                <Field
-                  type="tel"
-                  as={InputField}
-                  name="tel"
-                  placeholder="Telephone number"
-                />
-                <PrimaryButton disabled={isSubmitting} type="submit">
-                  Update
-                </PrimaryButton>
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-              </form>
-            )}
-          </Formik>
-        </FormContainer>
-      </Container>
+                  setSubmitting(false);
+                }}
+                validationSchema={validationSchema}
+              >
+                {({
+                  values,
+                  handleSubmit,
+                  isSubmitting,
+                  handleChange,
+                  handleBlur,
+                }) => (
+                  <form onSubmit={handleSubmit}>
+                    <Field
+                      type="text"
+                      as={InputField}
+                      name="firstName"
+                      placeholder={"Firstname"}
+                    />
+                    <Field
+                      type="text"
+                      as={InputField}
+                      name="lastName"
+                      placeholder="Lastname"
+                    />
+                    <Field
+                      type="email"
+                      as={InputField}
+                      name="email"
+                      placeholder="E-mail"
+                    />
+                    <Field
+                      type="tel"
+                      as={InputField}
+                      name="phone"
+                      placeholder="Telephone number"
+                    />
+                    <PrimaryButton disabled={isSubmitting} type="submit">
+                      Update
+                    </PrimaryButton>
+                    {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+                  </form>
+                )}
+              </Formik>
+            </FormContainer>
+          </Container>
+        </>
+      )}
     </BaseLayout>
   );
 };

@@ -17,6 +17,23 @@ query ($province: String!) {
 }
 `;
 
+export const RESTAURANTS_SUMMARY_CATEGORY = gql`
+query ($province: String!, $categoryId: Int!) {
+  restaurantsByCategoryAndProvince(province: $province, categoryId: $categoryId) {
+    id
+    name
+    picture
+    deliveryTime
+    category {
+      name
+    }
+    reviews {
+      rating
+    }
+  }
+}
+`;
+
 export const RESTAURANTS_DETAIL = gql`
 query ($id: Int!) {
   getRestaurantById(id: $id) {
@@ -62,4 +79,27 @@ export const RESTAURANT_DISHES = gql`
       }
     }
   }
+`;
+
+export const CREATE_RESTAURANT = gql`
+
+mutation ( $userId: Int!, $categoryId: Int!, $name: String!, $description: String!, $logo: String!, $picture: String!, $street: String!, $streetnumber: Int!, $postalcode: String!, $city: String!, $province: String!, $deliveryTime: Int!, $deliveryTimes: String!) {
+  createRestaurant(createRestaurantInput: {
+    userId: $userId,
+    categoryId: $categoryId,
+    name: $name,
+    description: $description,
+    logo: $logo,
+    picture: $picture,
+    street: $street,
+    streetnumber: $streetnumber,
+    postalcode: $postalcode,
+    city: $city,
+    province: $province,
+    deliveryTime: $deliveryTime,
+    deliveryTimes: $deliveryTimes,
+  }) {
+    id
+  }
+}
 `;

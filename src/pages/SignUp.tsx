@@ -7,6 +7,8 @@ import PrimaryButton from "../components/form/PrimaryButton";
 import backgroundImage from "../assets/SignUpBg.png";
 import SignInLink from "../components/form/SignInLink";
 import { Helmet } from "react-helmet";
+import { useUser } from "../context/AuthenticationContext";
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   //height: 100vh;
@@ -53,7 +55,7 @@ const validationSchema = yup.object({
   firstName: yup.string().required("Required"),
   lastName: yup.string().required("Required"),
   email: yup.string().email("Invalid email address").required("Required"),
-  tel: yup
+  phone: yup
     .string()
     .matches(phoneRegExp, "Phone number is not valid")
     .required("Required"),
@@ -65,6 +67,16 @@ const validationSchema = yup.object({
 });
 
 const SignUp = () => {
+  const handleUserContext = useUser();
+  const history = useHistory();
+
+  const handleLoginContext = ({ email, id }: { email: string; id: number }) => {
+    handleUserContext!.dispatch({
+      type: 'setUser',
+      payload: { email: email, id: id },
+    });
+    return history.push('/');
+  };
   return (
     <BaseLayout>
       <Container>
@@ -79,15 +91,30 @@ const SignUp = () => {
               firstName: "",
               lastName: "",
               email: "",
-              tel: "",
+              phone: "",
               password: "",
               studentNumber: "",
             }}
-            onSubmit={(data, { setSubmitting }) => {
+            onSubmit={ async (data, { setSubmitting }) => {
               setSubmitting(true);
+              const newUser = { 'role': 'student', ...data };
 
-              // async call naar api
-              console.log(data);
+              const request = await fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newUser),
+              });
+              const response = await request.json();
+    
+              if (response.statusCode === 401) {
+                // TODO: Handle error code (unauthorized request == wrong password/username combination);
+                return;
+              }
+    
+              handleLoginContext(response);
 
               setSubmitting(false);
             }}
@@ -122,7 +149,7 @@ const SignUp = () => {
                 <Field
                   type="tel"
                   as={InputField}
-                  name="tel"
+                  name="phone"
                   placeholder="Telephone number"
                 />
                 <Field

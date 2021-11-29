@@ -22,6 +22,8 @@ import { onError } from "@apollo/client/link/error";
 const link = from([
   // errorLink,
   new HttpLink({ uri: "https://dormdash-server.onrender.com/graphql" }),
+  // new HttpLink({ uri: "http://localhost:3000/graphql" }),
+
 ]);
 
 const client = new ApolloClient({
