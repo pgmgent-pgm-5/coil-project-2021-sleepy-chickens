@@ -100,7 +100,7 @@ const SignUp = () => {
               const newUser = { role: "student", ...data };
 
               const request = await fetch(
-                "https://dormdash.onrender.com/#/signup",
+                "https://dormdash.onrender.com/signup",
                 {
                   method: "POST",
                   credentials: "include",
