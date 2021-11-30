@@ -128,7 +128,7 @@ const Profile = (props: Props) => {
 
           <Container>
             <Image>
-              <img src={data.findOneUser.picture ? data.findOneUser.picture : defaultImg} alt={data.findOneUser.firstName} />
+              <img src={data.findOneUser.picture ? `./assets/${data.findOneUser.picture}` : defaultImg} alt={data.findOneUser.firstName} />
               <button onClick={() => handleLogout()}>Logout</button>
             </Image>
             <FormContainer>

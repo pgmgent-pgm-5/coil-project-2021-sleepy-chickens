@@ -79,7 +79,7 @@ const SignIn = () => {
       payload: { id: id, email: email },
     });
     if (role === 'restaurant') {
-      return history.push(`/dashboard-restaurant/${id}`);
+      return history.push(`/dashboard-restaurant`);
     } else {
       return history.push("/");
     }
@@ -139,7 +139,7 @@ const SignIn = () => {
                   placeholder="E-mail"
                 />
                 <Field
-                  type="input"
+                  type="password"
                   as={InputField}
                   name="password"
                   placeholder="Password"
