@@ -10,7 +10,7 @@ import { useUser } from "../context/AuthenticationContext";
 import { useMutation, useQuery } from "@apollo/client";
 import { PROFILE_DETAIL, UPDATE_PROFILE } from "../graphql/users";
 
-import defaultImg from '../assets/default_profile.png';
+import defaultImg from "../assets/default_profile.png";
 import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
@@ -83,43 +83,43 @@ interface Props {}
 const Profile = (props: Props) => {
   const userContext = useUser();
   const history = useHistory();
-  console.log('userId', userContext?.state.id)
-  
+  console.log("userId", userContext?.state.id);
+
   const { error, loading, data, refetch } = useQuery(PROFILE_DETAIL, {
     variables: { id: Number(userContext?.state.id) },
   });
 
-  const [updateProfile, {data:updateData, loading: updateLoading, error:updateError}] = useMutation(UPDATE_PROFILE);
+  const [
+    updateProfile,
+    { data: updateData, loading: updateLoading, error: updateError },
+  ] = useMutation(UPDATE_PROFILE);
 
   const handleLogout = async () => {
-    const request = await fetch('http://localhost:3000/logout', {
-      method: 'GET',
-      credentials: 'include',
+    const request = await fetch("https://dormdash.onrender.com/logout", {
+      method: "GET",
+      credentials: "include",
     });
 
     if (request.status === 200) {
       userContext!.dispatch({
-        type: 'setUser',
+        type: "setUser",
         payload: {
           id: undefined,
           email: undefined,
         },
       });
-      history.push('/');
+      history.push("/");
     }
   };
 
-
-
-  if (error ) return <p>{error.message}</p>
-  if (updateError ) return <p>{updateError.message}</p>
+  if (error) return <p>{error.message}</p>;
+  if (updateError) return <p>{updateError.message}</p>;
 
   if (loading || updateLoading) return <div>Loading ...</div>;
 
-
   return (
     <BaseLayout>
-      { data && (
+      {data && (
         <>
           <Helmet>
             <title>Dormdash | Profile</title>
@@ -128,7 +128,14 @@ const Profile = (props: Props) => {
 
           <Container>
             <Image>
-              <img src={data.findOneUser.picture ? `./assets/${data.findOneUser.picture}` : defaultImg} alt={data.findOneUser.firstName} />
+              <img
+                src={
+                  data.findOneUser.picture
+                    ? `./assets/${data.findOneUser.picture}`
+                    : defaultImg
+                }
+                alt={data.findOneUser.firstName}
+              />
               <button onClick={() => handleLogout()}>Logout</button>
             </Image>
             <FormContainer>
@@ -146,19 +153,19 @@ const Profile = (props: Props) => {
                   updateProfile({
                     variables: {
                       id: Number(userContext?.state.id),
-                      firstName: formData.firstName, 
+                      firstName: formData.firstName,
                       lastName: formData.lastName,
                       email: formData.email,
                       phone: formData.phone,
-                      role: 'student',
+                      role: "student",
                     },
                     refetchQueries: [
                       {
                         query: PROFILE_DETAIL,
-                        variables: { id: Number(userContext?.state.id)}
-                      }
-                    ]
-                  })
+                        variables: { id: Number(userContext?.state.id) },
+                      },
+                    ],
+                  });
 
                   setSubmitting(false);
                 }}

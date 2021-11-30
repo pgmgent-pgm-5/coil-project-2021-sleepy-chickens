@@ -27,10 +27,13 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
   const fetchAuthentication = async () => {
     if (handleUserContext!.state.id === undefined) {
       // Check if user is logged in, if not, fetch session state
-      const request = await fetch("http://localhost:3000/authenticated", {
-        method: "GET",
-        credentials: "include",
-      });
+      const request = await fetch(
+        "https://dormdash.onrender.com/authenticated",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
 
       const response = await request.json();
       if (response.statusCode === 403) {
