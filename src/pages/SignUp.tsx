@@ -112,6 +112,8 @@ const SignUp = () => {
               );
               const response = await request.json();
 
+              console.log(response);
+
               if (response.statusCode === 401) {
                 // TODO: Handle error code (unauthorized request == wrong password/username combination);
                 return;
