@@ -112,6 +112,9 @@ const SignUp = () => {
                   body: JSON.stringify(newUser),
                 }
               );
+
+              console.log(request);
+
               const response = await request.json();
 
               if (response.statusCode === 401) {
