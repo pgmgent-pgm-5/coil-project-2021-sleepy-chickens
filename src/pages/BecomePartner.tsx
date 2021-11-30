@@ -91,7 +91,7 @@ const BecomePartner = () => {
       type: "setUser",
       payload: { email: email, id: id },
     });
-    return history.push(`/dashboard-restaurant/${id}`);
+    return history.push(`/dashboard-restaurant/`);
   };
 
   return (
