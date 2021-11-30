@@ -97,98 +97,97 @@ const RestaurantDashboardProfile = (props: Props) => {
     }
   }, [userId, updateData]);
 
-  if (data) {
-    console.log("data data", data);
-    return (
-      <AdminLayout>
-        <Helmet>
-          <title>Dormdashboard | Profile</title>
-          <meta name="description" content="edit profile" />
-        </Helmet>
+  console.log("data data", data);
+  return (
+    <AdminLayout>
+      <Helmet>
+        <title>Dormdashboard | Profile</title>
+        <meta name="description" content="edit profile" />
+      </Helmet>
 
-        {data && (
-          <Container>
-            <Image>
-              <h1>Profile</h1>
-              <img
-                src={`./assets/${data.getRestaurantByUserId.picture}`}
-                alt=""
-              />
-            </Image>
-            <FormikWrapper>
-              <Formik
-                // Veranderen naar values van current user
-                initialValues={{
-                  restaurantName: data.getRestaurantByUserId.name,
-                  description: data.getRestaurantByUserId.description,
-                  image: "",
-                }}
-                onSubmit={(formData, { setSubmitting }) => {
-                  setSubmitting(true);
-                  console.log("restaurantIDDD", data.getRestaurantByUserId.id);
+      {data && (
+        <Container>
+          <Image>
+            <h1>Profile</h1>
+            <img
+              src={`./assets/${data.getRestaurantByUserId.picture}`}
+              alt=""
+            />
+          </Image>
+          <FormikWrapper>
+            <Formik
+              // Veranderen naar values van current user
+              initialValues={{
+                restaurantName: data.getRestaurantByUserId.name,
+                description: data.getRestaurantByUserId.description,
+                image: "",
+              }}
+              onSubmit={(formData, { setSubmitting }) => {
+                setSubmitting(true);
+                console.log("restaurantIDDD", data.getRestaurantByUserId.id);
 
-                  updateRestaurant({
-                    variables: {
-                      id: data.getRestaurantByUserId.id,
-                      name: formData.restaurantName,
-                      description: formData.description,
-                      picture: "default_menu.jpeg",
-                    },
-                    refetchQueries: [
-                      {
-                        query: RESTAURANTS_DETAIL,
-                        variables: {
-                          id: Number(data.getRestaurantByUserId.id),
-                        },
+                updateRestaurant({
+                  variables: {
+                    id: data.getRestaurantByUserId.id,
+                    name: formData.restaurantName,
+                    description: formData.description,
+                    picture: "default_menu.jpeg",
+                  },
+                  refetchQueries: [
+                    {
+                      query: RESTAURANTS_DETAIL,
+                      variables: {
+                        id: Number(data.getRestaurantByUserId.id),
                       },
-                    ],
-                  });
+                    },
+                  ],
+                });
 
-                  setSubmitting(false);
-                }}
-                validationSchema={validationSchema}
-              >
-                {({
-                  values,
-                  handleSubmit,
-                  isSubmitting,
-                  handleChange,
-                  handleBlur,
-                }) => (
-                  <form onSubmit={handleSubmit}>
-                    <Field
-                      type="text"
-                      as={InputField}
-                      name="restaurantName"
-                      placeholder={"Restaurant name"}
-                    />
-                    <Field
-                      as={Textarea}
-                      name="description"
-                      placeholder="Description"
-                    />
-                    <Field
-                      type="file"
-                      as={InputField}
-                      name="image"
-                      placeholder="Restaurant banner image"
-                    />
-                    <PrimaryButton disabled={isSubmitting} type="submit">
-                      Update
-                    </PrimaryButton>
-                    {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-                  </form>
-                )}
-              </Formik>
-            </FormikWrapper>
-            <LinkContainer>
-              <PrimaryLink link={Routes.DISHES}>Go back</PrimaryLink>
-            </LinkContainer>
-          </Container>
-        )}
-      </AdminLayout>
-    );
-  }
+                setSubmitting(false);
+              }}
+              validationSchema={validationSchema}
+            >
+              {({
+                values,
+                handleSubmit,
+                isSubmitting,
+                handleChange,
+                handleBlur,
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <Field
+                    type="text"
+                    as={InputField}
+                    name="restaurantName"
+                    placeholder={"Restaurant name"}
+                  />
+                  <Field
+                    as={Textarea}
+                    name="description"
+                    placeholder="Description"
+                  />
+                  <Field
+                    type="file"
+                    as={InputField}
+                    name="image"
+                    placeholder="Restaurant banner image"
+                  />
+                  <PrimaryButton disabled={isSubmitting} type="submit">
+                    Update
+                  </PrimaryButton>
+                  {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+                </form>
+              )}
+            </Formik>
+          </FormikWrapper>
+          <LinkContainer>
+            <PrimaryLink link={Routes.DISHES}>Go back</PrimaryLink>
+          </LinkContainer>
+        </Container>
+      )}
+    </AdminLayout>
+  );
+
   //   else {
   //     return (
   //       <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />
