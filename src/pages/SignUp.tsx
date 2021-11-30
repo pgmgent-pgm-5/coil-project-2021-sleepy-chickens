@@ -8,7 +8,7 @@ import backgroundImage from "../assets/SignUpBg.png";
 import SignInLink from "../components/form/SignInLink";
 import { Helmet } from "react-helmet";
 import { useUser } from "../context/AuthenticationContext";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   //height: 100vh;
@@ -72,10 +72,10 @@ const SignUp = () => {
 
   const handleLoginContext = ({ email, id }: { email: string; id: number }) => {
     handleUserContext!.dispatch({
-      type: 'setUser',
+      type: "setUser",
       payload: { email: email, id: id },
     });
-    return history.push('/');
+    return history.push("/");
   };
   return (
     <BaseLayout>
@@ -95,25 +95,28 @@ const SignUp = () => {
               password: "",
               studentNumber: "",
             }}
-            onSubmit={ async (data, { setSubmitting }) => {
+            onSubmit={async (data, { setSubmitting }) => {
               setSubmitting(true);
-              const newUser = { 'role': 'student', ...data };
+              const newUser = { role: "student", ...data };
 
-              const request = await fetch('http://localhost:3000/signup', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newUser),
-              });
+              const request = await fetch(
+                "https://dormdash.onrender.com/signup",
+                {
+                  method: "POST",
+                  credentials: "include",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newUser),
+                }
+              );
               const response = await request.json();
-    
+
               if (response.statusCode === 401) {
                 // TODO: Handle error code (unauthorized request == wrong password/username combination);
                 return;
               }
-    
+
               handleLoginContext(response);
 
               setSubmitting(false);

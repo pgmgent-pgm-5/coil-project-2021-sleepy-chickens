@@ -83,17 +83,16 @@ const BecomePartner = () => {
   const handleUserContext = useUser();
   const history = useHistory();
 
-  const [createRestaurant, { error, loading, data}] = useMutation(CREATE_RESTAURANT);
+  const [createRestaurant, { error, loading, data }] =
+    useMutation(CREATE_RESTAURANT);
 
   const handleLoginContext = ({ email, id }: { email: string; id: number }) => {
     handleUserContext!.dispatch({
-      type: 'setUser',
+      type: "setUser",
       payload: { email: email, id: id },
     });
     return history.push(`/dashboard-restaurant/${id}`);
   };
-
-  
 
   return (
     <BaseLayout>
@@ -125,18 +124,29 @@ const BecomePartner = () => {
             onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
 
-              const newUser = { 'firstName': formData.firstName, 'lastName': formData.lastName, 'email': formData.email, 'phone': formData.phone, 'password': formData.password, 'role': 'restaurant', 'studentNumber': null };
+              const newUser = {
+                firstName: formData.firstName,
+                lastName: formData.lastName,
+                email: formData.email,
+                phone: formData.phone,
+                password: formData.password,
+                role: "restaurant",
+                studentNumber: null,
+              };
 
-              const request = await fetch('http://localhost:3000/signup', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newUser),
-              });
+              const request = await fetch(
+                "https://dormdash.onrender.com/signup",
+                {
+                  method: "POST",
+                  credentials: "include",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newUser),
+                }
+              );
               const response = await request.json();
-    
+
               if (response.statusCode === 401) {
                 // TODO: Handle error code (unauthorized request == wrong password/username combination);
                 return;
@@ -144,47 +154,49 @@ const BecomePartner = () => {
 
               let catId;
               switch (formData.typeOfCuisine) {
-                case 'sushi':
+                case "sushi":
                   catId = 1;
                   break;
-                case 'hamburgers':
+                case "hamburgers":
                   catId = 2;
                   break;
-                case 'pizza':
+                case "pizza":
                   catId = 3;
                   break;
-                case 'pita':
+                case "pita":
                   catId = 4;
                   break;
-                case 'pasta':
+                case "pasta":
                   catId = 5;
                   break;
-              
+
                 default:
                   catId = 5;
                   break;
-              };
-              console.log('response', response);
-              console.log('number', formData.streetnumber);
+              }
+              console.log("response", response);
+              console.log("number", formData.streetnumber);
               console.log(typeof formData.streetnumber);
 
-              createRestaurant({variables: { 
-                userId: Number(response.id),
-                categoryId: Number(catId),
-                name: formData.restaurantName,
-                description: formData.description,
-                logo: formData.logo,
-                picture: "picture",
-                street: formData.street,
-                streetnumber: Number(formData.streetnumber),
-                postalcode: formData.postalCode,
-                city: formData.city,
-                province: formData.province,
-                deliveryTime: formData.deliveryTime,
-                deliveryTimes: " monday... "
-              }});
+              createRestaurant({
+                variables: {
+                  userId: Number(response.id),
+                  categoryId: Number(catId),
+                  name: formData.restaurantName,
+                  description: formData.description,
+                  logo: formData.logo,
+                  picture: "picture",
+                  street: formData.street,
+                  streetnumber: Number(formData.streetnumber),
+                  postalcode: formData.postalCode,
+                  city: formData.city,
+                  province: formData.province,
+                  deliveryTime: formData.deliveryTime,
+                  deliveryTimes: " monday... ",
+                },
+              });
 
-             handleLoginContext(response);
+              handleLoginContext(response);
 
               setSubmitting(false);
             }}

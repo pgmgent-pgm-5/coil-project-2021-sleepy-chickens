@@ -73,12 +73,20 @@ const SignIn = () => {
 
   const handleUserContext = useUser();
 
-  const handleLoginContext = ({ id, email, role }: { id: number, email: string, role: string  }) => {
+  const handleLoginContext = ({
+    id,
+    email,
+    role,
+  }: {
+    id: number;
+    email: string;
+    role: string;
+  }) => {
     handleUserContext!.dispatch({
       type: "setUser",
       payload: { id: id, email: email },
     });
-    if (role === 'restaurant') {
+    if (role === "restaurant") {
       return history.push(`/dashboard-restaurant`);
     } else {
       return history.push("/");
@@ -103,14 +111,17 @@ const SignIn = () => {
               setSubmitting(true);
 
               // TODO: change to path defined in .env or config file
-              const request = await fetch("http://localhost:3000/login", {
-                method: "POST",
-                credentials: "include",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-              });
+              const request = await fetch(
+                "https://dormdash.onrender.com/login",
+                {
+                  method: "POST",
+                  credentials: "include",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(data),
+                }
+              );
               const response = await request.json();
               console.log(response);
               if (response.statusCode === 401) {
