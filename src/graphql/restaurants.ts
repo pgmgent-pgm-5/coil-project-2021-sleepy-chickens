@@ -103,3 +103,40 @@ mutation ( $userId: Int!, $categoryId: Int!, $name: String!, $description: Strin
   }
 }
 `;
+
+export const GET_RESTAURANTID_BY_USERID = gql`
+query ($userId: Int!) {
+  getRestaurantByUserId(userId: $userId) {
+    id
+  }
+}
+`;
+
+export const GET_RESTAURANTDETAIL_BY_USERID = gql`
+query ($userId: Int!) {
+  getRestaurantByUserId(userId: $userId) {
+    id
+    name 
+    description 
+    picture
+  }
+}
+`;
+
+export const UPDATE_RESTAURANT = gql`
+  mutation ($id: Int!, $name: String!, $description: String!, $picture: String!){
+    updateRestaurant(
+      updateRestaurantInput: {
+        id: $id, 
+        name: $name,
+        description: $description,
+        picture: $picture,
+      }
+    ){
+    name,
+    description,
+    picture
+    }
+  }
+`;
+

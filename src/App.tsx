@@ -27,6 +27,7 @@ import {
 import RestaurantOverview from "./pages/RestaurantOverview";
 import ScrollToTop from "./components/ScrollToTop ";
 import { Helmet } from "react-helmet";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -94,6 +95,7 @@ function App() {
                 component={RestaurantDishAddPage}
               />
               <Route exact path={Routes.DISH_REMOVE} component={RemoveDish} />
+              <Route exact path={Routes.ERROR} component={Error} />
             </Switch>
           </AnimatePresence>
         </HashRouter>

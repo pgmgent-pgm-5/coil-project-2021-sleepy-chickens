@@ -1,9 +1,10 @@
-import { useMutation } from '@apollo/client'
+import { useLazyQuery, useMutation } from '@apollo/client'
 import React from 'react'
 import { useEffect } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
+import { useUser } from '../../../context/AuthenticationContext'
 import { REMOVE_DISH } from '../../../graphql/dishes'
-import { RESTAURANT_DISHES } from '../../../graphql/restaurants'
+import { GET_RESTAURANTID_BY_USERID, RESTAURANT_DISHES } from '../../../graphql/restaurants'
 import * as Routes from '../../../routes';
 
 interface Props {
@@ -13,33 +14,47 @@ interface Props {
 
 
 export const DeleteDish = (props: Props) => {
+  const userContext = useUser();
+  const userId: number | undefined = userContext?.state.id;
+  console.log('userId', userContext?.state.id);
+  const [restaurantIdByUserId, { error, loading, data}] = useLazyQuery(GET_RESTAURANTID_BY_USERID);
+
+  const [removeDish, {data:removeData, loading:removeLoading, error:removeError}] = useMutation(REMOVE_DISH);
+
   let { dishId } = useParams<{ dishId:string }>();
   console.log(dishId);
-  
-  const [removeDish, {data, loading, error}] = useMutation(REMOVE_DISH);
 
   useEffect(() => {
-    console.log(data);
-    console.log(dishId);
+    if (userId !== undefined) {
+      console.log('useeffectuserid', userId);
+      restaurantIdByUserId({variables: {
+        userId: userId
+      }})
 
-    
-    removeDish({
-      variables: {
-        id: Number(dishId),
-      },
-      refetchQueries: [
-        {
-          query: RESTAURANT_DISHES,
-          variables: { id: 1}
-        }
-      ]
-    })
-  }, [dishId])
+    if (data) {
+      const restaurantId = data.getRestaurantByUserId.id;
+
+      removeDish({
+        variables: {
+          id: Number(dishId),
+        },
+        refetchQueries: [
+          {
+            query: RESTAURANT_DISHES,
+            variables: { id: restaurantId}
+          }
+        ]
+      })
+    }
+    }
+  }, [userId, data, dishId])
+
+  
 
   return (
     <>
-      {data ?  (
-        <Redirect to={Routes.DISHES.replace(':restaurantId', '1')} /> 
+      {removeData ?  (
+        <Redirect to={Routes.DISHES} /> 
       ): (
         <p>Loading ....</p>
       )}

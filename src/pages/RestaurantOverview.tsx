@@ -149,7 +149,7 @@ const RestaurantOverview = (props: Props) => {
             <FilterContainer>
               <RestaurantFilter onCatChange={handleCategoryChange}/>
             </FilterContainer>
-            {data && (
+            {data && !categoryData && (
               <RestaurantContainer>
                 {data?.restaurantsByProvince.map((restaurant) => {
                   return (

@@ -32,7 +32,7 @@ const Image = styled.div<Picture>`
   border-radius: ${(props) => props.theme.borderRadius.normal};
   min-height: 12rem;
   height: 80%;
-  background-image: url(${(props) => props.picture});
+  background-image: url('./assets/${(props) => props.picture}');
   background-size: cover;
   background-position: center center;
 `;

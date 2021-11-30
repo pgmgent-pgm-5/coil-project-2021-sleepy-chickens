@@ -1,5 +1,7 @@
+import { useQuery } from "@apollo/client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
+import { ALL_ORDERS_BY_RESTAURANT_ID } from "../../../graphql/orders";
 
 const Container = styled.div`
   margin-top: 2rem;
@@ -36,22 +38,39 @@ const Completed = styled.span`
 `;
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "Ordernumber", width: 150 },
-  { field: "customer", headerName: "Customer", width: 200 },
-  { field: "address", headerName: "Address", width: 600 },
+  { field: "orderNumber", headerName: "Ordernumber", width: 150 },
+  { field: "customer", 
+  headerName: "Customer", 
+  width: 200,
+  renderCell: (params) => {
+    return (
+      <p>{`${params.row.user.firstName} ${params.row.user.lastName}`}</p>
+    )
+  }
+ },
+  { field: "address", 
+  headerName: "Address", 
+  width: 600,
+  renderCell: (params) => {
+    return (
+      <p>{`${params.row.streetnumber} ${params.row.street}, ${params.row.postalcode} ${params.row.city}, ${params.row.province}`}</p>
+    )
+  }
+  },
   {
     field: "status",
     headerName: "Status",
     width: 150,
     renderCell: (params) => {
+      console.log(params.row.orderState);
       return (
         <div>
-          {params.value === "Preparing" ? (
+          {params.row.orderState === "Preparing" ? (
             <TableStatusContainer>
               <Preparing />
               <span>Preparing</span>
             </TableStatusContainer>
-          ) : params.value === "Delivering" ? (
+          ) : params.row.orderState === "Delivering" ? (
             <TableStatusContainer>
               <Delivering />
               <span>Delivering</span>
@@ -125,18 +144,37 @@ const rows = [
   },
 ];
 
-interface Props {}
+interface Props {
+  restaurantId: number
+}
 
-const OrderDetails = (props: Props) => {
+const OrderDetails = ({restaurantId}: Props) => {
+  const { error, loading, data, refetch } = useQuery(
+    ALL_ORDERS_BY_RESTAURANT_ID,
+    {
+      variables: { restaurantId: Number(restaurantId) }
+    }
+  );
+
+  if (data) {
+    console.log(data.findAllOrdersByRestaurantId);
+    console.log(data.findAllOrdersByRestaurantId);
+  }
+  
   return (
     <Container>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
+      {
+        data && (
+
+          <DataGrid
+            rows={data.findAllOrdersByRestaurantId}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            checkboxSelection
+          />
+        )
+      }
     </Container>
   );
 };

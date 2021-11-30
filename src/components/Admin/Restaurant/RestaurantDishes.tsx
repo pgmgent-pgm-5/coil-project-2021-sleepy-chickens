@@ -91,11 +91,13 @@ const columns: GridColDef[] = [
   },
 ];
 
-interface Props {}
+interface Props {
+  restaurantId: number
+}
 
-const RestaurantDishes = (props: Props) => {
-  let { restaurantId } = useParams<{ restaurantId: string }>();
-  console.log(restaurantId);
+const RestaurantDishes = ({restaurantId = 1}: Props) => {
+  // let { restaurantId } = useParams<{ restaurantId: string }>();
+  // console.log(restaurantId);
   const { error, loading, data, refetch } = useQuery(
     RESTAURANT_DISHES,
     {

@@ -100,7 +100,7 @@ const RestaurantSort = () => {
                 <Field type="radio" name="sort" value="delivery_time" />
                 <span>Delivery time</span>
               </label>
-              <pre>{JSON.stringify(values, null, 2)}</pre>
+              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
             </form>
           )}
         </Formik>
