@@ -34,7 +34,7 @@ const RestaurantDashboardHome = (props: Props) => {
     }
   }, [userId]);
 
-  const restaurantId = data.getRestaurantByUserId.id;
+  const restaurantId = data && data.getRestaurantByUserId.id;
 
   return (
     <AdminLayout>
