@@ -99,6 +99,8 @@ const SignUp = () => {
               setSubmitting(true);
               const newUser = { role: "student", ...data };
 
+              console.log(newUser);
+
               const request = await fetch(
                 "https://dormdash.onrender.com/signup",
                 {
@@ -111,8 +113,6 @@ const SignUp = () => {
                 }
               );
               const response = await request.json();
-
-              console.log(response);
 
               if (response.statusCode === 401) {
                 // TODO: Handle error code (unauthorized request == wrong password/username combination);
