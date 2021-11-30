@@ -34,22 +34,20 @@ const RestaurantDashboardHome = (props: Props) => {
     }
   }, [userId]);
 
-  if (data) {
-    const restaurantId = data.getRestaurantByUserId.id;
+  const restaurantId = data.getRestaurantByUserId.id;
 
-    return (
-      <AdminLayout>
-        <Helmet>
-          <title>Dormdashboard | Home</title>
-          <meta name="description" content="home dashboard for restaurants" />
-        </Helmet>
+  return (
+    <AdminLayout>
+      <Helmet>
+        <title>Dormdashboard | Home</title>
+        <meta name="description" content="home dashboard for restaurants" />
+      </Helmet>
+      <SalesRevenue />
+      <Rechart />
+      {data && <OrderDetails restaurantId={restaurantId} />}
+    </AdminLayout>
+  );
 
-        <SalesRevenue />
-        <Rechart />
-        <OrderDetails restaurantId={restaurantId} />
-      </AdminLayout>
-    );
-  }
   //   else {
   //     return (
   //       <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />
