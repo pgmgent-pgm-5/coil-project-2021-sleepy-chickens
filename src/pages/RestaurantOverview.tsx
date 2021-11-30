@@ -7,6 +7,7 @@ import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import { RESTAURANTS_SUMMARY, RESTAURANTS_SUMMARY_CATEGORY } from "../graphql/restaurants";
 import { RestaurantSummaries } from "../interfaces/interfaces";
 import { Helmet } from "react-helmet";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const Container = styled.div`
@@ -43,6 +44,17 @@ const RestaurantOverview = (props: Props) => {
     setCat(isSelected);
   }
 
+
+
+
+  const search = useLocation().search;
+  const params = new URLSearchParams(search);
+  const query = params.get("query");
+
+
+
+
+
   console.log('super parent', cat);
 
   // const search = window.location.search;
@@ -50,10 +62,10 @@ const RestaurantOverview = (props: Props) => {
   // const query = params.get("query");
   // console.log(search);
   // console.log("params", params);
-  const url = window.location.href;
-  const [hash, query] = url.split('#')[1].split('?')
-  const params = Object.fromEntries(new URLSearchParams(query));
-  const search = params.query;
+  // const url = window.location.href;
+  // const [hash, query] = url.split('#')[1].split('?')
+  // const params = Object.fromEntries(new URLSearchParams(query));
+  // const search = params.query;
 
     const [restaurantsByProvince, { error, loading, data}] = useLazyQuery<RestaurantSummaries>(RESTAURANTS_SUMMARY);
     
@@ -69,7 +81,7 @@ const RestaurantOverview = (props: Props) => {
       //     variables: { province: String(search) },
       //   }
       // );
-      restaurantsByProvince({variables: { province: String(search) }})
+      restaurantsByProvince({variables: { province: String(query) }})
   
     } else {
       let catId;
@@ -94,7 +106,7 @@ const RestaurantOverview = (props: Props) => {
           break;
       };
   
-      restaurantsByProvinceAndCat({variables: { province: String(search), categoryId: Number(catId) }});
+      restaurantsByProvinceAndCat({variables: { province: String(query), categoryId: Number(catId) }});
       
   
       // const { error, loading, data, refetch } = useQuery(
@@ -108,6 +120,9 @@ const RestaurantOverview = (props: Props) => {
   }, [cat])
   
   
+
+  // console.log(data);
+  // console.log(query);
 
   if (data) {
     console.log(data);
@@ -124,10 +139,10 @@ const RestaurantOverview = (props: Props) => {
       
         <>
           <Helmet>
-            <title>Dormdash | {search}</title>
+            <title>Dormdash | {query}</title>
             <meta
               name="description"
-              content={`discover your favorite restaurants in ${search}`}
+              content={`discover your favorite restaurants in ${query}`}
             />
           </Helmet>
           <Container>
