@@ -15,24 +15,27 @@ interface Props {}
 
 const RestaurantDashboardHome = (props: Props) => {
   const userContext = useUser();
-  console.log('userId', userContext?.state.id);
+  console.log("userId", userContext?.state.id);
   const userId: number | undefined = userContext?.state.id;
-  console.log('userId', userContext?.state.id);
+  console.log("userId", userContext?.state.id);
 
-  const [restaurantIdByUserId, { error, loading, data}] = useLazyQuery(GET_RESTAURANTID_BY_USERID);
+  const [restaurantIdByUserId, { error, loading, data }] = useLazyQuery(
+    GET_RESTAURANTID_BY_USERID
+  );
 
   useEffect(() => {
     if (userId !== undefined) {
-      console.log('useeffectuserid', userId);
-      restaurantIdByUserId({variables: {
-        userId: userId
-      }})
+      console.log("useeffectuserid", userId);
+      restaurantIdByUserId({
+        variables: {
+          userId: userId,
+        },
+      });
     }
-  }, [userId])
+  }, [userId]);
 
   if (data) {
-
-    const restaurantId= data.getRestaurantByUserId.id;
+    const restaurantId = data.getRestaurantByUserId.id;
 
     return (
       <AdminLayout>
@@ -40,18 +43,18 @@ const RestaurantDashboardHome = (props: Props) => {
           <title>Dormdashboard | Home</title>
           <meta name="description" content="home dashboard for restaurants" />
         </Helmet>
-  
+
         <SalesRevenue />
         <Rechart />
         <OrderDetails restaurantId={restaurantId} />
       </AdminLayout>
     );
-  } else {
-    return (
-      <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} /> 
-    )
   }
-
+  //   else {
+  //     return (
+  //       <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />
+  //     )
+  //   }
 };
 
 export default RestaurantDashboardHome;
