@@ -9,7 +9,11 @@ import PrimaryLink from "../components/Admin/Restaurant/PrimaryLink";
 import * as Routes from "../routes";
 import { Helmet } from "react-helmet";
 import { useUser } from "../context/AuthenticationContext";
-import { GET_RESTAURANTDETAIL_BY_USERID, RESTAURANTS_DETAIL, UPDATE_RESTAURANT } from "../graphql/restaurants";
+import {
+  GET_RESTAURANTDETAIL_BY_USERID,
+  RESTAURANTS_DETAIL,
+  UPDATE_RESTAURANT,
+} from "../graphql/restaurants";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
@@ -70,37 +74,45 @@ interface Props {}
 
 const RestaurantDashboardProfile = (props: Props) => {
   const userContext = useUser();
-  console.log('userId', userContext?.state.id);
+  console.log("userId", userContext?.state.id);
   const userId: number | undefined = userContext?.state.id;
 
-  const [restaurantDetailByUserId, { error, loading, data}] = useLazyQuery(GET_RESTAURANTDETAIL_BY_USERID);
+  const [restaurantDetailByUserId, { error, loading, data }] = useLazyQuery(
+    GET_RESTAURANTDETAIL_BY_USERID
+  );
 
-  const [updateRestaurant, {data:updateData, loading: updateLoading, error:updateError}] = useMutation(UPDATE_RESTAURANT);
+  const [
+    updateRestaurant,
+    { data: updateData, loading: updateLoading, error: updateError },
+  ] = useMutation(UPDATE_RESTAURANT);
 
   useEffect(() => {
     if (userId !== undefined) {
-      console.log('useeffectuserid', userId);
-      restaurantDetailByUserId({variables: {
-        userId: userId
-      }})
-
-
+      console.log("useeffectuserid", userId);
+      restaurantDetailByUserId({
+        variables: {
+          userId: userId,
+        },
+      });
     }
-  }, [userId, updateData])
+  }, [userId, updateData]);
 
-  if (data) {
-    console.log('data data',data);
-    return (
-      <AdminLayout>
-        <Helmet>
-          <title>Dormdashboard | Profile</title>
-          <meta name="description" content="edit profile" />
-        </Helmet>
-  
+  console.log("data data", data);
+  return (
+    <AdminLayout>
+      <Helmet>
+        <title>Dormdashboard | Profile</title>
+        <meta name="description" content="edit profile" />
+      </Helmet>
+
+      {data && (
         <Container>
           <Image>
             <h1>Profile</h1>
-            <img src={`./assets/${data.getRestaurantByUserId.picture}`} alt="" />
+            <img
+              src={`./assets/${data.getRestaurantByUserId.picture}`}
+              alt=""
+            />
           </Image>
           <FormikWrapper>
             <Formik
@@ -113,23 +125,24 @@ const RestaurantDashboardProfile = (props: Props) => {
               onSubmit={(formData, { setSubmitting }) => {
                 setSubmitting(true);
                 console.log("restaurantIDDD", data.getRestaurantByUserId.id);
-  
+
                 updateRestaurant({
                   variables: {
                     id: data.getRestaurantByUserId.id,
                     name: formData.restaurantName,
                     description: formData.description,
-                    picture: 'default_menu.jpeg',
+                    picture: "default_menu.jpeg",
                   },
                   refetchQueries: [
                     {
                       query: RESTAURANTS_DETAIL,
-                      variables: { id: Number(data.getRestaurantByUserId.id)}
-                    }
-                  ]
-                })
+                      variables: {
+                        id: Number(data.getRestaurantByUserId.id),
+                      },
+                    },
+                  ],
+                });
 
-  
                 setSubmitting(false);
               }}
               validationSchema={validationSchema}
@@ -171,15 +184,15 @@ const RestaurantDashboardProfile = (props: Props) => {
             <PrimaryLink link={Routes.DISHES}>Go back</PrimaryLink>
           </LinkContainer>
         </Container>
-      </AdminLayout>
-    );
+      )}
+    </AdminLayout>
+  );
 
-  } else {
-    return (
-      <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} /> 
-    )
-  }
-
+  //   else {
+  //     return (
+  //       <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />
+  //     )
+  //   }
 };
 
 export default RestaurantDashboardProfile;

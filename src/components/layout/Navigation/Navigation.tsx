@@ -119,13 +119,26 @@ const Navigation = ({ open }: Props) => {
           <Nav>
             <ul>
               <li>
-                <Link to={Routes.DASHBOARD_RESTAURANT_HOME.replace(':restaurantId', "1")}>Home</Link>
+                <Link
+                  to={Routes.DASHBOARD_RESTAURANT_HOME.replace(
+                    ":restaurantId",
+                    "1"
+                  )}
+                >
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to={Routes.PROFILE_RESTAURANT.replace(':restaurantId', "1")}>Profile</Link>
+                <Link
+                  to={Routes.PROFILE_RESTAURANT.replace(":restaurantId", "1")}
+                >
+                  Profile
+                </Link>
               </li>
               <li>
-                <Link to={Routes.DISHES.replace(':restaurantId', "1")}>Dishes</Link>
+                <Link to={Routes.DISHES.replace(":restaurantId", "1")}>
+                  Dishes
+                </Link>
               </li>
             </ul>
           </Nav>
@@ -143,6 +156,9 @@ const Navigation = ({ open }: Props) => {
               </li>
               <li>
                 <Link to={Routes.FAQ}>FAQ</Link>
+              </li>
+              <li>
+                <Link to={Routes.DASHBOARD_RESTAURANT_HOME}>Dashboard</Link>
               </li>
             </ul>
           </Nav>

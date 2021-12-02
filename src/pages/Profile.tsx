@@ -95,10 +95,13 @@ const Profile = (props: Props) => {
   ] = useMutation(UPDATE_PROFILE);
 
   const handleLogout = async () => {
-    const request = await fetch("https://dormdash.onrender.com/logout", {
-      method: "GET",
-      credentials: "include",
-    });
+    const request = await fetch(
+      "https://dormdash-server.herokuapp.com/logout",
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
 
     if (request.status === 200) {
       userContext!.dispatch({

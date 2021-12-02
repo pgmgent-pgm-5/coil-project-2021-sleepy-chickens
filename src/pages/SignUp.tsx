@@ -99,8 +99,10 @@ const SignUp = () => {
               setSubmitting(true);
               const newUser = { role: "student", ...data };
 
+              console.log(newUser);
+
               const request = await fetch(
-                "https://dormdash.onrender.com/signup",
+                "https://dormdash-server.herokuapp.com/signup",
                 {
                   method: "POST",
                   credentials: "include",
@@ -110,6 +112,9 @@ const SignUp = () => {
                   body: JSON.stringify(newUser),
                 }
               );
+
+              console.log(request);
+
               const response = await request.json();
 
               if (response.statusCode === 401) {

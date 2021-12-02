@@ -91,7 +91,7 @@ const BecomePartner = () => {
       type: "setUser",
       payload: { email: email, id: id },
     });
-    return history.push(`/dashboard-restaurant/${id}`);
+    return history.push(`/dashboard-restaurant/`);
   };
 
   return (
@@ -135,7 +135,7 @@ const BecomePartner = () => {
               };
 
               const request = await fetch(
-                "https://dormdash.onrender.com/signup",
+                "https://dormdash-server.herokuapp.com/signup",
                 {
                   method: "POST",
                   credentials: "include",
