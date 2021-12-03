@@ -102,7 +102,7 @@ const SignUp = () => {
               console.log(newUser);
 
               const request = await fetch(
-                "https://dormdash-server.herokuapp.com/signup",
+                "http://localhost:3000/signup",
                 {
                   method: "POST",
                   credentials: "include",

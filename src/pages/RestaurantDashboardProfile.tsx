@@ -14,7 +14,7 @@ import {
   RESTAURANTS_DETAIL,
   UPDATE_RESTAURANT,
 } from "../graphql/restaurants";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
@@ -77,25 +77,39 @@ const RestaurantDashboardProfile = (props: Props) => {
   console.log("userId", userContext?.state.id);
   const userId: number | undefined = userContext?.state.id;
 
-  const [restaurantDetailByUserId, { error, loading, data }] = useLazyQuery(
-    GET_RESTAURANTDETAIL_BY_USERID
-  );
+  // const [restaurantDetailByUserId, { error, loading, data }] = useLazyQuery(
+  //   GET_RESTAURANTDETAIL_BY_USERID
+  // );
+
+  const {error, loading, data} = useQuery(GET_RESTAURANTDETAIL_BY_USERID, {
+    variables:{
+      userId: userId,
+    }
+  });
 
   const [
     updateRestaurant,
     { data: updateData, loading: updateLoading, error: updateError },
   ] = useMutation(UPDATE_RESTAURANT);
 
-  useEffect(() => {
-    if (userId !== undefined) {
-      console.log("useeffectuserid", userId);
-      restaurantDetailByUserId({
-        variables: {
-          userId: userId,
-        },
-      });
-    }
-  }, [userId, updateData]);
+  // useEffect(() => {
+  //   if (userId !== undefined) {
+  //     console.log("useeffectuserid", userId);
+  //     restaurantDetailByUserId({
+  //       variables: {
+  //         userId: userId,
+  //       },
+  //     });
+  //   }
+  // }, [userId, updateData]);
+
+  // if(error) {
+  //   return (<Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')});
+  // }
+
+  if (loading) return <p>Loading ...</p>
+
+  if (error) return <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />;
 
   console.log("data data", data);
   return (
@@ -136,6 +150,12 @@ const RestaurantDashboardProfile = (props: Props) => {
                   refetchQueries: [
                     {
                       query: RESTAURANTS_DETAIL,
+                      variables: {
+                        id: Number(data.getRestaurantByUserId.id),
+                      },
+                    },
+                    {
+                      query: GET_RESTAURANTDETAIL_BY_USERID,
                       variables: {
                         id: Number(data.getRestaurantByUserId.id),
                       },
@@ -181,7 +201,7 @@ const RestaurantDashboardProfile = (props: Props) => {
             </Formik>
           </FormikWrapper>
           <LinkContainer>
-            <PrimaryLink link={Routes.DISHES}>Go back</PrimaryLink>
+            <PrimaryLink link={Routes.DASHBOARD_RESTAURANT_HOME}>Go back</PrimaryLink>
           </LinkContainer>
         </Container>
       )}
