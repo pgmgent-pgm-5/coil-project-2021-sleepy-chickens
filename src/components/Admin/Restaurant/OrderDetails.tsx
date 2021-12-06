@@ -62,7 +62,6 @@ const columns: GridColDef[] = [
     headerName: "Status",
     width: 150,
     renderCell: (params) => {
-      console.log(params.row.orderState);
       return (
         <div>
           {params.row.orderState === "Preparing" ? (
@@ -149,17 +148,16 @@ interface Props {
 }
 
 const OrderDetails = ({restaurantId}: Props) => {
-  const { error, loading, data, refetch } = useQuery(
+  const { error, loading, data } = useQuery(
     ALL_ORDERS_BY_RESTAURANT_ID,
     {
       variables: { restaurantId: Number(restaurantId) }
     }
   );
 
-  if (data) {
-    console.log(data.findAllOrdersByRestaurantId);
-    console.log(data.findAllOrdersByRestaurantId);
-  }
+  if (loading) return <p>Loading ...</p>
+
+  if (error) return <p>{error.message}</p>
   
   return (
     <Container>

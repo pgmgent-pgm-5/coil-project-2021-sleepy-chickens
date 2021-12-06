@@ -11,7 +11,6 @@ import { useUser } from "../context/AuthenticationContext";
 import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
-  //height: 100vh;
   overflow: hidden;
   position: relative;
   max-width: 80rem;
@@ -102,20 +101,14 @@ const SignUp = () => {
 
               const imgData = new FormData();
               if(formData.picture !== null) {
-                console.log(formData.picture);
                 imgData.append('file', formData.picture)
 
               }
-              console.log('imgdata', imgData);
 
               const uploadRequest = await fetch(
                 "https://dormdash-server.herokuapp.com/uploadProfilePicture",
                 {
                   method: "POST",
-                  // credentials: "include",
-                  // headers: {
-                  //   "Content-Type": "application/json",
-                  // },
                   headers: new Headers({Accept: "application/json"}),
                   body: imgData,
                 }
@@ -125,8 +118,6 @@ const SignUp = () => {
               formData.picture = uploadResponse.imagePath;
 
               const newUser = { role: "student", ...formData };
-
-              console.log(newUser);
 
               const request = await fetch(
                 "https://dormdash-server.herokuapp.com/signup",
@@ -140,12 +131,9 @@ const SignUp = () => {
                 }
               );
 
-              console.log(request);
-
               const response = await request.json();
 
               if (response.statusCode === 401) {
-                // TODO: Handle error code (unauthorized request == wrong password/username combination);
                 return;
               }
 

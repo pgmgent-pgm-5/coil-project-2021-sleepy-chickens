@@ -28,7 +28,6 @@ import RestaurantOverview from "./pages/RestaurantOverview";
 import ScrollToTop from "./components/ScrollToTop ";
 import { Helmet } from "react-helmet";
 import Error from "./pages/Error";
-// import CartContext from "./context/cart/cartContext";
 function App() {
   return (
     <UserProvider>

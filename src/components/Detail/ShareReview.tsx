@@ -38,8 +38,6 @@ const ShareReview = ({ onClick }: Props) => {
   let { id } = useParams<{ id:string }>();
   const [createReview, {data, loading, error}] = useMutation(CREATE_REVIEW);
 
-  // if (loading) return 'Submitting ...';
-  
   return (
     <>
       <FlexTitle>
@@ -56,7 +54,6 @@ const ShareReview = ({ onClick }: Props) => {
         onSubmit={(formData, { setSubmitting }) => {
           setSubmitting(true);
 
-          // async call naar api
           createReview({ 
             variables: {
               rating: formData.rating, 
@@ -74,9 +71,6 @@ const ShareReview = ({ onClick }: Props) => {
 
           setSubmitting(false);
           window.location.reload();
-          // // history.push({
-          // //   pathname: Routes.DETAIL_PAGE.replace(':id', String(id)),
-          // });
         }}
         validationSchema={validationSchema}
       >

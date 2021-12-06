@@ -15,30 +15,13 @@ interface Props {}
 
 const RestaurantDashboardHome = (props: Props) => {
   const userContext = useUser();
-  console.log("userId", userContext?.state.id);
   const userId: number | undefined = userContext?.state.id;
-  console.log("userId", userContext?.state.id);
 
   const {error, loading, data} = useQuery(GET_RESTAURANTID_BY_USERID, {
     variables:{
       userId: userId,
     }
   });
-
-  // const [restaurantIdByUserId, { error, loading, data }] = useLazyQuery(
-  //   GET_RESTAURANTID_BY_USERID
-  // );
-
-  // useEffect(() => {
-  //   if (userId !== undefined) {
-  //     console.log("useeffectuserid", userId);
-  //     restaurantIdByUserId({
-  //       variables: {
-  //         userId: userId,
-  //       },
-  //     });
-  //   }
-  // }, [userId]);
 
   if (loading) return <p>Loading ...</p>
 
@@ -57,12 +40,6 @@ const RestaurantDashboardHome = (props: Props) => {
       {data && <OrderDetails restaurantId={restaurantId} />}
     </AdminLayout>
   );
-
-  //   else {
-  //     return (
-  //       <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />
-  //     )
-  //   }
 };
 
 export default RestaurantDashboardHome;

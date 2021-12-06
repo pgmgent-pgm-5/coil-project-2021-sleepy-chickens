@@ -108,7 +108,6 @@ const CallToAction = styled.div<Props>`
 
 const Navigation = ({ open }: Props) => {
   const location = useRouteMatch();
-  console.log(location.path);
 
   return (
     <Container open={open}>

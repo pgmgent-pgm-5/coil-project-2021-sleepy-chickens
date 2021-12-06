@@ -11,10 +11,8 @@ import SignInLink from "../components/form/SignInLink";
 import { Helmet } from "react-helmet";
 
 const Container = styled.div`
-  //height: 100vh;
   overflow: hidden;
   position: relative;
-  //max-width: 80rem;
   margin: 0 auto;
   margin-top: -3rem;
 `;
@@ -90,9 +88,6 @@ const BecomeDriver = () => {
             }}
             onSubmit={(data, { setSubmitting }) => {
               setSubmitting(true);
-
-              // async call naar api
-              console.log(data);
 
               setSubmitting(false);
             }}

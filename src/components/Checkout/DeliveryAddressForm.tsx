@@ -57,7 +57,6 @@ interface Props {
   next: (data: step1) => void;
   total: number
 }
-// (step1Data: step1) => void
 
 interface step1 {
   houseNumber: string,

@@ -16,17 +16,14 @@ interface Props {
 export const DeleteDish = (props: Props) => {
   const userContext = useUser();
   const userId: number | undefined = userContext?.state.id;
-  console.log('userId', userContext?.state.id);
   const [restaurantIdByUserId, { error, loading, data}] = useLazyQuery(GET_RESTAURANTID_BY_USERID);
 
   const [removeDish, {data:removeData, loading:removeLoading, error:removeError}] = useMutation(REMOVE_DISH);
 
   let { dishId } = useParams<{ dishId:string }>();
-  console.log(dishId);
 
   useEffect(() => {
     if (userId !== undefined) {
-      console.log('useeffectuserid', userId);
       restaurantIdByUserId({variables: {
         userId: userId
       }})

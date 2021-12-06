@@ -19,8 +19,6 @@ const HomePage = (props: Props) => {
     }
   );
 
-  console.log(data);
-
   return (
     <BaseLayout>
       <Helmet>

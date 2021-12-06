@@ -96,7 +96,6 @@ const ShoppingBasket = ({ onClick, open }: Props) => {
         ) : (
           <>
             {Object.entries(dishes).map((dish) => {
-              console.log("yep", dish);
               return (
                 <ShoppingBasketItem
                   description={dish[1].description}

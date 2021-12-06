@@ -26,7 +26,6 @@ const BaseLayout = ({ children }: BaseLayoutProps) => {
 
   const fetchAuthentication = async () => {
     if (handleUserContext!.state.id === undefined) {
-      // Check if user is logged in, if not, fetch session state
       const request = await fetch(
         "https://dormdash-server.herokuapp.com/authenticated",
         {
