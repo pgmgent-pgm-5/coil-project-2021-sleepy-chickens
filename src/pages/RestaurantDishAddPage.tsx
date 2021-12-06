@@ -63,27 +63,19 @@ const RestaurantDishAddPage = (props: Props) => {
 
           const imgData = new FormData();
           if(formData.image !== null) {
-            console.log(formData.image);
             imgData.append('file', formData.image)
-
           }
-          console.log('imgdata', imgData);
 
           const uploadRequest = await fetch(
             "https://dormdash-server.herokuapp.com/uploadDishPicture",
             {
               method: "POST",
-              // credentials: "include",
-              // headers: {
-              //   "Content-Type": "application/json",
-              // },
               headers: new Headers({Accept: "application/json"}),
               body: imgData,
             }
           );
           const uploadResponse = await uploadRequest.json();
 
-          // async call naar api
           createDish({
             variables: {
               restaurantId: Number(restaurantId),
@@ -108,9 +100,6 @@ const RestaurantDishAddPage = (props: Props) => {
               String(restaurantId)
             ),
           });
-
-          // // fix random magic bug
-          // window.location.reload();
         }}
         validationSchema={validationSchema}
       >

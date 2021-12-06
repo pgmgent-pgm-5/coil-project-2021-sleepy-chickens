@@ -74,12 +74,7 @@ interface Props {}
 
 const RestaurantDashboardProfile = (props: Props) => {
   const userContext = useUser();
-  console.log("userId", userContext?.state.id);
   const userId: number | undefined = userContext?.state.id;
-
-  // const [restaurantDetailByUserId, { error, loading, data }] = useLazyQuery(
-  //   GET_RESTAURANTDETAIL_BY_USERID
-  // );
 
   const {error, loading, data} = useQuery(GET_RESTAURANTDETAIL_BY_USERID, {
     variables:{
@@ -101,7 +96,6 @@ const RestaurantDashboardProfile = (props: Props) => {
     restaurantPicture = data.getRestaurantByUserId.picture;
   }
 
-  console.log("data data", data);
   return (
     <AdminLayout>
       <Helmet>
@@ -120,7 +114,6 @@ const RestaurantDashboardProfile = (props: Props) => {
           </Image>
           <FormikWrapper>
             <Formik
-              // Veranderen naar values van current user
               initialValues={{
                 restaurantName: data.getRestaurantByUserId.name,
                 description: data.getRestaurantByUserId.description,
@@ -128,24 +121,15 @@ const RestaurantDashboardProfile = (props: Props) => {
               }}
               onSubmit={async (formData, { setSubmitting }) => {
                 setSubmitting(true);
-                console.log("restaurantIDDD", data.getRestaurantByUserId.id);
-
                 
                 if(formData.image !== null && formData.image !== '') {
                   const imgData = new FormData();
-                  console.log(formData.image);
                   imgData.append('file', formData.image)
-                
-                  console.log('imgdata', imgData);
 
                   const uploadRequest = await fetch(
                     "https://dormdash-server.herokuapp.com/uploadRestaurantPicture",
                     {
                       method: "POST",
-                      // credentials: "include",
-                      // headers: {
-                      //   "Content-Type": "application/json",
-                      // },
                       headers: new Headers({Accept: "application/json"}),
                       body: imgData,
                     }
@@ -230,12 +214,6 @@ const RestaurantDashboardProfile = (props: Props) => {
       )}
     </AdminLayout>
   );
-
-  //   else {
-  //     return (
-  //       <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />
-  //     )
-  //   }
 };
 
 export default RestaurantDashboardProfile;

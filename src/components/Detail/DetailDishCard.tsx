@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-// import { CartState } from "../../context/cart/cartContext";
-
 import { useStore } from "../../store/cartStore";
 
 const Container = styled.li`
@@ -86,9 +84,7 @@ interface ImageProps {
 }
 
 const DetailDishCard = ({ name, picture, price, description, id, restaurantId }: Props) => {
-  // const { state, dispatch} = CartState();
   const { addDish, removeDish, dishes } = useStore();
-  console.log("dissssssss", dishes);
   return (
     <Container>
       <div onClick={() => addDish({name, picture, price, description, id, restaurantId})}>

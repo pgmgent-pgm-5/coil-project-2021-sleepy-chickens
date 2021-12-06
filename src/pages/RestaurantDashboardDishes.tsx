@@ -30,35 +30,12 @@ const RestaurantDashboardDishes = (props: Props) => {
   const history = useHistory();
   const userContext = useUser();
   const userId: number | undefined = userContext?.state.id;
-  console.log("userId", userContext?.state.id);
-
-  // const { error, loading, data, refetch } = useQuery(GET_RESTAURANTID_BY_USERID), {
-  //   variables: { userId: userId },
-  // });
 
   const {error, loading, data} = useQuery(GET_RESTAURANTID_BY_USERID, {
     variables:{
       userId: userId,
     }
   });
-
-  // const [restaurantIdByUserId, { error, loading, data }] = useLazyQuery(
-  //   GET_RESTAURANTID_BY_USERID
-  // );
-
-  // useEffect(() => {
-  //   if (userId !== undefined) {
-  //     console.log("useeffectuserid", userId);
-  //     restaurantIdByUserId({
-  //       variables: {
-  //         userId: userId,
-  //       },
-  //     });
-  //   }
-  // }, [userId]);
-
-  // console.log(data);
-  // console.log(data.getRestaurantByUserId.id);
 
   if (loading) return <p>Loading ...</p>
 
@@ -83,12 +60,6 @@ const RestaurantDashboardDishes = (props: Props) => {
       {data && <RestaurantDishes restaurantId={restaurantId} />}
     </AdminLayout>
   );
-
-  //   else {
-  //     return (
-  //       <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />
-  //     )
-  //   }
 };
 
 export default RestaurantDashboardDishes;

@@ -48,32 +48,12 @@ const RestaurantOverview = (props: Props) => {
   const params = new URLSearchParams(search);
   const query = params.get("query");
 
-  console.log('super parent', cat);
-
-  // const search = window.location.search;
-  // const params = new URLSearchParams(search);
-  // const query = params.get("query");
-  // console.log(search);
-  // console.log("params", params);
-  // const url = window.location.href;
-  // const [hash, query] = url.split('#')[1].split('?')
-  // const params = Object.fromEntries(new URLSearchParams(query));
-  // const search = params.query;
-
     const [restaurantsByProvince, { error, loading, data}] = useLazyQuery<RestaurantSummaries>(RESTAURANTS_SUMMARY);
     
     const [restaurantsByProvinceAndCat, { error:categoryError, loading: categoryLoading, data: categoryData}] = useLazyQuery(RESTAURANTS_SUMMARY_CATEGORY);
 
   useEffect(() => {
     if (cat === '') {
-      console.log('object')
-      // const { error, loading, data, refetch } = useQuery<RestaurantSummaries>(
-      //   RESTAURANTS_SUMMARY,
-      //   {
-      //     fetchPolicy: "cache-first",
-      //     variables: { province: String(search) },
-      //   }
-      // );
       restaurantsByProvince({variables: { province: String(query) }})
   
     } else {
@@ -100,30 +80,8 @@ const RestaurantOverview = (props: Props) => {
       };
   
       restaurantsByProvinceAndCat({variables: { province: String(query), categoryId: Number(catId) }});
-      
-  
-      // const { error, loading, data, refetch } = useQuery(
-      //   RESTAURANTS_SUMMARY_CATEGORY,
-      //   {
-      //     fetchPolicy: "cache-first",
-      //     variables: { province: String(search), categoryId: Number(catId) },
-      //   }
-      // );
     }
   }, [cat])
-  
-  
-
-  // console.log(data);
-  // console.log(query);
-
-  if (data) {
-    console.log(data);
-  }
-
-  if (categoryData) {
-    console.log('categoryData', categoryData);
-  }
 
   if (loading) return <div>Loading ...</div>;
 

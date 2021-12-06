@@ -42,14 +42,12 @@ const validationSchema = yup.object({
   dishTitle: yup.string().required("Required"),
   price: yup.number().required("Required"),
   description: yup.string().required("Required"),
-  // image: yup.string().required("Required"),
 });
 
 interface Props {}
 
 const RestaurantDishEditPage = (props: Props) => {
   let { dishId } = useParams<{ dishId: string }>();
-  console.log(dishId);
   
   const { error, loading, data, refetch } = useQuery(
     DISH_BY_ID,
@@ -68,13 +66,6 @@ const RestaurantDishEditPage = (props: Props) => {
 
   const [updateDish, {data:updateData, loading: updateLoading, error:updateError}] = useMutation(UPDATE_DISH);
 
-  if(data) {
-    console.log(data.getDish.name);
-    console.log(typeof(Number(dishId)));
-  }
-  
-  
-
   return (
     <Container>
       {
@@ -89,7 +80,6 @@ const RestaurantDishEditPage = (props: Props) => {
               <img src={`https://dormdash-server.herokuapp.com/dish-image/${dishPicture}`} alt="dish image" />
             </Image>
             <Formik
-              // Veranderen naar values van current user
               initialValues={{
                 dishTitle: data.getDish.name,
                 price: data.getDish.price,
@@ -102,10 +92,7 @@ const RestaurantDishEditPage = (props: Props) => {
 
                 const imgData = new FormData();
                 if(formData.image !== null && formData.image !== '') {
-                  console.log(formData.image);
                   imgData.append('file', formData.image)
-                
-                  console.log('imgdata', imgData);
 
                   const uploadRequest = await fetch(
                     "https://dormdash-server.herokuapp.com/uploadDishPicture",
@@ -118,7 +105,6 @@ const RestaurantDishEditPage = (props: Props) => {
                   const uploadResponse = await uploadRequest.json();
                   dishPicture = uploadResponse.imagePath;
                 }
-                // async call naar api
                 updateDish({
                   variables: {
                     id: Number(dishId),

@@ -68,7 +68,6 @@ const InputFileField = ({
   onChange,
   onBlur,
 }: InputFileFieldProps) => {
-  // const [currentValue, setCurrentValue] = useState(value);
   const [field, meta] = useField({
     type,
     name,
@@ -84,11 +83,9 @@ const InputFileField = ({
         {...field}
         type={type}
         name={name}
-        // value={currentValue}
         onChange={(e) => {
           if (e.target.files !== null) {
             value.setFieldValue('logo', e.target.files[0])
-            // setCurrentValue(e.target.files[0])
           }
         }}
         onBlur={onBlur}

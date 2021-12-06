@@ -66,9 +66,6 @@ const RestaurantSort = () => {
           onSubmit={(data, { setSubmitting }) => {
             setSubmitting(true);
 
-            // async call naar api
-            console.log(data);
-
             setSubmitting(false);
           }}
         >

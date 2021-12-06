@@ -65,9 +65,6 @@ const FormContainer = styled.div`
   }
 `;
 
-// const phoneRegExp =
-//   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
-
 const phoneRegExp = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
 
 const validationSchema = yup.object({
@@ -86,7 +83,6 @@ interface Props {}
 const Profile = (props: Props) => {
   const userContext = useUser();
   const history = useHistory();
-  console.log("userId", userContext?.state.id);
 
   const { error, loading, data } = useQuery(PROFILE_DETAIL, {
     variables: { id: Number(userContext?.state.id) },
@@ -118,11 +114,9 @@ const Profile = (props: Props) => {
     }
   };
 
-
-  let profilePicture:string;
+  let profilePicture: string;
   if (data) {
     profilePicture = data.findOneUser.picture;
-    console.log('profpic', profilePicture);
   }
   if (error) return <p>{error.message}</p>;
   if (updateError) return <p>{updateError.message}</p>;
@@ -138,13 +132,12 @@ const Profile = (props: Props) => {
             <meta name="description" content="See your profile" />
           </Helmet>
 
-          {console.log("pic", data.findOneUser.picture)}
           <Container>
             <Image>
               <img
                 src={
                   data.findOneUser.picture
-                    ? `https://dormdash-server.herokuapp.coms/profile-image/${data.findOneUser.picture}`
+                    ? `https://dormdash-server.herokuapp.com/profile-image/${data.findOneUser.picture}`
                     : defaultImg
                 }
                 alt={data.findOneUser.firstName}
@@ -153,41 +146,31 @@ const Profile = (props: Props) => {
             </Image>
             <FormContainer>
               <Formik
-                // Veranderen naar values van current user
                 initialValues={{
                   firstName: data.findOneUser.firstName,
                   lastName: data.findOneUser.lastName,
                   email: data.findOneUser.email,
                   phone: data.findOneUser.phone,
-                  picture: ""
+                  picture: "",
                 }}
                 onSubmit={async (formData, { setSubmitting }) => {
                   setSubmitting(true);
 
                   const imgData = new FormData();
-                  if(formData.picture !== null && formData.picture !== '') {
-                    console.log("diiiiiii", formData.picture);
-                    imgData.append('file', formData.picture)
-                  
-                    console.log('imgdata', imgData);
+                  if (formData.picture !== null && formData.picture !== "") {;
+                    imgData.append("file", formData.picture);
 
                     const uploadRequest = await fetch(
                       "https://dormdash-server.herokuapp.com/uploadProfilePicture",
                       {
                         method: "POST",
-                        // credentials: "include",
-                        // headers: {
-                        //   "Content-Type": "application/json",
-                        // },
-                        headers: new Headers({Accept: "application/json"}),
+                        headers: new Headers({ Accept: "application/json" }),
                         body: imgData,
                       }
                     );
                     const uploadResponse = await uploadRequest.json();
                     profilePicture = uploadResponse.imagePath;
-                    console.log(profilePicture);
                   }
-                  console.log("userrrrr", userContext?.state.id);
 
                   updateProfile({
                     variables: {
@@ -197,7 +180,7 @@ const Profile = (props: Props) => {
                       email: formData.email,
                       phone: formData.phone,
                       role: "student",
-                      picture: profilePicture
+                      picture: profilePicture,
                     },
                     refetchQueries: [
                       {
@@ -217,7 +200,7 @@ const Profile = (props: Props) => {
                   isSubmitting,
                   handleChange,
                   handleBlur,
-                  setFieldValue
+                  setFieldValue,
                 }) => (
                   <form onSubmit={handleSubmit}>
                     <Field
@@ -246,15 +229,14 @@ const Profile = (props: Props) => {
                     />
                     <label>
                       <p>Profile picture</p>
-                      <input 
+                      <input
                         type="file"
                         name="picture"
-                        onChange={(e) => { 
-                        if (e.target.files) {
-                          setFieldValue('picture',e.target.files[0])
-                        } 
+                        onChange={(e) => {
+                          if (e.target.files) {
+                            setFieldValue("picture", e.target.files[0]);
                           }
-                        }
+                        }}
                       />
                     </label>
                     <PrimaryButton disabled={isSubmitting} type="submit">

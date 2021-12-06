@@ -11,7 +11,6 @@ import { useState } from "react";
 
 const ImgContainer = styled.div`
   position: relative;
-  //   padding: 1.5rem;
 
   img {
     left: 50%;
@@ -66,7 +65,6 @@ const validationSchema = yup.object({
 const Hero = () => {
   const [city, setCity] = useState("");
   const history = useHistory();
-  console.log(history);
 
   return (
     <ImgContainer>
@@ -80,12 +78,10 @@ const Hero = () => {
           }}
           onSubmit={(data, { setSubmitting }) => {
             setSubmitting(true);
-            console.log(data);
             setSubmitting(false);
             history.push({
               pathname: Routes.RESTAURANTS_OVERVIEW,
               search: `?query=${data.search}`,
-              //   state: { detail: "some_value" },
             });
           }}
           validationSchema={validationSchema}

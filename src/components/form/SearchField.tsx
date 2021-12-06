@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { useState } from "react";
-// import { FieldAttributes, useField } from 'formik';
-// import
 
 const Input = styled.input`
   height: 2rem;

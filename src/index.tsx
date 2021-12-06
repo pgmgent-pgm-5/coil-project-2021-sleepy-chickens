@@ -9,21 +9,9 @@ import {
   HttpLink,
   from,
 } from "@apollo/client";
-import { onError } from "@apollo/client/link/error";
-// import CartContext from "./context/cart/CartContext";
-
-// const errorLink = onError(({graphQLErrors, networkError }) => {
-//   if (graphQLErrors) {
-//     graphQLErrors.map(({message }) => {
-//       alert(`Graphql error ${message}`);
-//     });
-//   }
-// });
 
 const link = from([
-  // errorLink,
   new HttpLink({ uri: "https://dormdash-server.herokuapp.com/graphql" }),
-  // new HttpLink({ uri: "http://localhost:3000/graphql" }),
 ]);
 
 const client = new ApolloClient({
@@ -33,16 +21,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-     {/* <CartContext> */}
       <ApolloProvider client={client}>
         <App />
       </ApolloProvider>
-    {/* <CartContext/> */}
   </React.StrictMode>,
   document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
