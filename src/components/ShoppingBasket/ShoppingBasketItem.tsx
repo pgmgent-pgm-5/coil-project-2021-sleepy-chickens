@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Devider from "../layout/Partial/Devider";
 import ShoppingBasketActionButton from "./ShoppingBasketActions/ShoppingBasketActionButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useStore } from "../../store/cartStore";
 
 const Container = styled.div`
   display: flex;
@@ -59,30 +60,39 @@ const Quantity = styled.div`
   }
 `;
 
-interface Props {}
+interface Props {
+  description: string;
+  id: number;
+  name: string;
+  picture: string;
+  price: number;
+  quantity: number;
+  restaurantId: number;
+}
 
-const ShoppingBasketItem = (props: Props) => {
+const ShoppingBasketItem = ({description, id, name, picture, price, quantity, restaurantId }: Props) => {
+  const { addDish, removeDish, minusDish } = useStore();
   return (
     <>
       <Container>
         <Image>
-          <img src="https://via.placeholder.com/150" alt="" />
+          <img src={`https://dormdash-server.herokuapp.com/dish-image/${picture}`} alt="" />
         </Image>
         <Content>
           <ContentInfo>
-            <p>Product title</p>
-            <p>$ 8.99</p>
+            <p>{name}</p>
+            <p>$ {Math.round(((price * quantity) + Number.EPSILON) * 100) / 100}</p>
           </ContentInfo>
 
           <ProductActions>
             <Quantity>
-              <ShoppingBasketActionButton>-</ShoppingBasketActionButton>
+              <ShoppingBasketActionButton onClick={() => minusDish(id)}>-</ShoppingBasketActionButton>
               <div>
-                <span>1000</span>
+                <span>{quantity}</span>
               </div>
-              <ShoppingBasketActionButton>+</ShoppingBasketActionButton>
+              <ShoppingBasketActionButton onClick={() => addDish({id, description, name, price, picture, restaurantId})}>+</ShoppingBasketActionButton>
             </Quantity>
-            <ShoppingBasketActionButton>
+            <ShoppingBasketActionButton onClick={() => removeDish(id)}>
               <RiDeleteBin6Line />
             </ShoppingBasketActionButton>
           </ProductActions>

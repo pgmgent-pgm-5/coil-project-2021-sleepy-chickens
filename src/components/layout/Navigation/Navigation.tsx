@@ -157,9 +157,6 @@ const Navigation = ({ open }: Props) => {
               <li>
                 <Link to={Routes.FAQ}>FAQ</Link>
               </li>
-              <li>
-                <Link to={Routes.DASHBOARD_RESTAURANT_HOME}>Dashboard</Link>
-              </li>
             </ul>
           </Nav>
         )}

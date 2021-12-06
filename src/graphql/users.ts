@@ -13,7 +13,7 @@ query ($id: Int!) {
 `;
 
 export const UPDATE_PROFILE = gql`
-  mutation ($id: Int!, $firstName: String!, $lastName: String!, $email: String!, $phone: String,  $picture: String, $role: String!){
+  mutation ($id: Int!, $firstName: String!, $lastName: String!, $email: String!, $phone: String, $picture: String, $role: String!){
     updateUser(
       updateUserInput: {
         id: $id

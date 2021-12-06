@@ -8,13 +8,15 @@ const Container = styled.div`
   }
 `;
 
-interface Props {}
+interface Props {
+  total: number
+}
 
-const TotalOverview = (props: Props) => {
+const TotalOverview = ({total}: Props) => {
   return (
     <Container>
       <h2>Total price</h2>
-      <ShoppingBasketTotal />
+      <ShoppingBasketTotal total={total} />
     </Container>
   );
 };

@@ -4,7 +4,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Container = styled.div<PictureProps>`
   margin-top: 3rem;
-  background-image: url("./assets/${(props) => props.picture}");
+  background-image: url("https://dormdash-server.herokuapp.com/restaurant-image/${(props) => props.picture}");
   height: 15rem;
   background-size: cover;
   background-position: center;
@@ -66,7 +66,7 @@ const RestaurantContentContainer = styled.div`
 
 const Image = styled.div<LogoProps>`
   margin-right: 1rem;
-  background-image: url("./assets/${(props) => props.logo}");
+  background-image: url("https://dormdash-server.herokuapp.com/logo-image/${(props) => props.logo}");
   background-size: cover;
   background-position: center;
   width: 4rem;

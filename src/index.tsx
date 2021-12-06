@@ -10,6 +10,7 @@ import {
   from,
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
+// import CartContext from "./context/cart/CartContext";
 
 // const errorLink = onError(({graphQLErrors, networkError }) => {
 //   if (graphQLErrors) {
@@ -32,9 +33,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+     {/* <CartContext> */}
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    {/* <CartContext/> */}
   </React.StrictMode>,
   document.getElementById("root")
 );
