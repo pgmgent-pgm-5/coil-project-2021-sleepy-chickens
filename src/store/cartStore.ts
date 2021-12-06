@@ -19,23 +19,8 @@ interface DishState {
 }
 
 export const useStore = create<DishState>((set) => ({
-  // initial state
   dishes: [],
-  // methods for manipulating state
   addDish: ({ id, name, description, picture, price, restaurantId }: props) => {
-    // set((state) => ({
-    //   dishes: [
-    //     ...state.dishes,
-    //     {
-    //       id,
-    //       name,
-    //       picture,
-    //       price,
-    //       description,
-    //       quantity: 1,
-    //     } as DishCart,
-    //   ],
-    // })
     set((state) => {
       const dishes = {...state.dishes};
       if (!dishes[id]) {

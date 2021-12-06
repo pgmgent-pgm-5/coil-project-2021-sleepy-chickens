@@ -16,7 +16,6 @@ import { CREATE_RESTAURANT } from "../graphql/restaurants";
 import InputFileField from "../components/form/InputFileField";
 
 const Container = styled.div`
-  //height: 100vh;
   overflow: hidden;
   position: relative;
   max-width: 80rem;
@@ -172,10 +171,6 @@ const BecomePartner = () => {
                 "https://dormdash-server.herokuapp.com/uploadLogo",
                 {
                   method: "POST",
-                  // credentials: "include",
-                  // headers: {
-                  //   "Content-Type": "application/json",
-                  // },
                   headers: new Headers({Accept: "application/json"}),
                   body: imgData,
                 }
@@ -184,19 +179,13 @@ const BecomePartner = () => {
 
               const restaurantImgData = new FormData();
 
-              console.log(formData.image);
               if(formData.image !== null && formData.image !== '') {
-                console.log(formData.image);
                 restaurantImgData.append('file', formData.image)
 
                 const uploadRestaurantPictureRequest = await fetch(
                   "https://dormdash-server.herokuapp.com/uploadRestaurantPicture",
                   {
                     method: "POST",
-                    // credentials: "include",
-                    // headers: {
-                    //   "Content-Type": "application/json",
-                    // },
                     headers: new Headers({Accept: "application/json"}),
                     body: restaurantImgData,
                   }

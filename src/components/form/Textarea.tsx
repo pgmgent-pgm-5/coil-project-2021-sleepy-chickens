@@ -18,7 +18,6 @@ const Label = styled.label<StylingProps>`
 
   textarea {
     min-height: 5rem;
-    //max-height: 20rem;
     max-width: 100%;
     width: 100%;
     padding: 0.25rem 0;

@@ -72,7 +72,6 @@ interface Props {}
 const DetailPage = (props: Props) => {
   SwiperCore.use([Navigation]);
   let { id } = useParams<{ id: string }>();
-  console.log(id);
 
   const restaurantId = Number(id);
 
@@ -90,9 +89,6 @@ const DetailPage = (props: Props) => {
   };
 
   let averageRating: number = 0;
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   if (data) {
     let numberOfReviews: number = 0;
@@ -105,7 +101,6 @@ const DetailPage = (props: Props) => {
     });
 
     if (numberOfReviews > 0) {
-      console.log((totalRating / numberOfReviews).toFixed(1));
       averageRating = Number((totalRating / numberOfReviews).toFixed(1));
     }
   }
@@ -117,8 +112,6 @@ const DetailPage = (props: Props) => {
       document.body.style.overflow = "auto";
     }
   }, [open]);
-
-  data && console.log("string data", data.getRestaurantById.city);
 
   if (loading) return <div>Loading ...</div>;
 

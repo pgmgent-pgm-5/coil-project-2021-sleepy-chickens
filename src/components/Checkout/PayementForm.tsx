@@ -98,14 +98,8 @@ const PayementForm = ({ backStep, nextStep, deliveryAddressData, total }: Props)
     });
 
     if (error) {
-      console.log(error);
+      return <p>{error.message}</p>
     } else {
-      console.log(paymentMethod);
-      console.log(deliveryAddressData);
-
-      // data uit current user halen
-      //   const orderData = {};
-
       nextStep();
     }
   };
@@ -119,7 +113,7 @@ const PayementForm = ({ backStep, nextStep, deliveryAddressData, total }: Props)
               onSubmit={(e) => handleSubmit({ e, elements, stripe, nextStep })}
             >
               <CardInfoContainer>
-                <h2>Payement</h2>
+                <h2>Payment</h2>
                 <CardElement className="CardElement"></CardElement>
               </CardInfoContainer>
 

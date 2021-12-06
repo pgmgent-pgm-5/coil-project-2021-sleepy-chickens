@@ -109,8 +109,7 @@ const SignIn = () => {
             }}
             onSubmit={async (data, { setSubmitting }) => {
               setSubmitting(true);
-
-              // TODO: change to path defined in .env or config file
+              
               const request = await fetch(
                 "https://dormdash-server.herokuapp.com/login",
                 {
@@ -123,12 +122,10 @@ const SignIn = () => {
                 }
               );
               const response = await request.json();
-              console.log(response);
               if (response.statusCode === 401) {
-                // TODO: Handle error code (unauthorized request == wrong password/username combination);
                 return;
               }
-              // Correct login assumed
+
               handleLoginContext(response);
 
               setSubmitting(false);

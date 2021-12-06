@@ -96,19 +96,12 @@ interface Props {
 }
 
 const RestaurantDishes = ({restaurantId = 1}: Props) => {
-  // let { restaurantId } = useParams<{ restaurantId: string }>();
-  // console.log(restaurantId);
-  const { error, loading, data, refetch } = useQuery(
+  const { error, loading, data } = useQuery(
     RESTAURANT_DISHES,
     {
       variables: { id: Number(restaurantId) }
     }
   );
-
-
-  if (data) {
-    console.log(data.getRestaurantById.dishes);
-  }
 
   return (
      

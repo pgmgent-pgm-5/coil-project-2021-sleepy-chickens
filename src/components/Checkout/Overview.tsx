@@ -85,7 +85,6 @@ const Overview = ({ backStep, nextStep, deliveryAddressData }: Props) => {
   const userContext = useUser();
   const userId = userContext?.state.id;
   let restaurantId: number;
-  console.log("pls pls", deliveryAddressData);
 
   const get_total = (dishes: DishesTotal) => {
     let sum = 0;
@@ -117,11 +116,10 @@ const Overview = ({ backStep, nextStep, deliveryAddressData }: Props) => {
   if (paymentError) return <p>{paymentError.message}</p>;
   if (orderHasDishError) return <p>{orderHasDishError.message}</p>;
   let orderId: number;
+
   if (data) {
-    console.log("orderdata", data);
     orderId = data.createOrder.id;
   }
-  console.log("date", Date.now());
 
   const finishStep = () => {
     createOrder({
@@ -157,11 +155,8 @@ const Overview = ({ backStep, nextStep, deliveryAddressData }: Props) => {
           paidDate: Date.now(),
         },
       });
-      console.log("wrm");
 
       Object.entries(dishes).map((dish) => {
-        console.log("dishID", dish[1].id);
-        console.log("dishguan", dish[1].quantity);
         createOrderHasDish({
           variables: {
             orderId: orderId,
@@ -181,7 +176,6 @@ const Overview = ({ backStep, nextStep, deliveryAddressData }: Props) => {
         <h3>Order</h3>
         <OrderOverview>
           {Object.entries(dishes).map((dish) => {
-            console.log("yep", dish);
             return (
               <OrderItem
                 id={dish[1].id}
