@@ -64,7 +64,9 @@ interface Props {
 
 const ShoppingBasket = ({ onClick, open }: Props) => {
   const { addDish, removeDish, dishes } = useStore();
-  const isEmpty = false; // !shoppingBasket.length
+  const isEmpty = Object.keys(dishes).length === 0;
+  console.log(dishes);
+  console.log(isEmpty);
 
   const EmptyShoppingBasket = () => (
     <EmptyContainer>
