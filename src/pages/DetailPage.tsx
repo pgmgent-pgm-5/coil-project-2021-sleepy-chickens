@@ -90,8 +90,6 @@ const DetailPage = (props: Props) => {
 
   let averageRating: number = 0;
 
-  if (error) return <p>{error.message}</p>
-
   if (data) {
     let numberOfReviews: number = 0;
     let totalRating: number = 0;
@@ -116,6 +114,7 @@ const DetailPage = (props: Props) => {
   }, [open]);
 
   if (loading) return <div>Loading ...</div>;
+  if (error) return <p>{error.message}</p>;
 
   return (
     <BaseLayout>

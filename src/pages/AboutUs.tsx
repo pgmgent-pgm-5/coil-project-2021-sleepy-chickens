@@ -1,6 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import styled from "styled-components";
+import PrimaryButton from "../components/form/PrimaryButton";
+import PrimaryButtonLink from "../components/form/PrimaryButtonLink";
 import { BaseLayout } from "../layouts";
 
 const Container = styled.div`
@@ -24,7 +26,47 @@ const Container = styled.div`
   }
 `;
 
+const FlexContainer = styled.div`
+  max-width: 80rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+
+  a {
+    width: 100%;
+    margin: 2rem 0;
+    padding: 0.25rem 1rem;
+    height: 2.5rem;
+    color: ${(props) => props.theme.colors.white};
+    background-color: ${(props) => props.theme.colors.primaryAccentColor};
+    border-radius: ${(props) => props.theme.borderRadius.normal};
+    border: 3px solid ${(props) => props.theme.colors.primaryAccentColor};
+    transition: ${(props) => props.theme.transition.normal};
+    cursor: pointer;
+    text-align: center;
+
+    @media (min-width: ${(props) => props.theme.width.small}) {
+      width: calc(50% - 1rem);
+    }
+
+    @media (min-width: ${(props) => props.theme.width.large}) {
+      width: calc(33% - 1rem);
+    }
+
+    &:hover {
+      color: ${(props) => props.theme.colors.primaryAccentColor};
+      background-color: transparent;
+      border: 3px solid ${(props) => props.theme.colors.primaryAccentColor};
+    }
+  }
+`;
+
 const AboutUs = () => {
+  const userGuideRestaurant = "/assets/UG_Restaurateur_Final.pdf";
+  const userGuideStudent = "/assets/UG_Student_Final.pdf";
+  const userGuideDriver = "";
+
   return (
     <BaseLayout>
       <Helmet>
@@ -81,6 +123,17 @@ const AboutUs = () => {
           </p>
         </div>
       </Container>
+      <FlexContainer>
+        <a href={userGuideStudent} target="_blank" rel="noopener noreferrer">
+          User guide student
+        </a>
+        <a href={userGuideRestaurant} target="_blank" rel="noopener noreferrer">
+          User guide restaurant
+        </a>
+        <a href={userGuideDriver} target="_blank" rel="noopener noreferrer">
+          User guide driver
+        </a>
+      </FlexContainer>
     </BaseLayout>
   );
 };
