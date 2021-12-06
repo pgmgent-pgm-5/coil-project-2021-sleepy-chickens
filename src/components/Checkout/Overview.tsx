@@ -1,5 +1,11 @@
+import { useMutation } from "@apollo/client";
 import React from "react";
 import styled from "styled-components";
+import { useUser } from "../../context/AuthenticationContext";
+import { ALL_ORDERS_BY_RESTAURANT_ID, CREATE_ORDER, CREATE_ORDER_HAS_DISH } from "../../graphql/orders";
+import { CREATE_PAYMENT } from "../../graphql/payments";
+import { DishesTotal } from "../../interfaces/interfaces";
+import { useStore } from "../../store/cartStore";
 import PrimaryButton from "../form/PrimaryButton";
 import GoBackButton from "./GoBackButton";
 import OrderItem from "./OrderItem";
@@ -55,22 +61,127 @@ const GoBackButtonContainer = styled.div`
   }
 `;
 
+interface step1 {
+  houseNumber: string,
+  street: string,
+  city: string,
+  zipCode: string,
+  state: string
+}
+
 interface Props {
   backStep: () => void;
   nextStep: () => void;
+  deliveryAddressData: step1;
 }
 
-const Overview = ({ backStep, nextStep }: Props) => {
-  
+const Overview = ({ backStep, nextStep, deliveryAddressData }: Props) => {
+  const { dishes } = useStore();
+
+  const userContext = useUser();
+  const userId = userContext?.state.id;
+  let restaurantId:number
+  console.log("pls pls", deliveryAddressData);
+
+  const get_total = (dishes:DishesTotal) => {
+    let sum = 0;
+    Object.entries(dishes).map((dish) => {
+      restaurantId = dish[1].restaurantId
+      const price = dish[1].price;
+      const quantity = dish[1]. quantity;
+      sum += (price * quantity);
+      sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+    })
+    return sum;
+  } 
+
+  const [createOrder, { data, loading, error }] = useMutation(CREATE_ORDER);
+  const [createPayment, { data:paymentData, loading:paymentLoading, error:paymentError }] = useMutation(CREATE_PAYMENT);
+  const [createOrderHasDish, { data:orderHasDishData, loading:orderHasDishLoading, error:orderHasDishError }] = useMutation(CREATE_ORDER_HAS_DISH);
+
+  if (error) return <p>{error.message}</p>
+  if (paymentError) return <p>{paymentError.message}</p>
+  if (orderHasDishError) return <p>{orderHasDishError.message}</p>
+  let orderId:number;
+  if(data) {
+    console.log("orderdata", data);
+    orderId = data.createOrder.id
+  }
+  console.log("date", Date.now());
+
+  const finishStep =  () => {
+    createOrder({
+      variables: {
+        userId: userId,
+        driverId: 1,
+        restaurantId: restaurantId,
+        orderNumber: 200,
+        orderState: "Preparing",
+        deliveryState: "Waiting for pickup",
+        deliveryFee: 4.00,
+        totalPrice: get_total(dishes),
+        street: deliveryAddressData.street,
+        streetnumber: Number(deliveryAddressData.houseNumber),
+        postalcode: deliveryAddressData.zipCode,
+        city: deliveryAddressData.city,
+        province: deliveryAddressData.state,
+      },
+      refetchQueries: [
+        {
+          query: ALL_ORDERS_BY_RESTAURANT_ID,
+          variables: { id: Number(restaurantId)}
+        }
+      ]
+    })
+    if (data) {
+      createPayment({
+        variables: {
+          userId: userId,
+          orderId: orderId,
+          paymentType: "Visa",
+          price: get_total(dishes),
+          paidDate: Date.now(),
+        }
+      })
+      console.log("wrm");
+
+      Object.entries(dishes).map((dish) => {
+        console.log("dishID", dish[1].id) 
+        console.log("dishguan", dish[1].quantity) 
+        createOrderHasDish({
+          variables: {
+            orderId: orderId,
+            dishId: dish[1].id,
+            quantity: dish[1].quantity
+          }
+        })
+      })
+      
+      nextStep();
+    }
+   
+    
+  } 
   return (
     <Container>
       <FlexContainer>
         <h2>Overview</h2>
         <h3>Order</h3>
         <OrderOverview>
-          <OrderItem />
-          <OrderItem />
-          <OrderItem />
+          {
+            Object.entries(dishes).map((dish) => {
+              console.log("yep", dish)
+              return (
+                <OrderItem 
+                  id = {dish[1].id}
+                  name = {dish[1].name}
+                  picture = {dish[1].picture}
+                  price = {dish[1].price}
+                  quantity = {dish[1].quantity}
+                />
+              )
+            })
+          }
         </OrderOverview>
 
         <DeliveryInfo>
@@ -80,14 +191,14 @@ const Overview = ({ backStep, nextStep }: Props) => {
           </div>
           <div>
             <h3>Delivery address</h3>
-            <p>1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia</p>
+            <p>{deliveryAddressData.houseNumber} {deliveryAddressData.street}, {deliveryAddressData.zipCode} {deliveryAddressData.city}, {deliveryAddressData.state}</p>
           </div>
         </DeliveryInfo>
       </FlexContainer>
 
       <TotalOverviewContainer>
-        <TotalOverview />
-        <PrimaryButton onClick={nextStep} type="button">
+        <TotalOverview total={get_total(dishes)}/>
+        <PrimaryButton onClick={finishStep} type="button">
           Finish
         </PrimaryButton>
       </TotalOverviewContainer>

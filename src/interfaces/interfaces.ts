@@ -58,8 +58,29 @@ export interface Review {
 }
 
 export interface Dish {
+  id: number;
   name: string;
   picture: string;
   price: number;
   description: string;
+}
+
+export interface DishCart extends Dish {
+  id: number,
+  quantity: number
+  restaurantId: number
+}
+
+
+export interface DishCartQty {
+  description: string;
+  id: number;
+  name: string;
+  picture: string;
+  price: number;
+  quantity: number;
+}
+
+export interface DishesTotal {
+  [key: number]: DishCartQty
 }

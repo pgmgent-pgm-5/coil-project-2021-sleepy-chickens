@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Redirect } from "react-router-dom";
@@ -19,20 +19,30 @@ const RestaurantDashboardHome = (props: Props) => {
   const userId: number | undefined = userContext?.state.id;
   console.log("userId", userContext?.state.id);
 
-  const [restaurantIdByUserId, { error, loading, data }] = useLazyQuery(
-    GET_RESTAURANTID_BY_USERID
-  );
-
-  useEffect(() => {
-    if (userId !== undefined) {
-      console.log("useeffectuserid", userId);
-      restaurantIdByUserId({
-        variables: {
-          userId: userId,
-        },
-      });
+  const {error, loading, data} = useQuery(GET_RESTAURANTID_BY_USERID, {
+    variables:{
+      userId: userId,
     }
-  }, [userId]);
+  });
+
+  // const [restaurantIdByUserId, { error, loading, data }] = useLazyQuery(
+  //   GET_RESTAURANTID_BY_USERID
+  // );
+
+  // useEffect(() => {
+  //   if (userId !== undefined) {
+  //     console.log("useeffectuserid", userId);
+  //     restaurantIdByUserId({
+  //       variables: {
+  //         userId: userId,
+  //       },
+  //     });
+  //   }
+  // }, [userId]);
+
+  if (loading) return <p>Loading ...</p>
+
+  if (error) return <Redirect to={Routes.ERROR.replace(':errorMessage', 'You are not authenticated!')} />;
 
   const restaurantId = data && data.getRestaurantByUserId.id;
 

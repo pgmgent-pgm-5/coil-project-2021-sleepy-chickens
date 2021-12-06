@@ -64,6 +64,7 @@ const validationSchema = yup.object({
     .min(6, "Password must be at least 6 characters")
     .required("Password is required"),
   studentNumber: yup.string().required("Student Cardnumber is required"),
+  picture: yup.string().required("Profile image is required"),
 });
 
 const SignUp = () => {
@@ -94,10 +95,36 @@ const SignUp = () => {
               phone: "",
               password: "",
               studentNumber: "",
+              picture: "",
             }}
-            onSubmit={async (data, { setSubmitting }) => {
+            onSubmit={async (formData, { setSubmitting }) => {
               setSubmitting(true);
-              const newUser = { role: "student", ...data };
+
+              const imgData = new FormData();
+              if(formData.picture !== null) {
+                console.log(formData.picture);
+                imgData.append('file', formData.picture)
+
+              }
+              console.log('imgdata', imgData);
+
+              const uploadRequest = await fetch(
+                "https://dormdash-server.herokuapp.com/uploadProfilePicture",
+                {
+                  method: "POST",
+                  // credentials: "include",
+                  // headers: {
+                  //   "Content-Type": "application/json",
+                  // },
+                  headers: new Headers({Accept: "application/json"}),
+                  body: imgData,
+                }
+              );
+              const uploadResponse = await uploadRequest.json();
+
+              formData.picture = uploadResponse.imagePath;
+
+              const newUser = { role: "student", ...formData };
 
               console.log(newUser);
 
@@ -134,6 +161,7 @@ const SignUp = () => {
               isSubmitting,
               handleChange,
               handleBlur,
+              setFieldValue
             }) => (
               <form onSubmit={handleSubmit}>
                 <Field
@@ -172,6 +200,20 @@ const SignUp = () => {
                   name="studentNumber"
                   placeholder="Student Cardnumber"
                 />
+                <label>
+                <p>Profile image</p>
+                <input 
+                  type="file"
+                  name="picture"
+                  onChange={(e) => { 
+                    if (e.target.files) {
+                    setFieldValue('picture',e.target.files[0])
+                    } 
+                    }
+                  }
+                />
+              </label>
+
                 <PrimaryButton disabled={isSubmitting} type="submit">
                   Submit
                 </PrimaryButton>

@@ -13,6 +13,7 @@ import { useUser } from "../context/AuthenticationContext";
 import { useLazyQuery, useMutation } from "@apollo/client";
 import Textarea from "../components/form/Textarea";
 import { CREATE_RESTAURANT } from "../graphql/restaurants";
+import InputFileField from "../components/form/InputFileField";
 
 const Container = styled.div`
   //height: 100vh;
@@ -52,6 +53,12 @@ const Image = styled.img`
   }
 `;
 
+
+interface e {
+  e: React.ChangeEvent<HTMLInputElement>
+  onChange: () => void;
+}
+
 const phoneRegExp =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
@@ -60,6 +67,7 @@ const validationSchema = yup.object({
   typeOfCuisine: yup.string().required("Required"),
   description: yup.string().required("Required"),
   logo: yup.string().required("Required"),
+  image: yup.string().required("Required"),
   deliveryTime: yup.number().required("Required"),
   street: yup.string().required("Required"),
   streetnumber: yup.number().required("Required"),
@@ -94,6 +102,8 @@ const BecomePartner = () => {
     return history.push(`/dashboard-restaurant/`);
   };
 
+  let restaurantPicture:string;
+
   return (
     <BaseLayout>
       <Container>
@@ -109,6 +119,7 @@ const BecomePartner = () => {
               typeOfCuisine: "",
               description: "",
               logo: "",
+              image: "",
               deliveryTime: 0,
               street: "",
               streetnumber: 0,
@@ -148,8 +159,56 @@ const BecomePartner = () => {
               const response = await request.json();
 
               if (response.statusCode === 401) {
-                // TODO: Handle error code (unauthorized request == wrong password/username combination);
-                return;
+
+                return alert("Wrong email/password combination!");
+              }
+              const imgData = new FormData();
+              if(formData.logo !== null) {
+                imgData.append('file', formData.logo)
+
+              }
+
+              const uploadRequest = await fetch(
+                "https://dormdash-server.herokuapp.com/uploadLogo",
+                {
+                  method: "POST",
+                  // credentials: "include",
+                  // headers: {
+                  //   "Content-Type": "application/json",
+                  // },
+                  headers: new Headers({Accept: "application/json"}),
+                  body: imgData,
+                }
+              );
+              const uploadResponse = await uploadRequest.json();
+
+              const restaurantImgData = new FormData();
+
+              console.log(formData.image);
+              if(formData.image !== null && formData.image !== '') {
+                console.log(formData.image);
+                restaurantImgData.append('file', formData.image)
+
+                const uploadRestaurantPictureRequest = await fetch(
+                  "https://dormdash-server.herokuapp.com/uploadRestaurantPicture",
+                  {
+                    method: "POST",
+                    // credentials: "include",
+                    // headers: {
+                    //   "Content-Type": "application/json",
+                    // },
+                    headers: new Headers({Accept: "application/json"}),
+                    body: restaurantImgData,
+                  }
+                );
+                const uploadRestaurantPictureResponse = await uploadRestaurantPictureRequest.json();
+
+                restaurantPicture = uploadRestaurantPictureResponse.imagePath
+              }
+
+              if (response.statusCode === 401) {
+
+                return alert("Something went wrong!");
               }
 
               let catId;
@@ -174,9 +233,6 @@ const BecomePartner = () => {
                   catId = 5;
                   break;
               }
-              console.log("response", response);
-              console.log("number", formData.streetnumber);
-              console.log(typeof formData.streetnumber);
 
               createRestaurant({
                 variables: {
@@ -184,8 +240,8 @@ const BecomePartner = () => {
                   categoryId: Number(catId),
                   name: formData.restaurantName,
                   description: formData.description,
-                  logo: formData.logo,
-                  picture: "picture",
+                  logo: uploadResponse.imagePath,
+                  picture: restaurantPicture,
                   street: formData.street,
                   streetnumber: Number(formData.streetnumber),
                   postalcode: formData.postalCode,
@@ -207,6 +263,7 @@ const BecomePartner = () => {
               handleSubmit,
               isSubmitting,
               handleChange,
+              setFieldValue,
               handleBlur,
             }) => (
               <form onSubmit={handleSubmit}>
@@ -230,12 +287,37 @@ const BecomePartner = () => {
                   placeholder="Description"
                 />
                 {/* Nog te veranderen in andere component */}
-                <Field
+                {/* <Field
                   type="file"
-                  as={InputField}
+                  as={InputFileField}
                   name="logo"
-                  placeholder="Logo"
-                />
+                /> */}
+                <label>
+                  <p>Logo</p>
+                  <input 
+                    type="file"
+                    name="logo"
+                    onChange={(e) => { 
+                     if (e.target.files) {
+                      setFieldValue('logo',e.target.files[0])
+                     } 
+                      }
+                    }
+                  />
+                </label>
+                <label>
+                  <p>Restaurant banner image</p>
+                  <input 
+                    type="file"
+                    name="image"
+                    onChange={(e) => { 
+                     if (e.target.files) {
+                      setFieldValue('image',e.target.files[0])
+                     } 
+                      }
+                    }
+                  />
+                </label>
                 <Field
                   type="number"
                   as={InputField}
@@ -305,14 +387,12 @@ const BecomePartner = () => {
                 <PrimaryButton disabled={isSubmitting} type="submit">
                   Submit
                 </PrimaryButton>
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
               </form>
             )}
           </Formik>
 
           <SignInLink />
         </FormWrapper>
-
         <Image
           src={backgroundImage}
           alt="Relaxed customer sitting at home ordering food through Dormdash"

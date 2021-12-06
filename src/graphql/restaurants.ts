@@ -58,6 +58,7 @@ query ($id: Int!) {
       name
     }
     dishes {
+      id
       name
       picture
       description

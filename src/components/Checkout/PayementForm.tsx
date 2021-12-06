@@ -67,6 +67,7 @@ interface Props {
   nextStep: () => void;
   deliveryAddressData: {};
   options?: { appearance: { theme: string } };
+  total: number
 }
 
 interface StripeProps {
@@ -78,7 +79,7 @@ interface StripeProps {
 
 const stripePromise = loadStripe(appConfig.stripe_public_key as string);
 
-const PayementForm = ({ backStep, nextStep, deliveryAddressData }: Props) => {
+const PayementForm = ({ backStep, nextStep, deliveryAddressData, total }: Props) => {
   const handleSubmit = async ({
     e,
     elements,
@@ -123,7 +124,7 @@ const PayementForm = ({ backStep, nextStep, deliveryAddressData }: Props) => {
               </CardInfoContainer>
 
               <TotalOverviewContainer>
-                <TotalOverview />
+                <TotalOverview total={total} />
                 <PrimaryButton disabled={!stripe} type="submit">
                   Pay
                 </PrimaryButton>

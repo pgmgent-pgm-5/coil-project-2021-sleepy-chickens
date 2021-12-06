@@ -60,10 +60,10 @@ const RestaurantDishEditPage = (props: Props) => {
   );
 
   let restaurantId:number;
-  let picture:string;
+  let dishPicture:string = "default_dish.jpeg";
   if (data) {
     restaurantId = data.getDish.restaurantId;
-    picture = data.getDish.picture;
+    dishPicture = data.getDish.picture;
   }
 
   const [updateDish, {data:updateData, loading: updateLoading, error:updateError}] = useMutation(UPDATE_DISH);
@@ -86,7 +86,7 @@ const RestaurantDishEditPage = (props: Props) => {
             </Helmet>
             <h1>Edit dish</h1>
             <Image>
-              <img src="https://source.unsplash.com/1600x900/?food" alt="" />
+              <img src={`https://dormdash-server.herokuapp.com/dish-image/${dishPicture}`} alt="dish image" />
             </Image>
             <Formik
               // Veranderen naar values van current user
@@ -97,9 +97,27 @@ const RestaurantDishEditPage = (props: Props) => {
                 description: data.getDish.description,
                 image: '',
               }}
-              onSubmit={(formData, { setSubmitting }) => {
+              onSubmit={async (formData, { setSubmitting }) => {
                 setSubmitting(true);
 
+                const imgData = new FormData();
+                if(formData.image !== null && formData.image !== '') {
+                  console.log(formData.image);
+                  imgData.append('file', formData.image)
+                
+                  console.log('imgdata', imgData);
+
+                  const uploadRequest = await fetch(
+                    "https://dormdash-server.herokuapp.com/uploadDishPicture",
+                    {
+                      method: "POST",
+                      headers: new Headers({Accept: "application/json"}),
+                      body: imgData,
+                    }
+                  );
+                  const uploadResponse = await uploadRequest.json();
+                  dishPicture = uploadResponse.imagePath;
+                }
                 // async call naar api
                 updateDish({
                   variables: {
@@ -109,13 +127,17 @@ const RestaurantDishEditPage = (props: Props) => {
                     description: formData.description,
                     price: formData.price,
                     quantity: formData.quantity,
-                    picture: picture
+                    picture: dishPicture
                   },
                   refetchQueries: [
                     {
                       query: RESTAURANT_DISHES,
                       variables: { id: Number(restaurantId)}
-                    }
+                    },
+                    {
+                      query: DISH_BY_ID,
+                      variables: { id: Number(dishId)}
+                    },
                   ]
                 })
 
@@ -123,7 +145,7 @@ const RestaurantDishEditPage = (props: Props) => {
               }}
               validationSchema={validationSchema}
             >
-              {({ values, handleSubmit, isSubmitting, handleChange, handleBlur }) => (
+              {({ values, handleSubmit, isSubmitting, handleChange, handleBlur, setFieldValue }) => (
                 <form onSubmit={handleSubmit}>
                   <Field
                     type="text"
@@ -144,12 +166,20 @@ const RestaurantDishEditPage = (props: Props) => {
                     placeholder="Quantity"
                   />
                   <Field as={Textarea} name="description" placeholder="Description" />
-                  <Field
-                    type="file"
-                    as={InputField}
-                    name="image"
-                    placeholder="Dish image"
-                  />
+                  <label>
+                    <p>Dish Image</p>
+                    <input 
+                      type="file"
+                      name="image"
+                      onChange={(e) => { 
+                      if (e.target.files) {
+                        setFieldValue('image',e.target.files[0])
+                      } 
+                        }
+                      }
+                    />
+                  </label>
+
                   <PrimaryButton disabled={isSubmitting} type="submit">
                     Update
                   </PrimaryButton>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
@@ -54,10 +54,20 @@ const validationSchema = yup.object({
 });
 
 interface Props {
-  next: (data: any) => void;
+  next: (data: step1) => void;
+  total: number
+}
+// (step1Data: step1) => void
+
+interface step1 {
+  houseNumber: string,
+  street: string,
+  city: string,
+  zipCode: string,
+  state: string
 }
 
-const DeliveryAddressForm = ({ next }: Props) => {
+const DeliveryAddressForm = ({ next, total }: Props) => {
   let history = useHistory();
 
   const handleGoBack = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -76,9 +86,6 @@ const DeliveryAddressForm = ({ next }: Props) => {
         }}
         onSubmit={(data, { setSubmitting }) => {
           setSubmitting(true);
-
-          // async call naar api
-          console.log(data);
 
           setSubmitting(false);
           next(data);
@@ -121,7 +128,7 @@ const DeliveryAddressForm = ({ next }: Props) => {
               />
             </fieldset>
             <TotalOverviewContainer>
-              <TotalOverview />
+              <TotalOverview total= {total} />
               <PrimaryButton disabled={isSubmitting} type="submit">
                 Next
               </PrimaryButton>
