@@ -36,19 +36,26 @@ const ContentInfo = styled.div`
   justify-content: space-between;
 `;
 
-interface Props {}
+interface Props {
+  id: number,
+  name: string,
+  price: number,
+  picture: string, 
+  quantity: number
+}
 
-const OrderItem = (props: Props) => {
+const OrderItem = ({id, name, price, picture, quantity}: Props) => {
   return (
     <>
       <Container>
         <Image>
-          <img src="https://via.placeholder.com/150" alt="" />
+          <img src={`https://dormdash-server.herokuapp.com/dish-image/${picture}`} alt={name} />
         </Image>
         <Content>
           <ContentInfo>
-            <p>Product title</p>
-            <p>$ 8.99</p>
+          <p>{quantity} X </p>
+          <p>{name}</p>
+          <p>$ {price}</p>
           </ContentInfo>
         </Content>
       </Container>

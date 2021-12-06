@@ -51,7 +51,6 @@ const RestaurantDishAddPage = (props: Props) => {
 
       <h1>Add dish</h1>
       <Formik
-        // Veranderen naar values van current user
         initialValues={{
           dishTitle: "",
           price: 0,
@@ -59,8 +58,30 @@ const RestaurantDishAddPage = (props: Props) => {
           description: "",
           image: "",
         }}
-        onSubmit={(formData, { setSubmitting }) => {
+        onSubmit={async (formData, { setSubmitting }) => {
           setSubmitting(true);
+
+          const imgData = new FormData();
+          if(formData.image !== null) {
+            console.log(formData.image);
+            imgData.append('file', formData.image)
+
+          }
+          console.log('imgdata', imgData);
+
+          const uploadRequest = await fetch(
+            "https://dormdash-server.herokuapp.com/uploadDishPicture",
+            {
+              method: "POST",
+              // credentials: "include",
+              // headers: {
+              //   "Content-Type": "application/json",
+              // },
+              headers: new Headers({Accept: "application/json"}),
+              body: imgData,
+            }
+          );
+          const uploadResponse = await uploadRequest.json();
 
           // async call naar api
           createDish({
@@ -68,7 +89,7 @@ const RestaurantDishAddPage = (props: Props) => {
               restaurantId: Number(restaurantId),
               name: formData.dishTitle,
               description: formData.description,
-              picture: formData.image,
+              picture: uploadResponse.imagePath,
               price: formData.price,
               quantity: formData.quantity,
             },
@@ -93,7 +114,7 @@ const RestaurantDishAddPage = (props: Props) => {
         }}
         validationSchema={validationSchema}
       >
-        {({ values, handleSubmit, isSubmitting, handleChange, handleBlur }) => (
+        {({ values, handleSubmit, isSubmitting, handleChange, handleBlur, setFieldValue }) => (
           <form onSubmit={handleSubmit}>
             <Field
               type="text"
@@ -114,12 +135,19 @@ const RestaurantDishAddPage = (props: Props) => {
               placeholder="Quantity"
             />
             <Field as={Textarea} name="description" placeholder="Description" />
-            <Field
-              type="file"
-              as={InputField}
-              name="image"
-              placeholder="Dish image"
-            />
+            <label>
+              <p>Dish image</p>
+              <input 
+                type="file"
+                name="image"
+                onChange={(e) => { 
+                  if (e.target.files) {
+                  setFieldValue('image',e.target.files[0])
+                  } 
+                  }
+                }
+              />
+            </label>
             <PrimaryButton disabled={isSubmitting} type="submit">
               Add
             </PrimaryButton>

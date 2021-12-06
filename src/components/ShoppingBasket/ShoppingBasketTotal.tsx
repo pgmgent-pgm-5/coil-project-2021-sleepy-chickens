@@ -15,14 +15,17 @@ const Container = styled.div`
   }
 `;
 
-interface Props {}
+interface Props {
+  total?: number
+}
 
-const ShoppingBasketTotal = (props: Props) => {
+const ShoppingBasketTotal = ({total= 0.00}: Props) => {
   return (
     <Container>
       <div>
         <p>Subtotal</p>
-        <p>$ 26.97</p>
+        <p>$ {total}
+        </p>
       </div>
       <div>
         <p>Delivery fee</p>
@@ -30,7 +33,7 @@ const ShoppingBasketTotal = (props: Props) => {
       </div>
       <div>
         <p>Total</p>
-        <p>$ 30.97</p>
+        <p>$ {total + 4}</p>
       </div>
     </Container>
   );

@@ -44,16 +44,9 @@ const RestaurantOverview = (props: Props) => {
     setCat(isSelected);
   }
 
-
-
-
   const search = useLocation().search;
   const params = new URLSearchParams(search);
   const query = params.get("query");
-
-
-
-
 
   console.log('super parent', cat);
 

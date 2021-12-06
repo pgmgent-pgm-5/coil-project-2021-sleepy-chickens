@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+// import { CartState } from "../../context/cart/cartContext";
+
+import { useStore } from "../../store/cartStore";
 
 const Container = styled.li`
   border: 1px solid ${(props) => props.theme.colors.tertiaryAccentColor};
@@ -64,26 +67,31 @@ const Image = styled.div<ImageProps>`
   min-width: 7rem;
   max-width: 12rem;
   height: 7rem;
-  background-image: url("${(props) => props.picture}");
+  background-image: url(https://dormdash-server.herokuapp.com/dish-image/${(props) => props.picture});
   background-size: cover;
   background-position: center;
 `;
 
 interface Props {
+  id: number;
   name: string;
   price: number;
   description: string;
   picture: string;
+  restaurantId: number
 }
 
 interface ImageProps {
   picture: string;
 }
 
-const DetailDishCard = ({ name, picture, price, description }: Props) => {
+const DetailDishCard = ({ name, picture, price, description, id, restaurantId }: Props) => {
+  // const { state, dispatch} = CartState();
+  const { addDish, removeDish, dishes } = useStore();
+  console.log("dissssssss", dishes);
   return (
     <Container>
-      <Link to="">
+      <div onClick={() => addDish({name, picture, price, description, id, restaurantId})}>
         <Content>
           <h3>{name}</h3>
           <MenuText>{description}</MenuText>
@@ -92,7 +100,7 @@ const DetailDishCard = ({ name, picture, price, description }: Props) => {
           </Price>
         </Content>
         <Image picture={picture}></Image>
-      </Link>
+      </div>
     </Container>
   );
 };

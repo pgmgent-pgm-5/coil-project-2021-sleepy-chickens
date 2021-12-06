@@ -74,6 +74,8 @@ const DetailPage = (props: Props) => {
   let { id } = useParams<{ id: string }>();
   console.log(id);
 
+  const restaurantId = Number(id);
+
   const { error, loading, data, refetch } = useQuery(RESTAURANTS_DETAIL, {
     variables: { id: Number(id) },
   });
@@ -195,10 +197,12 @@ const DetailPage = (props: Props) => {
             {data.getRestaurantById.dishes.map((dish: Dish, index: number) => (
               <DetailDishCard
                 key={index}
+                id={dish.id}
                 name={dish.name}
                 price={dish.price}
                 description={dish.description}
                 picture={dish.picture}
+                restaurantId={restaurantId}
               />
             ))}
           </DetailDishCardContainer>

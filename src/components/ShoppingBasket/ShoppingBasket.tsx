@@ -5,6 +5,8 @@ import PrimaryButtonLink from "../form/PrimaryButtonLink";
 import ShoppingBasketItem from "./ShoppingBasketItem";
 import ShoppingBasketTotal from "./ShoppingBasketTotal";
 import * as Routes from "../../routes";
+import { useStore } from "../../store/cartStore";
+import { DishCart, DishesTotal } from "../../interfaces/interfaces";
 
 const BlurContainer = styled.div<Props>`
   display: ${({ open }) => (open ? "block" : "none")};
@@ -60,8 +62,12 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
+
+
 const ShoppingBasket = ({ onClick, open }: Props) => {
   const isEmpty = false; // !shoppingBasket.length
+
+  const { addDish, removeDish, dishes } = useStore();
 
   const EmptyShoppingBasket = () => (
     <EmptyContainer>
@@ -69,12 +75,18 @@ const ShoppingBasket = ({ onClick, open }: Props) => {
     </EmptyContainer>
   );
 
-  const ShoppingBasketItems = () => (
-    <ShoppingBasketItemsContainer>
-      <ShoppingBasketItem />
-      <ShoppingBasketItem />
-    </ShoppingBasketItemsContainer>
-  );
+  const get_total = (dishes:DishesTotal) => {
+    let sum = 0;
+    Object.entries(dishes).map((dish) => {
+      const price = dish[1].price;
+      const quantity = dish[1]. quantity;
+      sum += (price * quantity);
+      sum = Math.round((sum + Number.EPSILON) * 100) / 100;
+    })
+    return sum;
+  } 
+
+
 
   return (
     <>
@@ -88,8 +100,23 @@ const ShoppingBasket = ({ onClick, open }: Props) => {
           <EmptyShoppingBasket />
         ) : (
           <>
-            <ShoppingBasketItems />
-            <ShoppingBasketTotal />
+            {
+              Object.entries(dishes).map((dish) => {
+                console.log("yep", dish)
+                return (
+                  <ShoppingBasketItem 
+                    description = {dish[1].description}
+                    id = {dish[1].id}
+                    name = {dish[1].name}
+                    picture = {dish[1].picture}
+                    price = {dish[1].price}
+                    quantity = {dish[1].quantity}
+                    restaurantId = {dish[1].restaurantId}
+                  />
+                )
+              })
+            }
+            <ShoppingBasketTotal total={get_total(dishes)} />
             <PrimaryButtonLink link={Routes.CHECKOUT}>
               Checkout
             </PrimaryButtonLink>

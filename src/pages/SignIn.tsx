@@ -112,7 +112,7 @@ const SignIn = () => {
 
               // TODO: change to path defined in .env or config file
               const request = await fetch(
-                "http://localhost:3000/login",
+                "https://dormdash-server.herokuapp.com/login",
                 {
                   method: "POST",
                   credentials: "include",
