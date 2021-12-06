@@ -34,7 +34,7 @@ const RestaurantFilter = ({onCatChange}: any) => {
     if(typeof onCatChange === 'function') {
       onCatChange(cat);
     }
-  }, [cat]);
+  }, [cat, onCatChange]);
 
   return (
     <Container>

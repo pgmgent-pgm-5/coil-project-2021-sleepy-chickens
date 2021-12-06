@@ -49,7 +49,7 @@ interface Props {}
 const RestaurantDishEditPage = (props: Props) => {
   let { dishId } = useParams<{ dishId: string }>();
   
-  const { error, loading, data, refetch } = useQuery(
+  const { error, loading, data } = useQuery(
     DISH_BY_ID,
     {
       fetchPolicy: "cache-first",
@@ -77,7 +77,7 @@ const RestaurantDishEditPage = (props: Props) => {
             </Helmet>
             <h1>Edit dish</h1>
             <Image>
-              <img src={`https://dormdash-server.herokuapp.com/dish-image/${dishPicture}`} alt="dish image" />
+              <img src={`https://dormdash-server.herokuapp.com/dish-image/${dishPicture}`} alt="dish" />
             </Image>
             <Formik
               initialValues={{

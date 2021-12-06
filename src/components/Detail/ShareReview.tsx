@@ -8,9 +8,9 @@ import PrimaryButton from "../form/PrimaryButton";
 import Textarea from "../form/Textarea";
 import { useMutation } from "@apollo/client";
 import { CREATE_REVIEW } from "../../graphql/reviews";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RESTAURANTS_DETAIL } from "../../graphql/restaurants";
-import * as Routes from '../../routes';
+
 
 const FlexTitle = styled.div`
   display: flex;

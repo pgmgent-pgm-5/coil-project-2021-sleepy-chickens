@@ -2,12 +2,10 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import styled from "styled-components";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEdit } from "react-icons/bi";
-import { rows } from "../../../data/MockDataRestaurantDishes";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import * as Routes from "../../../routes";
 import { useQuery } from "@apollo/client";
 import { RESTAURANT_DISHES } from "../../../graphql/restaurants";
-import { useState } from "react";
 
 const Container = styled.div`
   margin-top: 1rem;
@@ -102,6 +100,9 @@ const RestaurantDishes = ({restaurantId = 1}: Props) => {
       variables: { id: Number(restaurantId) }
     }
   );
+
+  if (loading) return <p>Loading ...</p>
+  if (error) return <p>{error.message}</p>
 
   return (
      

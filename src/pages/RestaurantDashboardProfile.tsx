@@ -14,8 +14,7 @@ import {
   RESTAURANTS_DETAIL,
   UPDATE_RESTAURANT,
 } from "../graphql/restaurants";
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { useEffect } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import { Redirect } from "react-router-dom";
 
 const Container = styled.main`
@@ -109,7 +108,7 @@ const RestaurantDashboardProfile = (props: Props) => {
             <h1>Profile</h1>
             <img
               src={`https://dormdash-server.herokuapp.com/restaurant-image/${restaurantPicture}`}
-              alt="restaurant picture"
+              alt="restaurant"
             />
           </Image>
           <FormikWrapper>

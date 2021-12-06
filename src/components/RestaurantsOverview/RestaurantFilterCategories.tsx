@@ -53,7 +53,7 @@ const RestaurantFilterCategories = ({onCategoryChange}: any) => {
     if(typeof onCategoryChange === 'function') {
       onCategoryChange(cat);
     }
-  }, [cat]);
+  }, [cat, onCategoryChange]);
 
   const { error, loading, data, refetch } = useQuery(
     CATEGORIES,
@@ -111,28 +111,6 @@ const RestaurantFilterCategories = ({onCategoryChange}: any) => {
                     />
                   )
                 })}
-                {/* <Field
-                  type="button"
-                  name="category"
-                  open={open}
-                  value="pizza"
-                  as={Chip}
-                /> */}
-                {/* <Field
-                  type="button"
-                  name="category"
-                  open={open}
-                  value="sushi"
-                  as={Chip}
-                />
-                <Field
-                  type="button"
-                  name="category"
-                  open={open}
-                  value="mexican"
-                  as={Chip}
-                /> */}
-                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
               </form>
             )}
           </Formik>

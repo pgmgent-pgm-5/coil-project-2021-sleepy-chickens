@@ -86,62 +86,6 @@ const columns: GridColDef[] = [
   },
 ];
 
-const rows = [
-  {
-    id: 1,
-    customer: "Jon Sandman",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Preparing",
-  },
-  {
-    id: 2,
-    customer: "Cersei Deboever",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Delivering",
-  },
-  {
-    id: 3,
-    customer: "Jaime Hart",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Completed",
-  },
-  {
-    id: 4,
-    customer: "Arya de smet",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Completed",
-  },
-  {
-    id: 5,
-    customer: "Daenerys waeenrarenaam",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Completed",
-  },
-  {
-    id: 6,
-    customer: "Daenerys nogeens",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Completed",
-  },
-  {
-    id: 7,
-    customer: "Ferrara lamborghina",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Completed",
-  },
-  {
-    id: 8,
-    customer: "Rossini italian",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Completed",
-  },
-  {
-    id: 9,
-    customer: "Harvey specter",
-    address: "1531 Essendene Avenue V2S 2H7 Abbotsford British Columbia",
-    status: "Completed",
-  },
-];
 
 interface Props {
   restaurantId: number

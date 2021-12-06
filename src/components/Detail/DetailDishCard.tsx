@@ -1,5 +1,3 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useStore } from "../../store/cartStore";
 
@@ -84,7 +82,7 @@ interface ImageProps {
 }
 
 const DetailDishCard = ({ name, picture, price, description, id, restaurantId }: Props) => {
-  const { addDish, removeDish, dishes } = useStore();
+  const { addDish } = useStore();
   return (
     <Container>
       <div onClick={() => addDish({name, picture, price, description, id, restaurantId})}>

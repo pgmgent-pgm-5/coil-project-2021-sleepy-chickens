@@ -75,7 +75,7 @@ const DetailPage = (props: Props) => {
 
   const restaurantId = Number(id);
 
-  const { error, loading, data, refetch } = useQuery(RESTAURANTS_DETAIL, {
+  const { error, loading, data } = useQuery(RESTAURANTS_DETAIL, {
     variables: { id: Number(id) },
   });
 
@@ -114,6 +114,7 @@ const DetailPage = (props: Props) => {
   }, [open]);
 
   if (loading) return <div>Loading ...</div>;
+  if (error) return <p>{error.message}</p>;
 
   return (
     <BaseLayout>
