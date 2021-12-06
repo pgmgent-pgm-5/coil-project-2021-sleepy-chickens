@@ -11,14 +11,6 @@ import { RESTAURANTS_SUMMARY } from "../graphql/restaurants";
 interface Props {}
 
 const HomePage = (props: Props) => {
-  const { error, loading, data, refetch } = useQuery<RestaurantSummaries>(
-    RESTAURANTS_SUMMARY,
-    {
-      fetchPolicy: "cache-first",
-      variables: { province: String("Ohio") },
-    }
-  );
-
   return (
     <BaseLayout>
       <Helmet>

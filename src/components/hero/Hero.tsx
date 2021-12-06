@@ -63,7 +63,6 @@ const validationSchema = yup.object({
 });
 
 const Hero = () => {
-  const [city, setCity] = useState("");
   const history = useHistory();
 
   return (
@@ -97,8 +96,6 @@ const Hero = () => {
               <Button disabled={isSubmitting} type="submit">
                 Search
               </Button>
-
-              {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
             </Form>
           )}
         </Formik>

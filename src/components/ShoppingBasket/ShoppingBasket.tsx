@@ -6,7 +6,7 @@ import ShoppingBasketItem from "./ShoppingBasketItem";
 import ShoppingBasketTotal from "./ShoppingBasketTotal";
 import * as Routes from "../../routes";
 import { useStore } from "../../store/cartStore";
-import { DishCart, DishesTotal } from "../../interfaces/interfaces";
+import { DishesTotal } from "../../interfaces/interfaces";
 
 const BlurContainer = styled.div<Props>`
   display: ${({ open }) => (open ? "block" : "none")};
@@ -55,15 +55,13 @@ const EmptyContainer = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const ShoppingBasketItemsContainer = styled.div``;
-
 interface Props {
   open: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const ShoppingBasket = ({ onClick, open }: Props) => {
-  const { addDish, removeDish, dishes } = useStore();
+  const { dishes } = useStore();
   const isEmpty = Object.keys(dishes).length === 0;
   console.log(dishes);
   console.log(isEmpty);

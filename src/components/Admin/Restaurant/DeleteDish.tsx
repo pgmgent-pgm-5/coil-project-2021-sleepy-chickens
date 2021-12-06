@@ -1,5 +1,4 @@
 import { useLazyQuery, useMutation } from '@apollo/client'
-import React from 'react'
 import { useEffect } from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 import { useUser } from '../../../context/AuthenticationContext'

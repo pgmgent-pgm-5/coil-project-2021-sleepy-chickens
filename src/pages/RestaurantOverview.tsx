@@ -3,7 +3,7 @@ import RestaurantCard from "../components/RestaurantsOverview/RestaurantCard";
 import { BaseLayout } from "../layouts";
 import styled from "styled-components";
 import RestaurantFilter from "../components/RestaurantsOverview/RestaurantFilter";
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { RESTAURANTS_SUMMARY, RESTAURANTS_SUMMARY_CATEGORY } from "../graphql/restaurants";
 import { RestaurantSummaries } from "../interfaces/interfaces";
 import { Helmet } from "react-helmet";

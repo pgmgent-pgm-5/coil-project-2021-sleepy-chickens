@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BaseLayout } from "../layouts";
 import styled from "styled-components";
 import ProgressBar from "../components/Checkout/ProgressBar/ProgressBar";
@@ -36,7 +36,7 @@ const Checkout = (props: Props) => {
     let sum = 0;
     Object.entries(dishes).map((dish) => {
       const price = dish[1].price;
-      const quantity = dish[1]. quantity;
+      const quantity = dish[1].quantity;
       sum += (price * quantity);
       sum = Math.round((sum + Number.EPSILON) * 100) / 100;
     })

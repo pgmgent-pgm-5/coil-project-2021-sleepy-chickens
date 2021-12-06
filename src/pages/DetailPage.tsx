@@ -75,7 +75,7 @@ const DetailPage = (props: Props) => {
 
   const restaurantId = Number(id);
 
-  const { error, loading, data, refetch } = useQuery(RESTAURANTS_DETAIL, {
+  const { error, loading, data } = useQuery(RESTAURANTS_DETAIL, {
     variables: { id: Number(id) },
   });
 
@@ -89,6 +89,8 @@ const DetailPage = (props: Props) => {
   };
 
   let averageRating: number = 0;
+
+  if (error) return <p>{error.message}</p>
 
   if (data) {
     let numberOfReviews: number = 0;
