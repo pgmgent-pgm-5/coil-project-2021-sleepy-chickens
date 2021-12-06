@@ -118,11 +118,10 @@ const Profile = (props: Props) => {
     }
   };
 
-
-  let profilePicture:string;
+  let profilePicture: string;
   if (data) {
     profilePicture = data.findOneUser.picture;
-    console.log('profpic', profilePicture);
+    console.log("profpic", profilePicture);
   }
   if (error) return <p>{error.message}</p>;
   if (updateError) return <p>{updateError.message}</p>;
@@ -144,7 +143,7 @@ const Profile = (props: Props) => {
               <img
                 src={
                   data.findOneUser.picture
-                    ? `https://dormdash-server.herokuapp.coms/profile-image/${data.findOneUser.picture}`
+                    ? `https://dormdash-server.herokuapp.com/profile-image/${data.findOneUser.picture}`
                     : defaultImg
                 }
                 alt={data.findOneUser.firstName}
@@ -159,17 +158,17 @@ const Profile = (props: Props) => {
                   lastName: data.findOneUser.lastName,
                   email: data.findOneUser.email,
                   phone: data.findOneUser.phone,
-                  picture: ""
+                  picture: "",
                 }}
                 onSubmit={async (formData, { setSubmitting }) => {
                   setSubmitting(true);
 
                   const imgData = new FormData();
-                  if(formData.picture !== null && formData.picture !== '') {
+                  if (formData.picture !== null && formData.picture !== "") {
                     console.log("diiiiiii", formData.picture);
-                    imgData.append('file', formData.picture)
-                  
-                    console.log('imgdata', imgData);
+                    imgData.append("file", formData.picture);
+
+                    console.log("imgdata", imgData);
 
                     const uploadRequest = await fetch(
                       "https://dormdash-server.herokuapp.com/uploadProfilePicture",
@@ -179,7 +178,7 @@ const Profile = (props: Props) => {
                         // headers: {
                         //   "Content-Type": "application/json",
                         // },
-                        headers: new Headers({Accept: "application/json"}),
+                        headers: new Headers({ Accept: "application/json" }),
                         body: imgData,
                       }
                     );
@@ -197,7 +196,7 @@ const Profile = (props: Props) => {
                       email: formData.email,
                       phone: formData.phone,
                       role: "student",
-                      picture: profilePicture
+                      picture: profilePicture,
                     },
                     refetchQueries: [
                       {
@@ -217,7 +216,7 @@ const Profile = (props: Props) => {
                   isSubmitting,
                   handleChange,
                   handleBlur,
-                  setFieldValue
+                  setFieldValue,
                 }) => (
                   <form onSubmit={handleSubmit}>
                     <Field
@@ -246,15 +245,14 @@ const Profile = (props: Props) => {
                     />
                     <label>
                       <p>Profile picture</p>
-                      <input 
+                      <input
                         type="file"
                         name="picture"
-                        onChange={(e) => { 
-                        if (e.target.files) {
-                          setFieldValue('picture',e.target.files[0])
-                        } 
+                        onChange={(e) => {
+                          if (e.target.files) {
+                            setFieldValue("picture", e.target.files[0]);
                           }
-                        }
+                        }}
                       />
                     </label>
                     <PrimaryButton disabled={isSubmitting} type="submit">

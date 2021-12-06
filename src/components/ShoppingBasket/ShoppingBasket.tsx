@@ -62,12 +62,10 @@ interface Props {
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-
-
 const ShoppingBasket = ({ onClick, open }: Props) => {
-  const isEmpty = false; // !shoppingBasket.length
-
   const { addDish, removeDish, dishes } = useStore();
+
+  const isEmpty = !dishes.length;
 
   const EmptyShoppingBasket = () => (
     <EmptyContainer>
@@ -75,18 +73,16 @@ const ShoppingBasket = ({ onClick, open }: Props) => {
     </EmptyContainer>
   );
 
-  const get_total = (dishes:DishesTotal) => {
+  const get_total = (dishes: DishesTotal) => {
     let sum = 0;
     Object.entries(dishes).map((dish) => {
       const price = dish[1].price;
-      const quantity = dish[1]. quantity;
-      sum += (price * quantity);
+      const quantity = dish[1].quantity;
+      sum += price * quantity;
       sum = Math.round((sum + Number.EPSILON) * 100) / 100;
-    })
+    });
     return sum;
-  } 
-
-
+  };
 
   return (
     <>
@@ -100,22 +96,20 @@ const ShoppingBasket = ({ onClick, open }: Props) => {
           <EmptyShoppingBasket />
         ) : (
           <>
-            {
-              Object.entries(dishes).map((dish) => {
-                console.log("yep", dish)
-                return (
-                  <ShoppingBasketItem 
-                    description = {dish[1].description}
-                    id = {dish[1].id}
-                    name = {dish[1].name}
-                    picture = {dish[1].picture}
-                    price = {dish[1].price}
-                    quantity = {dish[1].quantity}
-                    restaurantId = {dish[1].restaurantId}
-                  />
-                )
-              })
-            }
+            {Object.entries(dishes).map((dish) => {
+              console.log("yep", dish);
+              return (
+                <ShoppingBasketItem
+                  description={dish[1].description}
+                  id={dish[1].id}
+                  name={dish[1].name}
+                  picture={dish[1].picture}
+                  price={dish[1].price}
+                  quantity={dish[1].quantity}
+                  restaurantId={dish[1].restaurantId}
+                />
+              );
+            })}
             <ShoppingBasketTotal total={get_total(dishes)} />
             <PrimaryButtonLink link={Routes.CHECKOUT}>
               Checkout
